@@ -4,15 +4,466 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>모두의 문제 연구소 | Data for All</title>
+  <title>모두의 문제 연구소 — Data for All</title>
   <meta name="description" content="주변의 문제를 수리데이터사이언스적 시각으로 바라보며 해결하는 모두의 문제 연구소">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/animations.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    /* ─── Index-specific layout ──────────────────────── */
+
+    .hero {
+      min-height: 92vh;
+      padding: calc(var(--nav-height) + 5rem) 0 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 88% 12%, rgba(194, 91, 54, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 12% 88%, rgba(31, 27, 22, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 5rem;
+      align-items: end;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-left: 2px solid var(--accent);
+      padding: 0.18rem 0 0.18rem 0.9rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 7.4vw, 6.8rem);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+      color: var(--ink);
+      margin: 0 0 2.4rem;
+      font-variation-settings: "opsz" 144;
+    }
+
+    .hero-headline em {
+      font-size: 1.1em;
+    }
+
+    .hero-headline .line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.06em;
+    }
+
+    .hero-headline .line > span {
+      display: inline-block;
+      transform: translateY(110%);
+      animation: lineReveal 0.95s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+    }
+
+    .hero-headline .line:nth-child(1) > span { animation-delay: 0.10s; }
+    .hero-headline .line:nth-child(2) > span { animation-delay: 0.22s; }
+    .hero-headline .line:nth-child(3) > span { animation-delay: 0.34s; }
+
+    @keyframes lineReveal {
+      to { transform: translateY(0); }
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--accent);
+      font-variation-settings: "opsz" 144;
+    }
+
+    .hero-lede {
+      font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+      line-height: 1.75;
+      color: var(--ink-soft);
+      max-width: 36ch;
+      margin: 0 0 2.6rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-lede em {
+      font-style: italic;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--line-strong);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.2rem;
+      align-items: baseline;
+    }
+
+    .meta-label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .meta-value {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      line-height: 1.4;
+      font-style: italic;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .meta-value strong {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ─── Stats Strip ────────────────────────────────── */
+
+    .stats-strip {
+      padding: 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stats-grid .stat-box {
+      padding: 3rem 2rem;
+      border-top: none;
+      border-right: 1px solid var(--line);
+      position: relative;
+    }
+
+    .stats-grid .stat-box:last-child { border-right: none; }
+
+    .stat-index {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      color: var(--ink-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-number sup {
+      font-size: 0.5em;
+      font-style: normal;
+      vertical-align: super;
+      color: var(--accent);
+      letter-spacing: 0;
+    }
+
+    /* ─── Pillars ────────────────────────────────────── */
+
+    .pillars-header {
+      max-width: 760px;
+      margin-bottom: 4.5rem;
+    }
+
+    .pillars-header h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin: 1.4rem 0 1.2rem;
+    }
+
+    .pillars-header h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .pillars-header p {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .pillar-card {
+      display: flex;
+      flex-direction: column;
+      padding: 2.4rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      transition: transform var(--transition-normal), border-color var(--transition-fast), box-shadow var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-normal);
+    }
+
+    .pillar-card:hover {
+      border-color: var(--ink);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px -16px rgba(31, 27, 22, 0.18);
+    }
+
+    .pillar-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .pillar-num {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .pillar-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .pillar-card p {
+      color: var(--ink-soft);
+      line-height: 1.75;
+      flex-grow: 1;
+      margin-bottom: 2rem;
+      font-size: 0.97rem;
+    }
+
+    .pillar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      transition: color var(--transition-fast), gap var(--transition-fast);
+    }
+
+    .pillar-link i {
+      transition: transform var(--transition-fast);
+    }
+
+    .pillar-card:hover .pillar-link {
+      color: var(--accent);
+      gap: 0.7rem;
+    }
+
+    .pillar-card:hover .pillar-link i {
+      transform: translateX(2px);
+    }
+
+    /* ─── Featured Project (editorial spread) ────────── */
+
+    .featured {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .featured-meta h2 {
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      line-height: 1.1;
+      margin: 1.4rem 0 1.4rem;
+      font-weight: 500;
+    }
+
+    .featured-meta p {
+      color: var(--ink-soft);
+      line-height: 1.85;
+      font-size: 1.02rem;
+      margin-bottom: 2rem;
+      max-width: 50ch;
+    }
+
+    .featured-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .featured-visual {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .featured-visual img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .featured-visual:hover img {
+      transform: scale(1.04);
+    }
+
+    .featured-status {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg);
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      box-shadow: 0 6px 18px -6px rgba(31, 27, 22, 0.18);
+    }
+
+    .featured-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #1f9d55;
+      box-shadow: 0 0 0 3px rgba(31, 157, 85, 0.18);
+    }
+
+    /* ─── CTA ────────────────────────────────────────── */
+
+    .cta-section {
+      text-align: center;
+      padding: 8rem 0;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 720px;
+      margin: 0 auto 1.4rem;
+    }
+
+    .cta-section h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .cta-section p {
+      color: var(--ink-soft);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 auto 2.6rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Mobile ─────────────────────────────────────── */
+
+    @media (max-width: 968px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid .stat-box { border-right: 1px solid var(--line); }
+      .stats-grid .stat-box:nth-child(2) { border-right: none; }
+      .stats-grid .stat-box:nth-child(3),
+      .stats-grid .stat-box:nth-child(4) { border-top: 1px solid var(--line); }
+      .pillars-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+      .featured-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .featured-visual img { height: 320px; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: calc(var(--nav-height) + 3rem) 0 4rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid .stat-box { border-right: none; border-top: 1px solid var(--line); }
+      .stats-grid .stat-box:first-child { border-top: none; }
+    }
+  </style>
 </head>
 
 <body>
-  <canvas id="bg-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
@@ -22,7 +473,7 @@
         <a href="about.html">소개</a>
         <a href="projects.html">프로젝트</a>
         <a href="members.html">연구원</a>
-        <a href="department.html">수리데이터사이언스학과</a>
+        <a href="department.html">학과</a>
         <a href="contact.html">Contact</a>
       </div>
       <button class="mobile-menu-btn" id="mobile-menu-btn">
@@ -32,180 +483,211 @@
   </nav>
 
   <main>
-    <!-- Hero Section -->
-    <section id="hero"
-      style="height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: var(--nav-height);">
-      <div class="container">
-        <div class="reveal-up">
-          <div class="page-hero-label" style="margin-bottom: 2rem;">수리데이터사이언스학과 공식 학회</div>
-          <h1 style="font-size: clamp(2.8rem, 6vw, 5rem); margin-bottom: 2rem; font-weight: 800; letter-spacing: -2px;">
-            세상의 모든 문제,<br>
-            <span
-              style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">데이터</span>로
-            해답을 찾다
-          </h1>
-          <p
-            style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 3rem; line-height: 1.9;">
-            <span id="typing-text"></span><span class="typing-cursor"></span>
-          </p>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="projects.html" class="btn btn-primary"><i class="ri-bar-chart-2-line"></i> 프로젝트 보기</a>
-            <a href="apply.html" class="btn btn-outline"><i class="ri-user-add-line"></i> 연구원 지원하기</a>
-          </div>
-        </div>
 
-        <!-- scroll indicator -->
-        <div
-          style="position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0.5;">
-          <span style="font-size: 0.8rem; color: var(--text-secondary); letter-spacing: 0.1em;">SCROLL</span>
-          <div
-            style="width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent-blue), transparent);">
+    <!-- ─── Hero ──────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+
+          <div class="hero-content">
+            <span class="hero-eyebrow">한양대 ERICA · 수리데이터사이언스학과 공식 학회</span>
+            <h1 class="hero-headline">
+              <span class="line"><span>세상의 모든 문제,</span></span>
+              <span class="line"><span><em>데이터</em>로</span></span>
+              <span class="line"><span>해답을 찾다.</span></span>
+            </h1>
+            <p class="hero-lede">
+              주변의 작은 불편함부터 사회의 큰 모순까지. 우리는 모든 종류의 문제를
+              <em>데이터와 수학적 모델링</em>으로 다시 정의합니다.
+            </p>
+            <div class="hero-cta">
+              <a href="projects.html" class="btn btn-primary" data-magnetic>
+                프로젝트 둘러보기 <i class="ri-arrow-right-line"></i>
+              </a>
+              <a href="apply.html" class="btn-link">
+                연구원 지원하기 <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
           </div>
+
+          <aside class="hero-meta">
+            <div class="meta-row">
+              <span class="meta-label">EST.</span>
+              <span class="meta-value"><strong>2024</strong></span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">소속</span>
+              <span class="meta-value">한양대학교 ERICA<br>수리데이터사이언스학과</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">분야</span>
+              <span class="meta-value">통계학습 · 사회문제<br>수학적 모델링</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-label">철학</span>
+              <span class="meta-value">"Data for All,<br>Solutions for Society"</span>
+            </div>
+          </aside>
+
         </div>
       </div>
     </section>
 
-    <!-- Quick Stats -->
-    <section
-      style="padding: 4rem 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <!-- ─── Marquee ───────────────────────────────────── -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">Data for All <span class="dot"></span> <span class="roman">Est. 2024</span></span>
+        <span class="marquee-item">직관이 아닌 데이터로 <span class="dot"></span> <span class="roman">Math · Data · Society</span></span>
+        <span class="marquee-item">Solutions for Society <span class="dot"></span> <span class="roman">한양대 ERICA</span></span>
+        <span class="marquee-item">관찰에서 모델로 <span class="dot"></span> <span class="roman">From Insight to Impact</span></span>
+        <span class="marquee-item">Data for All <span class="dot"></span> <span class="roman">Est. 2024</span></span>
+        <span class="marquee-item">직관이 아닌 데이터로 <span class="dot"></span> <span class="roman">Math · Data · Society</span></span>
+        <span class="marquee-item">Solutions for Society <span class="dot"></span> <span class="roman">한양대 ERICA</span></span>
+        <span class="marquee-item">관찰에서 모델로 <span class="dot"></span> <span class="roman">From Insight to Impact</span></span>
+      </div>
+    </div>
+
+    <!-- ─── Stats Strip ───────────────────────────────── -->
+    <section class="stats-strip">
       <div class="container">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem;"
-          class="reveal-up">
+        <div class="stats-grid">
           <div class="stat-box">
-            <span class="stat-number">3+</span>
-            <span class="stat-label">진행/완료 프로젝트</span>
+            <span class="stat-index">01 / 프로젝트</span>
+            <span class="stat-number"><span data-counter="3">0</span><sup>+</sup></span>
+            <span class="stat-label">진행 · 완료</span>
           </div>
           <div class="stat-box">
-            <span class="stat-number">10+</span>
-            <span class="stat-label">활동 연구원</span>
+            <span class="stat-index">02 / 연구원</span>
+            <span class="stat-number"><span data-counter="10">0</span><sup>+</sup></span>
+            <span class="stat-label">활동 인원</span>
           </div>
           <div class="stat-box">
-            <span class="stat-number">2</span>
-            <span class="stat-label">지도 교수님</span>
+            <span class="stat-index">03 / 지도교수</span>
+            <span class="stat-number"><span data-counter="1">0</span></span>
+            <span class="stat-label">전임교원</span>
           </div>
           <div class="stat-box">
+            <span class="stat-index">04 / 문제</span>
             <span class="stat-number">∞</span>
-            <span class="stat-label">해결할 문제들</span>
+            <span class="stat-label">해결할 과제</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Preview: 3 Main Pillars -->
+    <!-- ─── Three Pillars ─────────────────────────────── -->
     <section>
       <div class="container">
-        <div class="reveal-up" style="text-align: center; margin-bottom: 5rem;">
-          <h2 class="section-title">우리가 하는 일</h2>
-          <p class="section-subtitle" style="margin: 1rem auto 0;">직관이 아닌 데이터와 수학으로, 우리 주변의 문제를 정의하고 해결합니다.</p>
+        <div class="pillars-header reveal-up">
+          <span class="eyebrow">Mission</span>
+          <h2>직관이 아닌, <em>데이터와 수학</em>으로<br>세상을 다시 본다.</h2>
+          <p>우리는 작은 관찰에서 시작합니다. 그 관찰을 정의 가능한 문제로 옮기고, 데이터로 검증하고, 모델로 해답을 제안합니다.</p>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-          <a href="about.html" class="glass-card reveal-up stagger-1"
-            style="display: block; text-decoration: none; position: relative; overflow: hidden;">
-            <div style="font-size: 2.5rem; color: var(--accent-blue); margin-bottom: 1.2rem;"><i
-                class="ri-eye-line"></i></div>
-            <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">관찰 · 분석 · 해결</h3>
-            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">일상의 불편함과 소외층의 문제를
-              수리데이터사이언스적 시각으로 포착하고, 수학적 모델로 해결책을 도출합니다.</p>
-            <span style="color: var(--accent-blue); font-size: 0.9rem; font-weight: 600;">연구소 소개 →</span>
+        <div class="pillars-grid">
+
+          <a href="about.html" class="pillar-card reveal-up stagger-1">
+            <span class="pillar-num">— 01</span>
+            <h3>관찰 · 분석 · 해결</h3>
+            <p>일상의 불편함과 소외층의 문제를 수리데이터사이언스적 시각으로 포착하고, 수학적 모델로 해결책을 도출합니다.</p>
+            <span class="pillar-link">연구소 소개 <i class="ri-arrow-right-line"></i></span>
           </a>
-          <a href="projects.html" class="glass-card reveal-up stagger-2" style="display: block; text-decoration: none;">
-            <div style="font-size: 2.5rem; color: var(--accent-purple); margin-bottom: 1.2rem;"><i
-                class="ri-folder-chart-2-line"></i></div>
-            <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">데이터 기반 프로젝트</h3>
-            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">쓰레기 무단투기 분석, 교통 혼잡도 예측, 복지
-              사각지대 탐지 등 실제 사회 문제에 도전합니다.</p>
-            <span style="color: var(--accent-purple); font-size: 0.9rem; font-weight: 600;">프로젝트 보기 →</span>
+
+          <a href="projects.html" class="pillar-card reveal-up stagger-2">
+            <span class="pillar-num">— 02</span>
+            <h3>데이터 기반 프로젝트</h3>
+            <p>쓰레기 무단투기 분석, 교통 혼잡도 예측, 복지 사각지대 탐지. 우리는 실제 사회 문제에 도전합니다.</p>
+            <span class="pillar-link">프로젝트 보기 <i class="ri-arrow-right-line"></i></span>
           </a>
-          <a href="apply.html" class="glass-card reveal-up stagger-3" style="display: block; text-decoration: none;">
-            <div style="font-size: 2.5rem; color: #10b981; margin-bottom: 1.2rem;"><i class="ri-seedling-line"></i>
-            </div>
-            <h3 style="font-size: 1.4rem; margin-bottom: 0.8rem;">함께 성장하기</h3>
-            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">완벽한 실력보다 문제를 집요하게 파고드는 집념을
-              가진 분을 기다립니다. 당신의 가능성에 문이 열려있습니다.</p>
-            <span style="color: #10b981; font-size: 0.9rem; font-weight: 600;">지원하기 →</span>
+
+          <a href="apply.html" class="pillar-card reveal-up stagger-3">
+            <span class="pillar-num">— 03</span>
+            <h3>함께 성장하기</h3>
+            <p>완벽한 실력보다 문제를 집요하게 파고드는 집념을 가진 분을 기다립니다. 당신의 가능성에 문이 열려있습니다.</p>
+            <span class="pillar-link">지원하기 <i class="ri-arrow-right-line"></i></span>
           </a>
+
         </div>
       </div>
     </section>
 
-    <!-- Featured Project Preview -->
-    <section style="background: linear-gradient(to right, rgba(26, 31, 53, 0.3), transparent); padding: 6rem 0;">
+    <!-- ─── Featured Project (editorial) ──────────────── -->
+    <section class="featured">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
-          <div class="reveal-left">
-            <div class="page-hero-label" style="margin-bottom: 1.5rem;">Featured Project</div>
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">대중교통 혼잡도 예측 및<br>개선 모델링</h2>
-            <div class="section-divider"></div>
-            <p style="color: var(--text-secondary); line-height: 1.9; margin-bottom: 2rem;">버스 승하차 API 데이터와 기상 데이터를 융합
-              분석하여, 정류장별 혼잡도를 실시간 예측합니다. 승객 불편을 최소화하도록 지자체에 배차 개선안을 제안합니다.</p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <div class="featured-grid">
+
+          <div class="featured-meta reveal-left">
+            <span class="eyebrow">Featured Project</span>
+            <h2>대중교통 혼잡도 예측 및<br><em>개선</em> 모델링.</h2>
+            <p>버스 승하차 API 데이터와 기상 데이터를 융합 분석하여, 정류장별 혼잡도를 실시간으로 예측합니다. 승객 불편을 최소화하도록 지자체에 배차 개선안을 제안합니다.</p>
+            <div class="featured-tags">
               <span class="tag-pill">#시계열분석</span>
               <span class="tag-pill">#교통데이터</span>
               <span class="tag-pill">#시뮬레이션</span>
             </div>
-            <a href="projects.html" class="btn btn-outline">더 많은 프로젝트 보기</a>
+            <a href="projects.html" class="btn-link">더 많은 프로젝트 보기 <i class="ri-arrow-right-line"></i></a>
           </div>
-          <div class="reveal-right">
-            <div class="glass-card" style="padding: 0; overflow: hidden;">
-              <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=800"
-                alt="대중교통 프로젝트" style="width: 100%; height: 320px; object-fit: cover; display: block;">
-              <div style="padding: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
-                <div
-                  style="background: #3b82f6; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
-                  진행중</div>
-                <span style="color: var(--text-secondary); font-size: 0.9rem;">2024.01 - 진행중</span>
-              </div>
-            </div>
+
+          <div class="featured-visual reveal-right">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1200" alt="대중교통 프로젝트">
+            <div class="featured-status">진행중 · 2024.01 –</div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section style="text-align: center;">
-      <div class="container reveal-up" style="max-width: 700px;">
-        <h2 class="section-title" style="font-size: 2.5rem;">지금 바로 시작하세요</h2>
-        <p style="color: var(--text-secondary); font-size: 1.1rem; margin: 1.5rem 0 3rem; line-height: 1.9;">산학협력 파트너십
-          문의나 연구원 지원 모두 환영합니다. 작은 첫 걸음이 세상을 바꾸는 시작입니다.</p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="contact.html" class="btn btn-primary"><i class="ri-mail-send-line"></i> 비즈니스 제안</a>
-          <a href="apply.html" class="btn btn-outline"><i class="ri-heart-line"></i> 연구원 지원</a>
+    <!-- ─── CTA ───────────────────────────────────────── -->
+    <section class="cta-section">
+      <div class="container reveal-up">
+        <span class="eyebrow">Get Involved</span>
+        <h2 style="margin-top: 1.4rem;">지금 바로,<br><em>시작하세요.</em></h2>
+        <p>산학협력 파트너십 문의나 연구원 지원 모두 환영합니다.<br>작은 첫 걸음이 세상을 바꾸는 시작입니다.</p>
+        <div class="cta-buttons">
+          <a href="contact.html" class="btn btn-primary" data-magnetic>
+            <i class="ri-mail-send-line"></i> 비즈니스 제안
+          </a>
+          <a href="apply.html" class="btn btn-outline" data-magnetic>
+            <i class="ri-heart-line"></i> 연구원 지원
+          </a>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- Footer -->
+  <!-- ─── Footer ──────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
+
         <div>
-          <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">모두의 <span class="logo-highlight">문제</span> 연구소</h3>
-          <p style="color: var(--text-secondary); max-width: 300px; line-height: 1.8;">수리데이터사이언스학과 공식 학회<br>Data for
-            All, Solutions for Society.</p>
+          <a href="index.html" class="logo" style="color: var(--ink-on-dark); display: inline-block; margin-bottom: 1.2rem;">
+            모두의 <span style="color: var(--accent); font-style: italic;">문제</span> 연구소
+          </a>
+          <p style="line-height: 1.85; max-width: 320px; font-size: 0.95rem;">
+            수리데이터사이언스학과 공식 학회.<br>Data for All, Solutions for Society.
+          </p>
         </div>
+
         <div>
-          <h4 style="margin-bottom: 1rem;">Pages</h4>
-          <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-            <a href="about.html" style="color: var(--text-secondary); transition: color 0.2s;"
-              onmouseover="this.style.color='white'" onmouseout="this.style.color=''">연구소 소개</a>
-            <a href="projects.html" style="color: var(--text-secondary); transition: color 0.2s;"
-              onmouseover="this.style.color='white'" onmouseout="this.style.color=''">프로젝트</a>
-            <a href="members.html" style="color: var(--text-secondary); transition: color 0.2s;"
-              onmouseover="this.style.color='white'" onmouseout="this.style.color=''">연구원</a>
-            <a href="department.html" style="color: var(--text-secondary); transition: color 0.2s;"
-              onmouseover="this.style.color='white'" onmouseout="this.style.color=''">수리데이터사이언스학과</a>
+          <h4>Pages</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.92rem;">
+            <a href="about.html">연구소 소개</a>
+            <a href="projects.html">프로젝트</a>
+            <a href="members.html">연구원</a>
+            <a href="department.html">학과</a>
           </div>
         </div>
+
         <div>
-          <h4 style="margin-bottom: 1rem;">Follow Us</h4>
-          <a href="https://instagram.com" target="_blank"
-            style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); transition: color 0.2s;"
-            onmouseover="this.style.color='white'" onmouseout="this.style.color=''">
-            <i class="ri-instagram-line" style="font-size: 1.5rem; color: #E1306C;"></i>
+          <h4>Follow</h4>
+          <a href="https://instagram.com" target="_blank" rel="noopener"
+            style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
+            <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
             <span>@modu_problem_lab</span>
           </a>
         </div>
+
       </div>
       <div class="footer-copy">&copy; 2024 모두의 문제 연구소. All rights reserved.</div>
     </div>
@@ -215,14 +697,10 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       initNavigation();
-      initParticles();
       initScrollAnimations();
-      initTypingEffect([
-        "우리는 데이터로 더 나은 세상을 만듭니다.",
-        "직관을 넘어선 수학적 분석과 추론.",
-        "주변의 작은 문제에서 시작되는 거대한 혁신.",
-        "모두를 위한 데이터 사이언스 연구소."
-      ]);
+      initCounters();
+      initMagnetic();
+      initCursorGlow();
     });
   </script>
 </body>

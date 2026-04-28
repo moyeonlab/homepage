@@ -152,9 +152,9 @@
 
 .flip-card-back {
     transform: rotateY(180deg);
-    background: linear-gradient(135deg, rgba(26, 31, 53, 0.95), rgba(10, 14, 26, 0.98));
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--accent-blue);
+    background: var(--ink);
+    color: var(--ink-on-dark);
+    border: 1px solid var(--ink);
     display: flex;
     flex-direction: column;
     align-items: center;

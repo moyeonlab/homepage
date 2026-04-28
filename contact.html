@@ -4,15 +4,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비즈니스 제안 | 모두의 문제 연구소</title>
+    <title>비즈니스 제안 — 모두의 문제 연구소</title>
     <meta name="description" content="모두의 문제 연구소에 산학협력 및 협업을 제안해 주세요.">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/animations.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* ─── Contact-specific ─── */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--line-strong);
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .why-tile {
+            padding: 2.4rem 1.6rem;
+            border-right: 1px solid var(--line);
+            transition: background 0.18s ease;
+        }
+
+        .why-tile:last-child { border-right: none; }
+        .why-tile:hover { background: var(--bg-elevated); }
+
+        .why-tile .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            margin-bottom: 1.4rem;
+        }
+
+        .why-tile h3 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+        }
+
+        .why-tile p {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ─── Collab Type List ─── */
+        .collab-item {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 1.2rem;
+            padding: 1.4rem 1.5rem;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            transition: border-color 0.18s, background 0.18s;
+        }
+
+        .collab-item:hover {
+            border-color: var(--ink);
+            background: var(--bg-elevated);
+        }
+
+        .collab-item .icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .collab-item h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .collab-item p {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        /* ─── Form Card ─── */
+        .contact-form {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 2.4rem;
+        }
+
+        textarea.form-input { min-height: 110px; resize: vertical; font-family: inherit; }
+
+        select.form-input {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23524A3D' stroke-width='1.5' d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        /* ─── Process Steps ─── */
+        .pr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--line-strong);
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .pr-step {
+            padding: 2.4rem 1.6rem;
+            border-right: 1px solid var(--line);
+            transition: background 0.18s;
+        }
+
+        .pr-step:last-child { border-right: none; }
+        .pr-step:hover { background: var(--bg-elevated); }
+
+        .pr-step .step-num {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .pr-step .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink);
+            margin-bottom: 1.2rem;
+        }
+
+        .pr-step h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .pr-step p {
+            color: var(--ink-soft);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 968px) {
+            .why-grid, .pr-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-tile:nth-child(2),
+            .pr-step:nth-child(2) { border-right: none; }
+            .why-tile:nth-child(3), .why-tile:nth-child(4),
+            .pr-step:nth-child(3), .pr-step:nth-child(4) { border-top: 1px solid var(--line); }
+        }
+
+        @media (max-width: 640px) {
+            .why-grid, .pr-grid { grid-template-columns: 1fr; }
+            .why-tile, .pr-step { border-right: none; border-bottom: 1px solid var(--line); }
+            .why-tile:last-child, .pr-step:last-child { border-bottom: none; }
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="bg-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -21,7 +198,7 @@
                 <a href="about.html">소개</a>
                 <a href="projects.html">프로젝트</a>
                 <a href="members.html">연구원</a>
-                <a href="department.html">수리데이터사이언스학과</a>
+                <a href="department.html">학과</a>
                 <a href="contact.html" class="active">Contact</a>
             </div>
             <button class="mobile-menu-btn" id="mobile-menu-btn">
@@ -31,138 +208,114 @@
     </nav>
 
     <main>
-        <!-- Page Hero -->
+
+        <!-- ─── Page Hero ──────────────────────────────── -->
         <div class="page-hero">
             <div class="container reveal-up">
                 <div class="page-hero-label">Business Contact</div>
-                <h1>함께 더 나은<br>세상을 만들어요</h1>
+                <h1>함께 더 나은<br><em style="font-style: italic; color: var(--accent); font-weight: 500;">세상</em>을 만들어요.</h1>
                 <p>산학협력, 공공기관 협업 등 데이터 분석이 필요한 곳이라면 어디든. 우리의 문은 항상 열려있습니다.</p>
             </div>
         </div>
 
-        <!-- Why Collaborate -->
+        <!-- ─── Why Collaborate ──────────────────────── -->
         <section>
             <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2 class="section-title">왜 우리와 함께해야 하나요?</h2>
-                    <p class="section-subtitle" style="margin: 1rem auto 0;">모두의 문제 연구소만의 강점을 소개합니다.</p>
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3rem;">
+                    <span class="eyebrow">Why Us</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">왜 우리와 <em style="color: var(--accent);">함께</em>해야 하나요?</h2>
+                    <p style="color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; margin: 1rem auto 0; max-width: 540px;">모두의 문제 연구소만의 강점을 소개합니다.</p>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
-                    <div class="glass-card reveal-up stagger-1">
-                        <i class="ri-graduation-cap-line"
-                            style="font-size: 2.5rem; color: var(--accent-blue); display: block; margin-bottom: 1rem;"></i>
-                        <h3 style="margin-bottom: 0.8rem;">학술적 엄밀함</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">직관이 아닌 수학적·통계적 방법론을 적용합니다. 분석 과정과 결과의
-                            신뢰성을 보장합니다.</p>
+                <div class="why-grid">
+                    <div class="why-tile reveal-up stagger-1">
+                        <div class="icon"><i class="ri-graduation-cap-line"></i></div>
+                        <h3>학술적 엄밀함</h3>
+                        <p>직관이 아닌 수학적 · 통계적 방법론을 적용합니다. 분석 과정과 결과의 신뢰성을 보장합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-2">
-                        <i class="ri-lightbulb-line"
-                            style="font-size: 2.5rem; color: var(--accent-purple); display: block; margin-bottom: 1rem;"></i>
-                        <h3 style="margin-bottom: 0.8rem;">창의적 문제 접근</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">기존 관행에 얽매이지 않고, 데이터가 보여주는 새로운 시각으로
-                            문제를 재정의합니다.</p>
+                    <div class="why-tile reveal-up stagger-2">
+                        <div class="icon"><i class="ri-lightbulb-line"></i></div>
+                        <h3>창의적 문제 접근</h3>
+                        <p>기존 관행에 얽매이지 않고, 데이터가 보여주는 새로운 시각으로 문제를 재정의합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-3">
-                        <i class="ri-speed-up-line"
-                            style="font-size: 2.5rem; color: #10b981; display: block; margin-bottom: 1rem;"></i>
-                        <h3 style="margin-bottom: 0.8rem;">빠른 실행력</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">소규모 팀의 장점을 살려 의사결정이 빠르고, 유연하게 프로젝트
-                            방향을 조정할 수 있습니다.</p>
+                    <div class="why-tile reveal-up stagger-3">
+                        <div class="icon"><i class="ri-speed-up-line"></i></div>
+                        <h3>빠른 실행력</h3>
+                        <p>소규모 팀의 장점을 살려 의사결정이 빠르고, 유연하게 프로젝트 방향을 조정할 수 있습니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-4">
-                        <i class="ri-money-dollar-circle-line"
-                            style="font-size: 2.5rem; color: #f59e0b; display: block; margin-bottom: 1rem;"></i>
-                        <h3 style="margin-bottom: 0.8rem;">합리적인 협력 비용</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">영리보다 사회적 가치를 추구하는 학회로서, 합리적이고 유연한 협력
-                            방식을 논의할 수 있습니다.</p>
+                    <div class="why-tile reveal-up stagger-4">
+                        <div class="icon"><i class="ri-money-dollar-circle-line"></i></div>
+                        <h3>합리적인 협력</h3>
+                        <p>영리보다 사회적 가치를 추구하는 학회로서, 합리적이고 유연한 협력 방식을 논의할 수 있습니다.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Collaboration Types & Form -->
-        <section style="background: linear-gradient(to right, rgba(26, 31, 53, 0.3), transparent);">
+        <!-- ─── Collab Types & Form ──────────────────── -->
+        <section style="background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
             <div class="container">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: start;">
 
-                    <!-- Left: Collaboration Types -->
+                    <!-- Left: Collab Types -->
                     <div class="reveal-left">
-                        <div class="page-hero-label" style="margin-bottom: 1.5rem;">협력 유형</div>
-                        <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">이런 협력을 환영합니다</h2>
-                        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
-                            <div class="glass-card"
-                                style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem;">
-                                <div
-                                    style="width: 44px; height: 44px; background: rgba(79,110,247,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <i class="ri-building-2-line"
-                                        style="color: var(--accent-blue); font-size: 1.2rem;"></i>
-                                </div>
+                        <span class="eyebrow">협력 유형</span>
+                        <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.4rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; margin: 1.2rem 0 2rem;">
+                            이런 협력을 <em style="color: var(--accent);">환영</em>합니다.
+                        </h2>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="collab-item">
+                                <div class="icon"><i class="ri-building-2-line"></i></div>
                                 <div>
-                                    <div style="font-weight: 700; margin-bottom: 0.3rem;">공공기관 · 지자체 협업</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">민원
-                                        데이터, 행정 데이터를 활용한 정책 제안, 지역 문제 분석</div>
+                                    <h4>공공기관 · 지자체 협업</h4>
+                                    <p>민원 데이터, 행정 데이터를 활용한 정책 제안, 지역 문제 분석</p>
                                 </div>
                             </div>
-                            <div class="glass-card"
-                                style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem;">
-                                <div
-                                    style="width: 44px; height: 44px; background: rgba(124,58,237,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <i class="ri-briefcase-line"
-                                        style="color: var(--accent-purple); font-size: 1.2rem;"></i>
-                                </div>
+                            <div class="collab-item">
+                                <div class="icon"><i class="ri-briefcase-line"></i></div>
                                 <div>
-                                    <div style="font-weight: 700; margin-bottom: 0.3rem;">기업 산학협력</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">사내
-                                        데이터 분석, 비즈니스 인텔리전스, 예측 모델 구축 컨설팅</div>
+                                    <h4>기업 산학협력</h4>
+                                    <p>사내 데이터 분석, 비즈니스 인텔리전스, 예측 모델 구축 컨설팅</p>
                                 </div>
                             </div>
-                            <div class="glass-card"
-                                style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem;">
-                                <div
-                                    style="width: 44px; height: 44px; background: rgba(16,185,129,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <i class="ri-heart-2-line" style="color: #10b981; font-size: 1.2rem;"></i>
-                                </div>
+                            <div class="collab-item">
+                                <div class="icon"><i class="ri-heart-2-line"></i></div>
                                 <div>
-                                    <div style="font-weight: 700; margin-bottom: 0.3rem;">비영리 · 사회적 기업</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">ESG
-                                        데이터 분석, 사회적 임팩트 측정, 취약계층 지원 데이터 연구</div>
+                                    <h4>비영리 · 사회적 기업</h4>
+                                    <p>ESG 데이터 분석, 사회적 임팩트 측정, 취약계층 지원 데이터 연구</p>
                                 </div>
                             </div>
-                            <div class="glass-card"
-                                style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem;">
-                                <div
-                                    style="width: 44px; height: 44px; background: rgba(245,158,11,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <i class="ri-presentation-line" style="color: #f59e0b; font-size: 1.2rem;"></i>
-                                </div>
+                            <div class="collab-item">
+                                <div class="icon"><i class="ri-presentation-line"></i></div>
                                 <div>
-                                    <div style="font-weight: 700; margin-bottom: 0.3rem;">강연 · 교육 프로그램</div>
-                                    <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">데이터
-                                        리터러시 교육, 실무 데이터 분석 워크숍 진행</div>
+                                    <h4>강연 · 교육 프로그램</h4>
+                                    <p>데이터 리터러시 교육, 실무 데이터 분석 워크숍 진행</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right: Contact Form -->
+                    <!-- Right: Form -->
                     <div class="reveal-right">
-                        <div class="page-hero-label" style="margin-bottom: 1.5rem;">문의하기</div>
-                        <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">협업 제안서 보내기</h2>
-                        <form class="glass-card" id="contact-form" style="border-color: rgba(79,110,247,0.3);">
+                        <span class="eyebrow">문의하기</span>
+                        <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.4rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; margin: 1.2rem 0 2rem;">
+                            협업 제안서 <em style="color: var(--accent);">보내기</em>.
+                        </h2>
+                        <form class="contact-form" id="contact-form">
                             <div class="form-group">
                                 <label class="form-label">소속 기관/기업명 *</label>
-                                <input type="text" required class="form-input" placeholder="예: OO시청, OO주식회사">
+                                <input type="text" name="org" required class="form-input" placeholder="예: OO시청, OO주식회사">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">담당자 성함 *</label>
-                                <input type="text" required class="form-input" placeholder="담당자 이름">
+                                <input type="text" name="contactName" required class="form-input" placeholder="담당자 이름">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">이메일 주소 *</label>
-                                <input type="email" required class="form-input" placeholder="example@org.com">
+                                <input type="email" name="email" required class="form-input" placeholder="example@org.com">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">협력 유형</label>
-                                <select class="form-input" style="cursor: pointer;">
+                                <select name="type" class="form-input">
                                     <option value="">선택해 주세요</option>
                                     <option value="public">공공기관 · 지자체 협업</option>
                                     <option value="corporate">기업 산학협력</option>
@@ -173,94 +326,83 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">제안 내용 *</label>
-                                <textarea required rows="5" class="form-input"
+                                <textarea required name="proposal" rows="5" class="form-input"
                                     placeholder="어떤 문제를 해결하고 싶으신가요? 보유한 데이터, 희망하는 분석 범위, 일정 등을 자유롭게 적어주세요."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary"
-                                style="width: 100%; font-size: 1.05rem; padding: 1rem;">
+                            <button type="submit" class="btn btn-primary" data-magnetic
+                                style="width: 100%; padding: 1.05rem; font-size: 1rem;">
                                 <i class="ri-send-plane-line"></i> 협업 제안하기
                             </button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Process -->
+        <!-- ─── Process ────────────────────────────────── -->
         <section>
             <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2 class="section-title">협업 진행 과정</h2>
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3rem;">
+                    <span class="eyebrow">Process</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">협업 진행 <em style="color: var(--accent);">과정</em></h2>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                    <div class="glass-card reveal-up stagger-1" style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-blue);"><i
-                                class="ri-mail-open-line"></i></div>
-                        <div
-                            style="font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent-blue); margin-bottom: 0.5rem;">
-                            STEP 1</div>
-                        <h4 style="margin-bottom: 0.5rem;">제안 접수</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">위 양식을 통해 협업 제안서를
-                            보내주시면 2~3 영업일 이내에 검토합니다.</p>
+                <div class="pr-grid">
+                    <div class="pr-step reveal-up stagger-1">
+                        <span class="step-num">— STEP 01</span>
+                        <div class="icon"><i class="ri-mail-open-line"></i></div>
+                        <h4>제안 접수</h4>
+                        <p>위 양식을 통해 협업 제안서를 보내주시면 2~3 영업일 이내에 검토합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-2" style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-purple);"><i
-                                class="ri-discuss-line"></i></div>
-                        <div
-                            style="font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--accent-purple); margin-bottom: 0.5rem;">
-                            STEP 2</div>
-                        <h4 style="margin-bottom: 0.5rem;">킥오프 미팅</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">온/오프라인 미팅을 통해
-                            구체적인 문제와 범위, 방향을 함께 정의합니다.</p>
+                    <div class="pr-step reveal-up stagger-2">
+                        <span class="step-num">— STEP 02</span>
+                        <div class="icon"><i class="ri-discuss-line"></i></div>
+                        <h4>킥오프 미팅</h4>
+                        <p>온/오프라인 미팅을 통해 구체적인 문제와 범위, 방향을 함께 정의합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-3" style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem; color: #10b981;"><i
-                                class="ri-file-text-line"></i></div>
-                        <div
-                            style="font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: #10b981; margin-bottom: 0.5rem;">
-                            STEP 3</div>
-                        <h4 style="margin-bottom: 0.5rem;">협약 체결</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">프로젝트 범위, 일정, 성과물에
-                            대한 협약서를 작성하고 공식 협력을 시작합니다.</p>
+                    <div class="pr-step reveal-up stagger-3">
+                        <span class="step-num">— STEP 03</span>
+                        <div class="icon"><i class="ri-file-text-line"></i></div>
+                        <h4>협약 체결</h4>
+                        <p>프로젝트 범위, 일정, 성과물에 대한 협약서를 작성하고 공식 협력을 시작합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-4" style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 1rem; color: #f59e0b;"><i
-                                class="ri-rocket-2-line"></i></div>
-                        <div
-                            style="font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: #f59e0b; margin-bottom: 0.5rem;">
-                            STEP 4</div>
-                        <h4 style="margin-bottom: 0.5rem;">분석 · 결과 제안</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">데이터 분석, 모델 구축 후
-                            결과를 보고서 및 발표로 공유합니다.</p>
+                    <div class="pr-step reveal-up stagger-4">
+                        <span class="step-num">— STEP 04</span>
+                        <div class="icon"><i class="ri-rocket-2-line"></i></div>
+                        <h4>분석 · 결과 제안</h4>
+                        <p>데이터 분석, 모델 구축 후 결과를 보고서 및 발표로 공유합니다.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ─── Footer ─────────────────────────────────────── -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">모두의 <span class="logo-highlight">문제</span> 연구소
-                    </h3>
-                    <p style="color: var(--text-secondary); max-width: 300px; line-height: 1.8;">수리데이터사이언스학과 공식
-                        학회<br>Data for All, Solutions for Society.</p>
+                    <a href="index.html" class="logo" style="color: var(--ink-on-dark); display: inline-block; margin-bottom: 1.2rem;">
+                        모두의 <span style="color: var(--accent); font-style: italic;">문제</span> 연구소
+                    </a>
+                    <p style="line-height: 1.85; max-width: 320px; font-size: 0.95rem;">
+                        수리데이터사이언스학과 공식 학회.<br>Data for All, Solutions for Society.
+                    </p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Pages</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                        <a href="about.html" style="color: var(--text-secondary);">연구소 소개</a>
-                        <a href="projects.html" style="color: var(--text-secondary);">프로젝트</a>
-                        <a href="members.html" style="color: var(--text-secondary);">연구원</a>
-                        <a href="department.html" style="color: var(--text-secondary);">수리데이터사이언스학과</a>
+                    <h4>Pages</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.92rem;">
+                        <a href="about.html">연구소 소개</a>
+                        <a href="projects.html">프로젝트</a>
+                        <a href="members.html">연구원</a>
+                        <a href="department.html">학과</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Follow Us</h4>
-                    <a href="https://instagram.com" target="_blank"
-                        style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary);">
-                        <i class="ri-instagram-line" style="font-size: 1.5rem; color: #E1306C;"></i>
+                    <h4>Follow</h4>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"
+                        style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
+                        <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
                         <span>@modu_problem_lab</span>
                     </a>
                 </div>
@@ -273,18 +415,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             initNavigation();
-            initParticles();
             initScrollAnimations();
+            initMagnetic();
+            initCursorGlow();
             var form = document.getElementById('contact-form');
             if (form) {
                 form.addEventListener('submit', function (e) {
                     e.preventDefault();
                     var btn = form.querySelector('button[type="submit"]');
-                    btn.textContent = '✓ 제안이 전송되었습니다!';
-                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    btn.innerHTML = '<i class="ri-check-line"></i> 제안이 전송되었습니다';
+                    btn.style.background = '#1f9d55';
+                    btn.style.borderColor = '#1f9d55';
                     setTimeout(function () {
                         btn.innerHTML = '<i class="ri-send-plane-line"></i> 협업 제안하기';
                         btn.style.background = '';
+                        btn.style.borderColor = '';
                         form.reset();
                     }, 3000);
                 });

@@ -4,15 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연구소 소개 | 모두의 문제 연구소</title>
+    <title>연구소 소개 — 모두의 문제 연구소</title>
     <meta name="description" content="모두의 문제 연구소의 설립 배경, 미션, 비전을 소개합니다.">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/animations.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* ─── About-specific ─── */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--line-strong);
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .value-tile {
+            padding: 2rem 1.6rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            transition: background 0.18s ease;
+        }
+
+        .value-tile:nth-child(2n) { border-right: none; }
+        .value-tile:nth-child(3),
+        .value-tile:nth-child(4) { border-bottom: none; }
+        .value-tile:hover { background: var(--bg-elevated); }
+
+        .value-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .value-tile h4 {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .value-tile p {
+            color: var(--ink-soft);
+            font-size: 0.85rem;
+            line-height: 1.65;
+        }
+
+        /* ─── Process Cards ─── */
+        .proc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .proc-card {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 2.4rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s, box-shadow 0.32s;
+        }
+
+        .proc-card:hover {
+            border-color: var(--ink);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px -14px rgba(31, 27, 22, 0.18);
+        }
+
+        .proc-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: 1.4rem;
+            right: 1.6rem;
+            font-family: var(--font-display);
+            font-size: 5.5rem;
+            font-style: italic;
+            font-weight: 400;
+            color: rgba(194, 91, 54, 0.10);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+        }
+
+        .proc-card .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            margin-bottom: 1.6rem;
+            font-size: 1.15rem;
+        }
+
+        .proc-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.9rem;
+        }
+
+        .proc-card > p {
+            color: var(--ink-soft);
+            line-height: 1.8;
+            margin-bottom: 1.4rem;
+            font-size: 0.95rem;
+        }
+
+        .proc-card ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+        }
+
+        .proc-card ul li {
+            display: flex;
+            gap: 0.55rem;
+            align-items: flex-start;
+        }
+
+        .proc-card ul i {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        @media (max-width: 968px) {
+            .values-grid { grid-template-columns: 1fr; }
+            .value-tile { border-right: none; }
+            .proc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="bg-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -21,7 +164,7 @@
                 <a href="about.html" class="active">소개</a>
                 <a href="projects.html">프로젝트</a>
                 <a href="members.html">연구원</a>
-                <a href="department.html">수리데이터사이언스학과</a>
+                <a href="department.html">학과</a>
                 <a href="contact.html">Contact</a>
             </div>
             <button class="mobile-menu-btn" id="mobile-menu-btn">
@@ -31,263 +174,236 @@
     </nav>
 
     <main>
-        <!-- Page Hero -->
+
+        <!-- ─── Page Hero ──────────────────────────────── -->
         <div class="page-hero">
             <div class="container reveal-up">
                 <div class="page-hero-label">About Us</div>
-                <h1>데이터로 세상을<br>이롭게 만드는 연구소</h1>
+                <h1>데이터로 세상을<br><em style="font-style: italic; color: var(--accent); font-weight: 500;">이롭게</em> 만드는 연구소.</h1>
                 <p>주변의 작은 불편함에서 시작해, 수학적 모델링과 데이터 과학으로 실질적인 해결책을 만들어 냅니다.</p>
             </div>
         </div>
 
-        <!-- Mission & Vision -->
-        <section>
-            <div class="container">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
-                    <div class="reveal-left">
-                        <div class="page-hero-label" style="margin-bottom: 1.5rem;">Mission</div>
-                        <h2 class="section-title" style="font-size: 2.2rem;">우리의 미션</h2>
-                        <div class="section-divider"></div>
-                        <p
-                            style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.9; margin-bottom: 2rem;">
-                            모두의 문제 연구소는 <strong style="color: white;">직관과 추측이 아닌</strong>, 정확한 데이터와 수학적 모델링을 통해 사회 주변의
-                            문제를 정의하고 해결책을 제시합니다.
-                        </p>
-                        <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.9;">
-                            우리는 학문적 탐구에만 그치지 않습니다. 도출된 인사이트가 실제 정책과 삶에 반영되도록, 연구 결과를 지자체와 사회에 적극적으로 제안합니다.
-                        </p>
-                    </div>
-                    <div class="reveal-right">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                            <div class="glass-card" style="text-align: center;">
-                                <i class="ri-earth-line"
-                                    style="font-size: 2rem; color: var(--accent-blue); display: block; margin-bottom: 0.8rem;"></i>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">사회 기여</div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">연구가 현실에 닿도록</div>
-                            </div>
-                            <div class="glass-card" style="text-align: center;">
-                                <i class="ri-open-source-line"
-                                    style="font-size: 2rem; color: var(--accent-purple); display: block; margin-bottom: 0.8rem;"></i>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">개방적 탐구</div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">누구나 제기한 문제 환영</div>
-                            </div>
-                            <div class="glass-card" style="text-align: center;">
-                                <i class="ri-team-line"
-                                    style="font-size: 2rem; color: #10b981; display: block; margin-bottom: 0.8rem;"></i>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">협업과 성장</div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">함께 성장하는 커뮤니티</div>
-                            </div>
-                            <div class="glass-card" style="text-align: center;">
-                                <i class="ri-bar-chart-box-line"
-                                    style="font-size: 2rem; color: #f59e0b; display: block; margin-bottom: 0.8rem;"></i>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">데이터 기반</div>
-                                <div style="font-size: 0.85rem; color: var(--text-secondary);">숫자가 말하게 한다</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Core Process -->
-        <section style="background: linear-gradient(to right, rgba(26, 31, 53, 0.3), transparent);">
-            <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 5rem;">
-                    <h2 class="section-title">우리의 연구 방법론</h2>
-                    <p class="section-subtitle" style="margin: 1rem auto 0;">3단계 접근법으로 문제를 발굴하고 해결합니다.</p>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                    <div class="glass-card reveal-up stagger-1" style="position: relative; overflow: hidden;">
-                        <div
-                            style="position: absolute; top: -10px; right: -10px; font-size: 6rem; font-weight: 900; color: rgba(79, 110, 247, 0.07); line-height: 1;">
-                            01</div>
-                        <div style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 1.2rem;"><i
-                                class="ri-eye-line"></i></div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">관찰 (Observe)</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">당연하게 여겨지던 일상의
-                            불편함과 소외된 이웃의 문제를 수리데이터사이언스적 시각으로 포착합니다.</p>
-                        <ul
-                            style="color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-blue); flex-shrink: 0;"></i> 현장 중심 문제 발굴</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-blue); flex-shrink: 0;"></i> 민원 데이터 탐색</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-blue); flex-shrink: 0;"></i> 사회적 맥락 분석</li>
-                        </ul>
-                    </div>
-                    <div class="glass-card reveal-up stagger-2" style="position: relative; overflow: hidden;">
-                        <div
-                            style="position: absolute; top: -10px; right: -10px; font-size: 6rem; font-weight: 900; color: rgba(124, 58, 237, 0.07); line-height: 1;">
-                            02</div>
-                        <div style="font-size: 3rem; color: var(--accent-purple); margin-bottom: 1.2rem;"><i
-                                class="ri-database-2-line"></i></div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">분석 (Analyze)</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">흩어진 데이터를 수집하고
-                            정제하여, 문제의 이면에 숨겨진 패턴과 상호작용을 수학적으로 모델링합니다.</p>
-                        <ul
-                            style="color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-purple); flex-shrink: 0;"></i> 공공 데이터 수집 및 정제</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-purple); flex-shrink: 0;"></i> 통계·ML 모델 구축</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: var(--accent-purple); flex-shrink: 0;"></i> 시각화 및 인사이트 도출</li>
-                        </ul>
-                    </div>
-                    <div class="glass-card reveal-up stagger-3" style="position: relative; overflow: hidden;">
-                        <div
-                            style="position: absolute; top: -10px; right: -10px; font-size: 6rem; font-weight: 900; color: rgba(16, 185, 129, 0.07); line-height: 1;">
-                            03</div>
-                        <div style="font-size: 3rem; color: #10b981; margin-bottom: 1.2rem;"><i
-                                class="ri-lightbulb-flash-line"></i></div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">해결 (Solve)</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">도출된 인사이트를 바탕으로
-                            실질적이고 지속 가능한 개선 방향과 정책적 대안을 세상에 제안합니다.</p>
-                        <ul
-                            style="color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: #10b981; flex-shrink: 0;"></i> 보고서·정책 제안서 작성</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: #10b981; flex-shrink: 0;"></i> 지자체·공공기관 제안</li>
-                            <li style="display: flex; gap: 0.5rem;"><i class="ri-checkbox-circle-line"
-                                    style="color: #10b981; flex-shrink: 0;"></i> 오픈소스 공개</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- History / Timeline -->
+        <!-- ─── Mission & Values ──────────────────────── -->
         <section>
             <div class="container">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;">
+
                     <div class="reveal-left">
-                        <div class="page-hero-label" style="margin-bottom: 1.5rem;">History</div>
-                        <h2 class="section-title" style="font-size: 2.2rem;">연구소 연혁</h2>
+                        <span class="eyebrow">Mission</span>
+                        <h2 class="section-title" style="margin: 1.2rem 0 1.2rem; font-size: clamp(2rem, 3.6vw, 2.8rem);">
+                            우리의 <em style="color: var(--accent);">미션</em>.
+                        </h2>
+                        <div class="section-divider"></div>
+                        <p style="color: var(--ink-soft); font-size: 1.08rem; line-height: 1.85; margin-bottom: 1.6rem;">
+                            모두의 문제 연구소는 <em style="color: var(--ink); font-style: italic; font-weight: 500;">직관과 추측이 아닌</em>,
+                            정확한 데이터와 수학적 모델링을 통해 사회 주변의 문제를 정의하고 해결책을 제시합니다.
+                        </p>
+                        <p style="color: var(--ink-soft); font-size: 1.08rem; line-height: 1.85;">
+                            우리는 학문적 탐구에만 그치지 않습니다. 도출된 인사이트가 실제 정책과 삶에 반영되도록, 연구 결과를 지자체와 사회에 적극적으로 제안합니다.
+                        </p>
+                    </div>
+
+                    <div class="reveal-right">
+                        <div class="values-grid">
+                            <div class="value-tile">
+                                <div class="value-icon"><i class="ri-earth-line"></i></div>
+                                <h4>사회 기여</h4>
+                                <p>연구가 현실에 닿도록</p>
+                            </div>
+                            <div class="value-tile">
+                                <div class="value-icon"><i class="ri-open-source-line"></i></div>
+                                <h4>개방적 탐구</h4>
+                                <p>누구나 제기한 문제 환영</p>
+                            </div>
+                            <div class="value-tile">
+                                <div class="value-icon"><i class="ri-team-line"></i></div>
+                                <h4>협업과 성장</h4>
+                                <p>함께 성장하는 커뮤니티</p>
+                            </div>
+                            <div class="value-tile">
+                                <div class="value-icon"><i class="ri-bar-chart-box-line"></i></div>
+                                <h4>데이터 기반</h4>
+                                <p>숫자가 말하게 한다</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── Core Process ───────────────────────────── -->
+        <section style="background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+            <div class="container">
+                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
+                    <span class="eyebrow">Method</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">우리의 <em style="color: var(--accent);">연구 방법론</em></h2>
+                    <p style="color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; margin: 1rem auto 0; max-width: 540px;">3단계 접근법으로 문제를 발굴하고 해결합니다.</p>
+                </div>
+                <div class="proc-grid">
+                    <div class="proc-card reveal-up stagger-1" data-num="01">
+                        <div class="icon"><i class="ri-eye-line"></i></div>
+                        <h3>관찰 (Observe)</h3>
+                        <p>당연하게 여겨지던 일상의 불편함과 소외된 이웃의 문제를 수리데이터사이언스적 시각으로 포착합니다.</p>
+                        <ul>
+                            <li><i class="ri-check-line"></i> 현장 중심 문제 발굴</li>
+                            <li><i class="ri-check-line"></i> 민원 데이터 탐색</li>
+                            <li><i class="ri-check-line"></i> 사회적 맥락 분석</li>
+                        </ul>
+                    </div>
+                    <div class="proc-card reveal-up stagger-2" data-num="02">
+                        <div class="icon"><i class="ri-database-2-line"></i></div>
+                        <h3>분석 (Analyze)</h3>
+                        <p>흩어진 데이터를 수집하고 정제하여, 문제의 이면에 숨겨진 패턴과 상호작용을 수학적으로 모델링합니다.</p>
+                        <ul>
+                            <li><i class="ri-check-line"></i> 공공 데이터 수집 및 정제</li>
+                            <li><i class="ri-check-line"></i> 통계 · ML 모델 구축</li>
+                            <li><i class="ri-check-line"></i> 시각화 및 인사이트 도출</li>
+                        </ul>
+                    </div>
+                    <div class="proc-card reveal-up stagger-3" data-num="03">
+                        <div class="icon"><i class="ri-lightbulb-flash-line"></i></div>
+                        <h3>해결 (Solve)</h3>
+                        <p>도출된 인사이트를 바탕으로 실질적이고 지속 가능한 개선 방향과 정책적 대안을 세상에 제안합니다.</p>
+                        <ul>
+                            <li><i class="ri-check-line"></i> 보고서 · 정책 제안서 작성</li>
+                            <li><i class="ri-check-line"></i> 지자체 · 공공기관 제안</li>
+                            <li><i class="ri-check-line"></i> 오픈소스 공개</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── History / Timeline ─────────────────────── -->
+        <section>
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;">
+
+                    <div class="reveal-left">
+                        <span class="eyebrow">History</span>
+                        <h2 class="section-title" style="margin: 1.2rem 0 1.2rem; font-size: clamp(2rem, 3.6vw, 2.8rem);">
+                            연구소 <em style="color: var(--accent);">연혁</em>.
+                        </h2>
                         <div class="section-divider"></div>
                         <div class="timeline" style="margin-top: 2rem;">
                             <div class="timeline-item reveal-up stagger-1">
                                 <div class="timeline-date">2022년 봄</div>
-                                <h4 style="margin-bottom: 0.4rem;">창립</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                    수리데이터사이언스학과 내 데이터 기반 사회 문제 해결을 목표로 학회 창립. 초대 회장 선출 및 창립총회 개최.</p>
+                                <h4 style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.4rem;">창립</h4>
+                                <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.75;">수리데이터사이언스학과 내 데이터 기반 사회 문제 해결을 목표로 학회 창립. 초대 회장 선출 및 창립총회 개최.</p>
                             </div>
                             <div class="timeline-item reveal-up stagger-2">
                                 <div class="timeline-date">2023년</div>
-                                <h4 style="margin-bottom: 0.4rem;">첫 번째 공식 프로젝트 완료</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">지역 쓰레기
-                                    무단투기 빈발 지역 분석 프로젝트를 완료하고, 지역 행정기관에 솔루션을 제안했습니다.</p>
+                                <h4 style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.4rem;">첫 번째 공식 프로젝트 완료</h4>
+                                <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.75;">지역 쓰레기 무단투기 빈발 지역 분석 프로젝트를 완료하고, 지역 행정기관에 솔루션을 제안했습니다.</p>
                             </div>
                             <div class="timeline-item reveal-up stagger-3">
                                 <div class="timeline-date">2024년</div>
-                                <h4 style="margin-bottom: 0.4rem;">프로젝트 확대 & 외부 협력</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">대중교통 혼잡도
-                                    예측 프로젝트 착수. 공공기관과의 첫 산학협력 MOU 논의 시작.</p>
+                                <h4 style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.4rem;">프로젝트 확대 & 외부 협력</h4>
+                                <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.75;">대중교통 혼잡도 예측 프로젝트 착수. 공공기관과의 첫 산학협력 MOU 논의 시작.</p>
                             </div>
                             <div class="timeline-item reveal-up stagger-4">
                                 <div class="timeline-date">미래</div>
-                                <h4 style="margin-bottom: 0.4rem;">더 큰 사회적 임팩트를 향해</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">복지 사각지대
-                                    탐지 프로젝트 등 더 복잡하고 다양한 사회 문제에 도전합니다.</p>
+                                <h4 style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.4rem;">더 큰 사회적 임팩트를 향해</h4>
+                                <p style="color: var(--ink-soft); font-size: 0.95rem; line-height: 1.75;">복지 사각지대 탐지 프로젝트 등 더 복잡하고 다양한 사회 문제에 도전합니다.</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="reveal-right" style="position: sticky; top: 120px;">
-                        <div class="glass-card" style="border-color: rgba(79, 110, 247, 0.3);">
-                            <h3 style="font-size: 1.3rem; margin-bottom: 2rem; color: var(--accent-blue);">우리가 추구하는 가치
-                            </h3>
-                            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                                <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                                    <div
-                                        style="width: 44px; height: 44px; background: rgba(79, 110, 247, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <i class="ri-focus-2-line"
-                                            style="color: var(--accent-blue); font-size: 1.2rem;"></i>
+                        <div style="background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 6px; padding: 2.4rem;">
+                            <span class="eyebrow">Core Values</span>
+                            <h3 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; margin: 1.2rem 0 1.8rem; color: var(--ink);">우리가 추구하는 가치</h3>
+                            <div style="display: flex; flex-direction: column; gap: 1.6rem;">
+                                <div style="display: flex; gap: 1.1rem; align-items: flex-start;">
+                                    <div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent);">
+                                        <i class="ri-focus-2-line"></i>
                                     </div>
                                     <div>
-                                        <div style="font-weight: 700; margin-bottom: 0.2rem;">문제 중심 사고</div>
-                                        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                                            기술보다 문제 정의가 먼저입니다. 어떤 문제를 왜 풀어야 하는지를 가장 먼저 고민합니다.</div>
+                                        <div style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.25rem; color: var(--ink);">문제 중심 사고</div>
+                                        <div style="color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7;">기술보다 문제 정의가 먼저입니다. 어떤 문제를 왜 풀어야 하는지를 가장 먼저 고민합니다.</div>
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                                    <div
-                                        style="width: 44px; height: 44px; background: rgba(124, 58, 237, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <i class="ri-shield-check-line"
-                                            style="color: var(--accent-purple); font-size: 1.2rem;"></i>
+                                <div style="display: flex; gap: 1.1rem; align-items: flex-start;">
+                                    <div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent);">
+                                        <i class="ri-shield-check-line"></i>
                                     </div>
                                     <div>
-                                        <div style="font-weight: 700; margin-bottom: 0.2rem;">데이터 윤리</div>
-                                        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                                            개인정보 보호와 데이터 편향 방지를 최우선으로 합니다. 올바른 방법으로 분석합니다.</div>
+                                        <div style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.25rem; color: var(--ink);">데이터 윤리</div>
+                                        <div style="color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7;">개인정보 보호와 데이터 편향 방지를 최우선으로 합니다. 올바른 방법으로 분석합니다.</div>
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                                    <div
-                                        style="width: 44px; height: 44px; background: rgba(16, 185, 129, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <i class="ri-rocket-line" style="color: #10b981; font-size: 1.2rem;"></i>
+                                <div style="display: flex; gap: 1.1rem; align-items: flex-start;">
+                                    <div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent);">
+                                        <i class="ri-rocket-line"></i>
                                     </div>
                                     <div>
-                                        <div style="font-weight: 700; margin-bottom: 0.2rem;">실행력</div>
-                                        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                                            연구에 그치지 않고 실제 현장에 제안하고 변화를 만들어냅니다.</div>
+                                        <div style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.25rem; color: var(--ink);">실행력</div>
+                                        <div style="color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7;">연구에 그치지 않고 실제 현장에 제안하고 변화를 만들어냅니다.</div>
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                                    <div
-                                        style="width: 44px; height: 44px; background: rgba(245, 158, 11, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <i class="ri-seedling-line" style="color: #f59e0b; font-size: 1.2rem;"></i>
+                                <div style="display: flex; gap: 1.1rem; align-items: flex-start;">
+                                    <div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent);">
+                                        <i class="ri-seedling-line"></i>
                                     </div>
                                     <div>
-                                        <div style="font-weight: 700; margin-bottom: 0.2rem;">지속적 성장</div>
-                                        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
-                                            스터디, 세미나, 멘토링을 통해 구성원 모두가 함께 성장하는 환경을 만듭니다.</div>
+                                        <div style="font-family: var(--font-display); font-weight: 500; margin-bottom: 0.25rem; color: var(--ink);">지속적 성장</div>
+                                        <div style="color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7;">스터디, 세미나, 멘토링을 통해 구성원 모두가 함께 성장하는 환경을 만듭니다.</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section style="text-align: center; padding: 6rem 0;">
-            <div class="container reveal-up" style="max-width: 650px;">
-                <h2 class="section-title">함께하고 싶으신가요?</h2>
-                <p style="color: var(--text-secondary); margin: 1.5rem 0 3rem; line-height: 1.9;">우리는 항상 새로운 문제와 사람을
-                    환영합니다. 당신의 호기심이 세상을 바꾸는 첫 걸음이 될 수 있습니다.</p>
+        <!-- ─── CTA ─────────────────────────────────────── -->
+        <section style="text-align: center; padding: 7rem 0;">
+            <div class="container reveal-up" style="max-width: 680px;">
+                <span class="eyebrow">Get Involved</span>
+                <h2 style="font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; margin: 1.4rem 0 1.4rem;">
+                    함께하고 <em style="color: var(--accent);">싶으신가요?</em>
+                </h2>
+                <p style="color: var(--ink-soft); margin: 0 0 2.6rem; line-height: 1.85; font-size: 1.05rem;">
+                    우리는 항상 새로운 문제와 사람을 환영합니다. 당신의 호기심이 세상을 바꾸는 첫 걸음이 될 수 있습니다.
+                </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="apply.html" class="btn btn-primary"><i class="ri-user-add-line"></i> 연구원 지원하기</a>
-                    <a href="contact.html" class="btn btn-outline"><i class="ri-mail-line"></i> 협업 문의</a>
+                    <a href="apply.html" class="btn btn-primary" data-magnetic><i class="ri-user-add-line"></i> 연구원 지원하기</a>
+                    <a href="contact.html" class="btn btn-outline" data-magnetic><i class="ri-mail-line"></i> 협업 문의</a>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ─── Footer ─────────────────────────────────────── -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">모두의 <span class="logo-highlight">문제</span> 연구소
-                    </h3>
-                    <p style="color: var(--text-secondary); max-width: 300px; line-height: 1.8;">수리데이터사이언스학과 공식
-                        학회<br>Data for All, Solutions for Society.</p>
+                    <a href="index.html" class="logo" style="color: var(--ink-on-dark); display: inline-block; margin-bottom: 1.2rem;">
+                        모두의 <span style="color: var(--accent); font-style: italic;">문제</span> 연구소
+                    </a>
+                    <p style="line-height: 1.85; max-width: 320px; font-size: 0.95rem;">
+                        수리데이터사이언스학과 공식 학회.<br>Data for All, Solutions for Society.
+                    </p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Pages</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                        <a href="about.html" style="color: var(--text-secondary);">연구소 소개</a>
-                        <a href="projects.html" style="color: var(--text-secondary);">프로젝트</a>
-                        <a href="members.html" style="color: var(--text-secondary);">연구원</a>
-                        <a href="department.html" style="color: var(--text-secondary);">수리데이터사이언스학과</a>
+                    <h4>Pages</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.92rem;">
+                        <a href="about.html">연구소 소개</a>
+                        <a href="projects.html">프로젝트</a>
+                        <a href="members.html">연구원</a>
+                        <a href="department.html">학과</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Follow Us</h4>
-                    <a href="https://instagram.com" target="_blank"
-                        style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary);">
-                        <i class="ri-instagram-line" style="font-size: 1.5rem; color: #E1306C;"></i>
+                    <h4>Follow</h4>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"
+                        style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
+                        <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
                         <span>@modu_problem_lab</span>
                     </a>
                 </div>
@@ -300,8 +416,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             initNavigation();
-            initParticles();
             initScrollAnimations();
+            initMagnetic();
+            initCursorGlow();
         });
     </script>
 </body>

@@ -4,15 +4,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연구원 지원 | 모두의 문제 연구소</title>
-    <meta name="description" content="모두의 문제 연구소 연구원으로 지원하고, 데이터로 세상을 바꾸는 여정에 함께하세요.">
+    <title>연구원 지원 — 모두의 문제 연구소</title>
+    <meta name="description" content="모두의 문제 연구소 연구원에 지원하세요.">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/animations.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* ─── Apply page ─── */
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--line-strong);
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .who-tile {
+            padding: 2.4rem 1.6rem;
+            border-right: 1px solid var(--line);
+            transition: background 0.18s ease;
+        }
+
+        .who-tile:last-child { border-right: none; }
+        .who-tile:hover { background: var(--bg-elevated); }
+
+        .who-tile .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            margin-bottom: 1.4rem;
+        }
+
+        .who-tile h3 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+        }
+
+        .who-tile p {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ─── Gain List ─── */
+        .gain-item {
+            display: grid;
+            grid-template-columns: 14px 1fr;
+            gap: 1.2rem;
+            padding: 1.4rem 0;
+            border-bottom: 1px solid var(--line);
+            align-items: flex-start;
+        }
+
+        .gain-item:last-child { border-bottom: none; }
+
+        .gain-item .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: 0.5rem;
+        }
+
+        .gain-item h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .gain-item p {
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        /* ─── Quote Card ─── */
+        .quote-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 2.4rem;
+            position: relative;
+        }
+
+        .quote-card::before {
+            content: '\201C';
+            font-family: var(--font-display);
+            font-size: 6rem;
+            color: var(--accent);
+            position: absolute;
+            top: -1rem;
+            left: 1.4rem;
+            line-height: 1;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .quote-card blockquote {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            line-height: 1.85;
+            color: var(--ink);
+            font-style: italic;
+            font-weight: 400;
+            margin: 1.6rem 0 1.5rem;
+        }
+
+        /* ─── Form ─── */
+        .apply-form {
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 2.4rem;
+        }
+
+        textarea.form-input {
+            min-height: 110px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-info {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 1.2rem 1.4rem;
+            margin-bottom: 1.8rem;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .form-info i { color: var(--accent); flex-shrink: 0; margin-top: 0.15rem; }
+        .form-info p { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.7; }
+
+        /* ─── FAQ ─── */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--line-strong);
+        }
+
+        .faq-item {
+            padding: 1.6rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .faq-item h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .faq-item h4 i { color: var(--accent); }
+
+        .faq-item p {
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            padding-left: 1.7rem;
+        }
+
+        @media (max-width: 968px) {
+            .who-grid { grid-template-columns: repeat(2, 1fr); }
+            .who-tile:nth-child(2) { border-right: none; }
+            .who-tile:nth-child(3),
+            .who-tile:nth-child(4) { border-top: 1px solid var(--line); }
+        }
+
+        @media (max-width: 640px) {
+            .who-grid { grid-template-columns: 1fr; }
+            .who-tile { border-right: none; border-bottom: 1px solid var(--line); }
+            .who-tile:last-child { border-bottom: none; }
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="bg-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -21,7 +206,7 @@
                 <a href="about.html">소개</a>
                 <a href="projects.html">프로젝트</a>
                 <a href="members.html">연구원</a>
-                <a href="department.html">수리데이터사이언스학과</a>
+                <a href="department.html">학과</a>
                 <a href="contact.html">Contact</a>
             </div>
             <button class="mobile-menu-btn" id="mobile-menu-btn">
@@ -31,147 +216,110 @@
     </nav>
 
     <main>
-        <!-- Page Hero - 희망과 가능성 테마 -->
-        <div
-            style="min-height: 55vh; display: flex; align-items: center; padding-top: var(--nav-height); padding-bottom: 5rem; position: relative; overflow: hidden; text-align: center;">
-            <div
-                style="position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(166, 193, 238, 0.15) 0%, rgba(251, 194, 235, 0.08) 40%, transparent 70%); pointer-events: none;">
-            </div>
+
+        <!-- ─── Page Hero ──────────────────────────────── -->
+        <div class="page-hero" style="text-align: center;">
             <div class="container reveal-up">
-                <div
-                    style="display: inline-block; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #a6c1ee; background: rgba(166,193,238,0.12); border: 1px solid rgba(166,193,238,0.3); border-radius: 30px; padding: 0.35rem 1rem; margin-bottom: 2rem;">
-                    Join Our Lab</div>
-                <h1
-                    style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 60%, #ffffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    세상을 바꿀 다음 줄의 코드는,<br>당신의 손끝에서 시작됩니다.
-                </h1>
-                <p
-                    style="font-size: 1.2rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto 3rem; line-height: 1.9;">
-                    완벽한 데이터 사이언티스트보다, 문제를 집요하게 파고드는 집념을 가진 분을 기다립니다.</p>
-                <a href="#apply-form" class="btn"
-                    style="background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #0d0d1a; font-weight: 700; font-size: 1.1rem; padding: 1rem 2.5rem; box-shadow: 0 4px 20px rgba(166, 193, 238, 0.3);">
-                    <i class="ri-heart-line"></i> 지금 지원하기
-                </a>
+                <div class="page-hero-label" style="margin-left: auto; margin-right: auto;">Join Our Lab</div>
+                <h1 style="margin-left: auto; margin-right: auto;">세상을 바꿀 다음 줄의<br><em style="font-style: italic; color: var(--accent); font-weight: 500;">코드</em>는, 당신의 손끝에서.</h1>
+                <p style="margin-left: auto; margin-right: auto;">완벽한 데이터 사이언티스트보다, 문제를 집요하게 파고드는 집념을 가진 분을 기다립니다.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#apply-form" class="btn btn-primary" data-magnetic>
+                        <i class="ri-heart-line"></i> 지금 지원하기
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Who We're Looking For -->
+        <!-- ─── Who We Look For ──────────────────────── -->
         <section>
             <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2 class="section-title">이런 분을 기다립니다</h2>
-                    <p class="section-subtitle" style="margin: 1rem auto 0;">경력이나 스펙이 아닙니다. 당신의 시선과 집념을 봅니다.</p>
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3rem;">
+                    <span class="eyebrow">Who</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">이런 분을 <em style="color: var(--accent);">기다립니다</em></h2>
+                    <p style="color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; margin: 1rem auto 0; max-width: 540px;">경력이나 스펙이 아닙니다. 당신의 시선과 집념을 봅니다.</p>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                    <div class="glass-card reveal-up stagger-1" style="border-color: rgba(166,193,238,0.25);">
-                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔍</div>
-                        <h3 style="margin-bottom: 0.8rem; color: #a6c1ee;">호기심 많은 분</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">왜? 라는 질문을 즐기는 분. 데이터 너머의 이야기를 궁금해하는
-                            분을 환영합니다.</p>
+                <div class="who-grid">
+                    <div class="who-tile reveal-up stagger-1">
+                        <div class="icon"><i class="ri-search-eye-line"></i></div>
+                        <h3>호기심 많은 분</h3>
+                        <p>"왜?" 라는 질문을 즐기는 분. 데이터 너머의 이야기를 궁금해하는 분을 환영합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-2" style="border-color: rgba(251,194,235,0.25);">
-                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💡</div>
-                        <h3 style="margin-bottom: 0.8rem; color: #fbc2eb;">문제 발굴자</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">일상 속 불편함과 사회적 문제를 그냥 지나치지 않고, 개선하고
-                            싶다는 마음을 품은 분.</p>
+                    <div class="who-tile reveal-up stagger-2">
+                        <div class="icon"><i class="ri-lightbulb-line"></i></div>
+                        <h3>문제 발굴자</h3>
+                        <p>일상 속 불편함과 사회적 문제를 그냥 지나치지 않고, 개선하고 싶다는 마음을 품은 분.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-3" style="border-color: rgba(167,243,208,0.2);">
-                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤝</div>
-                        <h3 style="margin-bottom: 0.8rem; color: #6ee7b7;">함께 성장하는 분</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">혼자보다 함께일 때 더 큰 결과를 만들 수 있다고 믿는 분. 동료와
-                            지식을 나누기 좋아하는 분.</p>
+                    <div class="who-tile reveal-up stagger-3">
+                        <div class="icon"><i class="ri-team-line"></i></div>
+                        <h3>함께 성장하는 분</h3>
+                        <p>혼자보다 함께일 때 더 큰 결과를 만들 수 있다고 믿는 분. 동료와 지식을 나누기 좋아하는 분.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-4" style="border-color: rgba(253,230,138,0.2);">
-                        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💪</div>
-                        <h3 style="margin-bottom: 0.8rem; color: #fcd34d;">포기하지 않는 분</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">코드가 안 되고 분석이 막혀도 끝까지 파고드는 집념. 그것 하나면
-                            충분합니다.</p>
+                    <div class="who-tile reveal-up stagger-4">
+                        <div class="icon"><i class="ri-shield-flash-line"></i></div>
+                        <h3>포기하지 않는 분</h3>
+                        <p>코드가 안 되고 분석이 막혀도 끝까지 파고드는 집념. 그것 하나면 충분합니다.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- What You'll Gain -->
-        <section style="background: linear-gradient(to right, rgba(26, 31, 53, 0.3), transparent);">
+        <!-- ─── What You Gain ─────────────────────────── -->
+        <section style="background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
             <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2 class="section-title">연구원이 되면 얻는 것</h2>
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3.5rem;">
+                    <span class="eyebrow">Benefits</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">연구원이 되면 <em style="color: var(--accent);">얻는 것</em></h2>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;" class="reveal-left">
-                        <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                            <div
-                                style="min-width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); margin-top: 0.35rem;">
-                            </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+                    <div class="reveal-left">
+                        <div class="gain-item">
+                            <span class="dot"></span>
                             <div>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">실제 사회 문제 해결 경험</div>
-                                <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">이론이 아닌
-                                    실제 데이터로 진짜 문제를 해결하는 경험. 포트폴리오에 담을 수 있는 프로젝트.</div>
+                                <h4>실제 사회 문제 해결 경험</h4>
+                                <p>이론이 아닌 실제 데이터로 진짜 문제를 해결하는 경험. 포트폴리오에 담을 수 있는 프로젝트.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                            <div
-                                style="min-width: 12px; height: 12px; border-radius: 50%; background: var(--accent-purple); margin-top: 0.35rem;">
-                            </div>
+                        <div class="gain-item">
+                            <span class="dot"></span>
                             <div>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">교수님의 직접 지도</div>
-                                <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
-                                    수리데이터사이언스학과 교수님들의 멘토링과 연구 방향성 조언을 받을 수 있습니다.</div>
+                                <h4>교수님의 직접 지도</h4>
+                                <p>수리데이터사이언스학과 교수님들의 멘토링과 연구 방향성 조언을 받을 수 있습니다.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                            <div
-                                style="min-width: 12px; height: 12px; border-radius: 50%; background: #10b981; margin-top: 0.35rem;">
-                            </div>
+                        <div class="gain-item">
+                            <span class="dot"></span>
                             <div>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">긴밀한 스터디 & 세미나</div>
-                                <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">논문 리뷰,
-                                    데이터 분석 스터디, 매주 세미나를 통한 빠른 성장.</div>
+                                <h4>긴밀한 스터디 & 세미나</h4>
+                                <p>논문 리뷰, 데이터 분석 스터디, 매주 세미나를 통한 빠른 성장.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                            <div
-                                style="min-width: 12px; height: 12px; border-radius: 50%; background: #f59e0b; margin-top: 0.35rem;">
-                            </div>
+                        <div class="gain-item">
+                            <span class="dot"></span>
                             <div>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">다양한 인적 네트워크</div>
-                                <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">선후배
-                                    연구원, 협력 기관 담당자들과의 네트워킹 기회.</div>
+                                <h4>다양한 인적 네트워크</h4>
+                                <p>선후배 연구원, 협력 기관 담당자들과의 네트워킹 기회.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                            <div
-                                style="min-width: 12px; height: 12px; border-radius: 50%; background: #ec4899; margin-top: 0.35rem;">
-                            </div>
+                        <div class="gain-item">
+                            <span class="dot"></span>
                             <div>
-                                <div style="font-weight: 700; margin-bottom: 0.3rem;">외부 컨퍼런스 지원</div>
-                                <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">주요
-                                    데이터사이언스 컨퍼런스 참가 지원 및 논문 발표 기회.</div>
+                                <h4>외부 컨퍼런스 지원</h4>
+                                <p>주요 데이터사이언스 컨퍼런스 참가 지원 및 논문 발표 기회.</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="reveal-right">
-                        <!-- Testimonial-style quote -->
-                        <div class="glass-card" style="border-color: rgba(166,193,238,0.3); position: relative;">
-                            <div
-                                style="font-size: 4rem; color: rgba(166,193,238,0.2); position: absolute; top: 1rem; left: 1.5rem; line-height: 1;">
-                                "</div>
-                            <div style="padding-top: 2rem;">
-                                <p
-                                    style="font-size: 1.1rem; line-height: 1.9; color: white; font-style: italic; margin-bottom: 1.5rem;">
-                                    처음엔 파이썬도 몰랐어요. 그냥 주변 문제를 데이터로 풀어보고 싶다는 마음 하나로 지원했는데, 지금은 지자체에 실제 분석 결과를 제안하는 프로젝트를
-                                    이끌고 있습니다.</p>
-                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div
-                                        style="width: 48px; height: 48px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(166,193,238,0.3);">
-                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"
-                                            style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 700; font-size: 0.95rem;">이수리</div>
-                                        <div style="color: var(--text-secondary); font-size: 0.85rem;">책임 연구원 (21학번)
-                                        </div>
-                                    </div>
+                        <div class="quote-card">
+                            <blockquote>처음엔 파이썬도 몰랐어요. 그냥 주변 문제를 데이터로 풀어보고 싶다는 마음 하나로 지원했는데, 지금은 지자체에 실제 분석 결과를 제안하는 프로젝트를 이끌고 있습니다.</blockquote>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 1px solid var(--line);">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-family: var(--font-display); font-weight: 500; font-size: 0.98rem;">이수리</div>
+                                    <div style="color: var(--ink-soft); font-size: 0.85rem;">책임 연구원 · 21학번</div>
                                 </div>
                             </div>
                         </div>
@@ -180,50 +328,48 @@
             </div>
         </section>
 
-        <!-- Application Form -->
+        <!-- ─── Application Form ─────────────────────── -->
         <section id="apply-form">
             <div class="container">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2
-                        style="font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
-                        지원서 작성</h2>
-                    <p class="section-subtitle" style="margin: 1rem auto 0;">거창하지 않아도 됩니다. 솔직하게 적어주세요.</p>
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3.5rem;">
+                    <span class="eyebrow">Apply</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">지원서 <em style="color: var(--accent);">작성</em></h2>
+                    <p style="color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; margin: 1rem auto 0; max-width: 540px;">거창하지 않아도 됩니다. 솔직하게 적어주세요.</p>
                 </div>
-                <div style="max-width: 700px; margin: 0 auto;">
-                    <form class="glass-card reveal-up" style="border-color: rgba(166,193,238,0.3);" id="apply-form-el">
+                <div style="max-width: 720px; margin: 0 auto;">
+                    <form class="apply-form reveal-up" id="apply-form-el">
                         <div class="form-group">
                             <label class="form-label">이름 및 학번 *</label>
-                            <input type="text" required class="form-input" placeholder="예: 홍길동 (23학번)">
+                            <input type="text" name="nameAndStudent" required class="form-input" placeholder="예: 홍길동 (23학번)">
                         </div>
                         <div class="form-group">
                             <label class="form-label">전공 및 학년 *</label>
-                            <input type="text" required class="form-input" placeholder="예: 수리데이터사이언스학과 2학년">
+                            <input type="text" name="majorAndYear" required class="form-input" placeholder="예: 수리데이터사이언스학과 2학년">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">연락처 (이메일) *</label>
+                            <input type="email" name="email" required class="form-input" placeholder="example@hanyang.ac.kr">
                         </div>
                         <div class="form-group">
                             <label class="form-label">현재 보유한 기술 스택 (선택)</label>
-                            <input type="text" class="form-input" placeholder="예: Python 기초, R, 엑셀 등 (없어도 됩니다!)">
+                            <input type="text" name="skills" class="form-input" placeholder="예: Python 기초, R, 엑셀 등 (없어도 됩니다!)">
                         </div>
                         <div class="form-group">
                             <label class="form-label">해결해보고 싶은 주변의 문제가 있나요? *</label>
-                            <textarea required rows="5" class="form-input"
-                                placeholder="거창하지 않아도 좋습니다. 평소 느꼈던 불편함이나 호기심을 자유롭게 적어주세요. '우리 동네 버스는 왜 이렇게 늦을까?', '폐지 줍는 어르신들을 어떻게 도울 수 있을까?' 같은 것들도 훌륭한 문제 의식입니다."></textarea>
+                            <textarea required name="problem" rows="5" class="form-input"
+                                placeholder="거창하지 않아도 좋습니다. '우리 동네 버스는 왜 이렇게 늦을까?' 같은 일상의 호기심도 훌륭한 문제 의식입니다."></textarea>
                         </div>
                         <div class="form-group">
                             <label class="form-label">연구원 지원 동기 *</label>
-                            <textarea required rows="4" class="form-input"
+                            <textarea required name="motivation" rows="4" class="form-input"
                                 placeholder="왜 모두의 문제 연구소에 지원하게 되었나요? 연구소를 통해 무엇을 이루고 싶으신가요?"></textarea>
                         </div>
-                        <div
-                            style="background: rgba(166,193,238,0.08); border: 1px solid rgba(166,193,238,0.2); border-radius: 10px; padding: 1.2rem; margin-bottom: 2rem;">
-                            <div style="display: flex; gap: 0.7rem; align-items: flex-start;">
-                                <i class="ri-information-line"
-                                    style="color: #a6c1ee; flex-shrink: 0; margin-top: 0.1rem;"></i>
-                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">데이터 분석 경험이
-                                    없어도 지원 가능합니다. 세상을 이롭게 하려는 따뜻한 시선과 숫자에 대한 애정만 있다면, 함께 시작할 수 있습니다.</p>
-                            </div>
+                        <div class="form-info">
+                            <i class="ri-information-line"></i>
+                            <p>데이터 분석 경험이 없어도 지원 가능합니다. 세상을 이롭게 하려는 따뜻한 시선과 숫자에 대한 애정만 있다면, 함께 시작할 수 있습니다.</p>
                         </div>
-                        <button type="submit" class="btn"
-                            style="width: 100%; font-size: 1.1rem; padding: 1.1rem; background: linear-gradient(135deg, #a6c1ee, #fbc2eb); color: #0d0d1a; font-weight: 700; box-shadow: 0 4px 20px rgba(166,193,238,0.2);">
+                        <button type="submit" class="btn btn-primary" data-magnetic
+                            style="width: 100%; padding: 1.05rem; font-size: 1rem;">
                             <i class="ri-heart-line"></i> 용기 내어 지원하기
                         </button>
                     </form>
@@ -231,73 +377,61 @@
             </div>
         </section>
 
-        <!-- FAQ -->
-        <section style="background: linear-gradient(to right, rgba(26, 31, 53, 0.3), transparent);">
-            <div class="container" style="max-width: 800px;">
-                <div class="reveal-up" style="text-align: center; margin-bottom: 4rem;">
-                    <h2 class="section-title">자주 묻는 질문</h2>
+        <!-- ─── FAQ ─────────────────────────────────────── -->
+        <section style="background: var(--bg-elevated); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+            <div class="container" style="max-width: 820px;">
+                <div class="reveal-up" style="text-align: center; margin-bottom: 3.5rem;">
+                    <span class="eyebrow">FAQ</span>
+                    <h2 class="section-title" style="margin-top: 1.2rem;">자주 묻는 <em style="color: var(--accent);">질문</em></h2>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div class="glass-card reveal-up stagger-1">
-                        <h4
-                            style="margin-bottom: 0.8rem; color: #a6c1ee; display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="ri-question-line"></i> 전공이 수리데이터사이언스학과가 아니어도 지원할 수 있나요?
-                        </h4>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">네, 가능합니다. 수리적 사고와 사회 문제 해결에 관심 있는
-                            분이라면 전공 무관으로 지원하실 수 있습니다.</p>
+                <div class="faq-list reveal-up">
+                    <div class="faq-item">
+                        <h4><i class="ri-question-line"></i> 전공이 수리데이터사이언스학과가 아니어도 지원할 수 있나요?</h4>
+                        <p>네, 가능합니다. 수리적 사고와 사회 문제 해결에 관심 있는 분이라면 전공 무관으로 지원하실 수 있습니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-2">
-                        <h4
-                            style="margin-bottom: 0.8rem; color: #a6c1ee; display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="ri-question-line"></i> 코딩 실력이 전혀 없는데 지원해도 될까요?
-                        </h4>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">물론입니다. 연구소에서는 파이썬, 통계 기초부터 함께 학습합니다.
-                            코딩보다 문제를 발굴하는 눈이 더 중요합니다.</p>
+                    <div class="faq-item">
+                        <h4><i class="ri-question-line"></i> 코딩 실력이 전혀 없는데 지원해도 될까요?</h4>
+                        <p>물론입니다. 연구소에서는 파이썬, 통계 기초부터 함께 학습합니다. 코딩보다 문제를 발굴하는 눈이 더 중요합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-3">
-                        <h4
-                            style="margin-bottom: 0.8rem; color: #a6c1ee; display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="ri-question-line"></i> 모집 시기는 언제인가요?
-                        </h4>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">매 학기 초에 모집이 이루어집니다. 공식 모집 기간이 아닌 경우에도
-                            지원서를 제출하시면 다음 모집 시 검토합니다.</p>
+                    <div class="faq-item">
+                        <h4><i class="ri-question-line"></i> 모집 시기는 언제인가요?</h4>
+                        <p>매 학기 초에 모집이 이루어집니다. 공식 모집 기간이 아닌 경우에도 지원서를 제출하시면 다음 모집 시 검토합니다.</p>
                     </div>
-                    <div class="glass-card reveal-up stagger-4">
-                        <h4
-                            style="margin-bottom: 0.8rem; color: #a6c1ee; display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="ri-question-line"></i> 활동 시간이나 의무사항이 있나요?
-                        </h4>
-                        <p style="color: var(--text-secondary); line-height: 1.7;">주 1회 이상 세미나 참여와 프로젝트 참여가 기본 의무입니다. 개인
-                            일정과 적절히 조율 가능하며, 학업에 지장이 없는 범위에서 활동합니다.</p>
+                    <div class="faq-item">
+                        <h4><i class="ri-question-line"></i> 활동 시간이나 의무사항이 있나요?</h4>
+                        <p>주 1회 이상 세미나 참여와 프로젝트 참여가 기본 의무입니다. 개인 일정과 적절히 조율 가능하며, 학업에 지장이 없는 범위에서 활동합니다.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ─── Footer ─────────────────────────────────────── -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">모두의 <span class="logo-highlight">문제</span> 연구소
-                    </h3>
-                    <p style="color: var(--text-secondary); max-width: 300px; line-height: 1.8;">수리데이터사이언스학과 공식
-                        학회<br>Data for All, Solutions for Society.</p>
+                    <a href="index.html" class="logo" style="color: var(--ink-on-dark); display: inline-block; margin-bottom: 1.2rem;">
+                        모두의 <span style="color: var(--accent); font-style: italic;">문제</span> 연구소
+                    </a>
+                    <p style="line-height: 1.85; max-width: 320px; font-size: 0.95rem;">
+                        수리데이터사이언스학과 공식 학회.<br>Data for All, Solutions for Society.
+                    </p>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Pages</h4>
-                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                        <a href="about.html" style="color: var(--text-secondary);">연구소 소개</a>
-                        <a href="projects.html" style="color: var(--text-secondary);">프로젝트</a>
-                        <a href="members.html" style="color: var(--text-secondary);">연구원</a>
-                        <a href="department.html" style="color: var(--text-secondary);">수리데이터사이언스학과</a>
+                    <h4>Pages</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.92rem;">
+                        <a href="about.html">연구소 소개</a>
+                        <a href="projects.html">프로젝트</a>
+                        <a href="members.html">연구원</a>
+                        <a href="department.html">학과</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="margin-bottom: 1rem;">Follow Us</h4>
-                    <a href="https://instagram.com" target="_blank"
-                        style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary);">
-                        <i class="ri-instagram-line" style="font-size: 1.5rem; color: #E1306C;"></i>
+                    <h4>Follow</h4>
+                    <a href="https://instagram.com" target="_blank" rel="noopener"
+                        style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
+                        <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
                         <span>@modu_problem_lab</span>
                     </a>
                 </div>
@@ -310,27 +444,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             initNavigation();
-            initParticles();
             initScrollAnimations();
+            initMagnetic();
+            initCursorGlow();
             var form = document.getElementById('apply-form-el');
             if (form) {
                 form.addEventListener('submit', function (e) {
                     e.preventDefault();
                     var btn = form.querySelector('button[type="submit"]');
-                    btn.innerHTML = '✓ 지원이 완료되었습니다!';
-                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    btn.style.color = 'white';
+                    var originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="ri-check-line"></i> 지원이 완료되었습니다';
+                    btn.style.background = '#1f9d55';
+                    btn.style.borderColor = '#1f9d55';
                     var msg = document.createElement('div');
-                    msg.style.cssText = 'margin-top: 1.5rem; padding: 1.5rem; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; text-align: center; color: #6ee7b7; line-height: 1.8;';
-                    msg.innerHTML = '🎉 <strong style="color: white;">지원해 주셔서 감사합니다!</strong><br>연구소의 문은 언제나 열려있습니다. 조만간 연락드리겠습니다.';
+                    msg.style.cssText = 'margin-top: 1.4rem; padding: 1.2rem 1.4rem; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; color: var(--ink-soft); line-height: 1.75; font-size: 0.92rem;';
+                    msg.innerHTML = '<strong style="color: var(--ink); font-family: var(--font-display); font-style: italic;">지원해 주셔서 감사합니다.</strong><br>연구소의 문은 언제나 열려있습니다. 조만간 연락드리겠습니다.';
                     form.appendChild(msg);
                     setTimeout(function () {
-                        btn.innerHTML = '<i class="ri-heart-line"></i> 용기 내어 지원하기';
+                        btn.innerHTML = originalHTML;
                         btn.style.background = '';
-                        btn.style.color = '';
-                        msg.remove();
+                        btn.style.borderColor = '';
+                        if (msg.parentNode) msg.parentNode.removeChild(msg);
                         form.reset();
-                    }, 5000);
+                    }, 4000);
                 });
             }
         });

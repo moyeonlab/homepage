@@ -120,3 +120,82 @@ function initForm(formId, successMsg) {
         form.reset();
     });
 }
+
+// Counter Up — animates [data-counter] numeric prefix once on viewport entry
+function initCounters() {
+    var nodes = document.querySelectorAll('[data-counter]');
+    if (!nodes.length) return;
+
+    var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+
+    var run = function (el) {
+        var target = parseFloat(el.getAttribute('data-counter'));
+        if (isNaN(target)) return;
+        var duration = parseInt(el.getAttribute('data-counter-duration') || '1400', 10);
+        var start = null;
+        var step = function (ts) {
+            if (!start) start = ts;
+            var p = Math.min(1, (ts - start) / duration);
+            var v = Math.round(target * ease(p));
+            el.textContent = v;
+            if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    };
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) {
+                run(e.target);
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.35 });
+
+    nodes.forEach(function (n) { io.observe(n); });
+}
+
+// Magnetic — buttons with [data-magnetic] gently follow cursor
+function initMagnetic() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    var els = document.querySelectorAll('[data-magnetic]');
+    var strength = 0.28;
+    els.forEach(function (el) {
+        el.addEventListener('mousemove', function (e) {
+            var r = el.getBoundingClientRect();
+            var x = (e.clientX - r.left - r.width / 2) * strength;
+            var y = (e.clientY - r.top - r.height / 2) * strength;
+            el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        });
+        el.addEventListener('mouseleave', function () {
+            el.style.transform = '';
+        });
+    });
+}
+
+// Cursor Glow — soft warm radial that trails cursor
+function initCursorGlow() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    var glow = document.getElementById('cursor-glow');
+    if (!glow) return;
+
+    var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    var gx = mx, gy = my;
+    var visible = false;
+
+    document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        if (!visible) { glow.classList.add('active'); visible = true; }
+    });
+    document.addEventListener('mouseleave', function () {
+        glow.classList.remove('active'); visible = false;
+    });
+
+    var loop = function () {
+        gx += (mx - gx) * 0.12;
+        gy += (my - gy) * 0.12;
+        glow.style.transform = 'translate(' + (gx - 240) + 'px,' + (gy - 240) + 'px)';
+        requestAnimationFrame(loop);
+    };
+    loop();
+}
