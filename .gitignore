@@ -2,3 +2,10 @@
 # 회수한 원본(24MB)은 커밋 0c60e62 이력에 영구 보존돼 있습니다.
 # 배포 빌드가 24MB를 못 견뎌서 트리에서만 뺐습니다. images/README.md 참고.
 images/archive/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
