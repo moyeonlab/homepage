@@ -42,6 +42,7 @@ var projects = [
         date: "2026.07",
         link: "https://magazine-4r3.pages.dev/01-ansan-foreigners/",
         thumbnail: "./images/projects/magazine-01.png",
+        gallery: ["magazine-01-scatter", "magazine-01-ratio", "magazine-01"],
     },
     {
         id: 5,
@@ -91,7 +92,7 @@ var projects = [
         status: "completed",
         category: "학내",
         summary: "교내 학술정보관 열람석 이용과 관련한 데이터를 분석해 카드뉴스 10장으로 공개했습니다.",
-        description: "학내에서 가장 가까운 데이터로 시작한 분석입니다. 한양대학교 ERICA 학술정보관의 열람석 이용과 관련한 데이터를 정리해 카드뉴스로 만들어 공개했습니다.\n\n남의 동네 데이터가 아니라 매일 지나다니는 건물을 다뤘다는 점에서, 이후 '주변의 문제를 데이터로 본다'는 방향의 출발점이 된 작업입니다.",
+        description: "시험기간에 학술정보관 자리가 없어 당황한 경험에서 출발했습니다.\n\n질문은 두 가지였습니다 — <b>다른 학교와 견주면 도서관·열람실 방문 학생 수와 열람석 수는 어떤가. 우리 학교 도서관의 현황은 어떤가.</b> 체감을 숫자로 옮겨 비교한 작업입니다.\n\n남의 동네 데이터가 아니라 매일 지나다니는 건물을 다뤘다는 점에서, '주변의 문제를 데이터로 본다'는 방향의 출발점이 된 작업입니다.",
         tags: ["카드뉴스", "학내데이터", "ERICA"],
         date: "2023.10",
         link: "https://www.instagram.com/p/Cy250hkB0VB/",
@@ -106,11 +107,11 @@ var projects = [
         title: "학과별 MBTI 분포 설문조사",
         status: "completed",
         category: "학내",
-        summary: "창립 직후 진행한 첫 활동. 학과별 MBTI 분포를 설문으로 모아 분석하고 카드뉴스로 공개했습니다.",
-        description: "2023년 5월 창립 직후 진행한 학회의 첫 활동입니다. 학과별 MBTI 분포를 설문으로 수집해 분석하고, 결과를 카드뉴스 형식으로 제작해 공개했습니다.",
-        tags: ["설문조사", "카드뉴스", "학내데이터"],
+        summary: "창립 직후 진행한 첫 활동. 「우리 학과에 과연 어떤 MBTI가 제일 많을까?」 — 직접 설문을 돌려 데이터를 모았습니다.",
+        description: "2023년 5월 창립 직후 진행한 학회의 첫 활동입니다.\n\n\"우리 학과에 과연 어떤 MBTI가 제일 많이 있을까?\" 이미 있는 공공데이터가 아니라 <b>직접 설문을 만들어 데이터를 모으는 것</b>부터 시작했습니다. 참여를 늘리려고 덧글 이벤트까지 붙였습니다.\n\n데이터가 없으면 만들어서라도 본다 — 이후 활동의 성격이 여기서 정해졌습니다.",
+        tags: ["설문조사", "학내데이터", "첫 활동"],
         date: "2023.05",
         link: "https://www.instagram.com/p/Cr45LT2yeVj/",
-        thumbnail: "",
+        thumbnail: "./images/cardnews/insta-mbti.jpg",
     }
 ];
