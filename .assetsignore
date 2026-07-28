@@ -1,0 +1,10 @@
+# Cloudflare 배포에서 제외할 것 (git 에는 그대로 남습니다)
+#
+# images/archive/ 는 구글 사이트·인스타그램에서 회수한 원본입니다.
+# 보존이 목적이라 저장소에는 있어야 하지만, 웹에 올릴 필요는 없습니다.
+# 24MB 를 매 배포마다 올리면 배포가 느려지거나 막힙니다.
+# 화면에 뜨는 건 images/cardnews/ 의 축소본입니다.
+#
+# 원본이 필요하면 저장소에서 받으세요:
+#   https://github.com/moyeonlab/homepage/tree/main/images/archive
+images/archive/
