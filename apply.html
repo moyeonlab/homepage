@@ -305,23 +305,21 @@
                         <div class="gain-item">
                             <span class="dot"></span>
                             <div>
-                                <h4>외부 컨퍼런스 지원</h4>
-                                <p>주요 데이터사이언스 컨퍼런스 참가 지원 및 논문 발표 기회.</p>
+                                <h4>발행 경험</h4>
+                                <p>분석에서 끝내지 않고, 검증 관문을 통과한 결과물을 실제로 발행합니다.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- ★ 여기 있던 연구원 후기(「이수리 · 책임 연구원 · 21학번」)는 디자인 템플릿의
+                         예시였습니다. 실존하지 않는 사람의 말과 스톡 사진이 실제 후기처럼 올라가
+                         있어 2026-07-28 삭제했습니다. 실제 연구원 후기를 받으면 그때 넣으세요.
+                         지어낸 후기는 어떤 이유로도 다시 넣지 마세요. -->
                     <div class="reveal-right">
                         <div class="quote-card">
-                            <blockquote>처음엔 파이썬도 몰랐어요. 그냥 주변 문제를 데이터로 풀어보고 싶다는 마음 하나로 지원했는데, 지금은 지자체에 실제 분석 결과를 제안하는 프로젝트를 이끌고 있습니다.</blockquote>
-                            <div style="display: flex; align-items: center; gap: 1rem;">
-                                <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 1px solid var(--line);">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div>
-                                    <div style="font-family: var(--font-display); font-weight: 500; font-size: 0.98rem;">이수리</div>
-                                    <div style="color: var(--ink-soft); font-size: 0.85rem;">책임 연구원 · 21학번</div>
-                                </div>
+                            <blockquote>비율만 보면 원곡동만 튄다. 성비 축을 하나 더 넣자 안산은 네 개로 갈렸다. 우리가 하는 일은 이런 것이다 — 이미 있는 데이터에서 아직 아무도 보지 않은 것을 찾는 일.</blockquote>
+                            <div style="color: var(--ink-soft); font-size: 0.88rem;">
+                                모연 매거진 1호 「안산은 하나의 다문화 도시가 아니다」 중에서
                             </div>
                         </div>
                     </div>
@@ -338,42 +336,24 @@
                     <p style="color: var(--ink-soft); font-size: 1.05rem; line-height: 1.7; margin: 1rem auto 0; max-width: 540px;">거창하지 않아도 됩니다. 솔직하게 적어주세요.</p>
                 </div>
                 <div style="max-width: 720px; margin: 0 auto;">
-                    <form class="apply-form reveal-up" id="apply-form-el">
-                        <div class="form-group">
-                            <label class="form-label">이름 및 학번 *</label>
-                            <input type="text" name="nameAndStudent" required class="form-input" placeholder="예: 홍길동 (23학번)">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">전공 및 학년 *</label>
-                            <input type="text" name="majorAndYear" required class="form-input" placeholder="예: 수리데이터사이언스학과 2학년">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">연락처 (이메일) *</label>
-                            <input type="email" name="email" required class="form-input" placeholder="example@hanyang.ac.kr">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">현재 보유한 기술 스택 (선택)</label>
-                            <input type="text" name="skills" class="form-input" placeholder="예: Python 기초, R, 엑셀 등 (없어도 됩니다!)">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">해결해보고 싶은 주변의 문제가 있나요? *</label>
-                            <textarea required name="problem" rows="5" class="form-input"
-                                placeholder="거창하지 않아도 좋습니다. '우리 동네 버스는 왜 이렇게 늦을까?' 같은 일상의 호기심도 훌륭한 문제 의식입니다."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">연구원 지원 동기 *</label>
-                            <textarea required name="motivation" rows="4" class="form-input"
-                                placeholder="왜 모두의 문제 연구소에 지원하게 되었나요? 연구소를 통해 무엇을 이루고 싶으신가요?"></textarea>
-                        </div>
-                        <div class="form-info">
-                            <i class="ri-information-line"></i>
-                            <p>데이터 분석 경험이 없어도 지원 가능합니다. 세상을 이롭게 하려는 따뜻한 시선과 숫자에 대한 애정만 있다면, 함께 시작할 수 있습니다.</p>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-magnetic
-                            style="width: 100%; padding: 1.05rem; font-size: 1rem;">
-                            <i class="ri-heart-line"></i> 용기 내어 지원하기
-                        </button>
-                    </form>
+                    <!-- ★ 여기 있던 지원 폼은 어디로도 전송되지 않았습니다.
+                         제출하면 "지원이 완료되었습니다"만 뜨고 입력값은 그대로 사라졌습니다.
+                         지원자는 지원한 줄 알고, 학회는 지원서를 받지 못합니다.
+                         2026-07-28 실제 구글 폼 링크로 교체했습니다.
+                         모집 때마다 폼이 바뀌면 아래 href를 고치세요. -->
+                    <div class="reveal-up" style="text-align:center;border:1px solid var(--line-strong);border-radius:8px;padding:3.4rem 2rem;background:var(--bg-elevated);">
+                        <p style="color:var(--ink-soft);font-size:1.05rem;line-height:1.85;margin-bottom:2.2rem;">
+                            지원은 구글 폼으로 받습니다. 이름·학번·전공과<br>
+                            <em style="font-style:italic;color:var(--ink);">해결해보고 싶은 주변의 문제</em> 하나만 적어 주세요.
+                        </p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe7F83LmR2-xDwZ5jgOzJY8t0O3_K6nKn1-QhxDcuOBZalEIQ/viewform"
+                            target="_blank" rel="noopener" class="btn btn-primary" data-magnetic>
+                            <i class="ri-file-text-line"></i> 가입 신청서 작성하기
+                        </a>
+                        <p style="color:var(--ink-muted);font-size:0.86rem;margin-top:1.8rem;line-height:1.7;">
+                            문의는 인스타그램 <a href="https://www.instagram.com/moyeon_lab/" target="_blank" rel="noopener" style="color:var(--accent);">@moyeon_lab</a> DM으로도 받습니다.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -431,14 +411,14 @@
                 </div>
                 <div>
                     <h4>Follow</h4>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"
+                    <a href="https://www.instagram.com/moyeon_lab/" target="_blank" rel="noopener"
                         style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
                         <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
-                        <span>@modu_problem_lab</span>
+                        <span>@moyeon_lab</span>
                     </a>
                 </div>
             </div>
-            <div class="footer-copy">&copy; 2024 모두의 문제 연구소. All rights reserved.</div>
+            <div class="footer-copy">&copy; 2023–2026 모두의 문제 연구소. All rights reserved.</div>
         </div>
     </footer>
 
@@ -449,28 +429,7 @@
             initScrollAnimations();
             initMagnetic();
             initCursorGlow();
-            var form = document.getElementById('apply-form-el');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    var btn = form.querySelector('button[type="submit"]');
-                    var originalHTML = btn.innerHTML;
-                    btn.innerHTML = '<i class="ri-check-line"></i> 지원이 완료되었습니다';
-                    btn.style.background = '#1f9d55';
-                    btn.style.borderColor = '#1f9d55';
-                    var msg = document.createElement('div');
-                    msg.style.cssText = 'margin-top: 1.4rem; padding: 1.2rem 1.4rem; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; color: var(--ink-soft); line-height: 1.75; font-size: 0.92rem;';
-                    msg.innerHTML = '<strong style="color: var(--ink); font-family: var(--font-display); font-style: italic;">지원해 주셔서 감사합니다.</strong><br>연구소의 문은 언제나 열려있습니다. 조만간 연락드리겠습니다.';
-                    form.appendChild(msg);
-                    setTimeout(function () {
-                        btn.innerHTML = originalHTML;
-                        btn.style.background = '';
-                        btn.style.borderColor = '';
-                        if (msg.parentNode) msg.parentNode.removeChild(msg);
-                        form.reset();
-                    }, 4000);
-                });
-            }
+            // 지원 폼은 구글 폼으로 대체됨 — 제출 핸들러 불필요
         });
     </script>
 </body>

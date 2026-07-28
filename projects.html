@@ -185,9 +185,9 @@
             <div class="container">
 
                 <div class="pj-stats reveal-up">
-                    <div class="pj-stat"><span class="num"><span data-counter="1">0</span></span><span class="lbl">완료된 프로젝트</span></div>
+                    <div class="pj-stat"><span class="num"><span data-counter="6">0</span></span><span class="lbl">완료된 프로젝트</span></div>
                     <div class="pj-stat"><span class="num"><span data-counter="1">0</span></span><span class="lbl">진행 중</span></div>
-                    <div class="pj-stat"><span class="num"><span data-counter="1">0</span></span><span class="lbl">진행 예정</span></div>
+                    <div class="pj-stat"><span class="num"><span data-counter="0">0</span></span><span class="lbl">진행 예정</span></div>
                 </div>
 
                 <div class="pj-filter reveal-up stagger-1" id="project-filters">
@@ -296,14 +296,14 @@
                 </div>
                 <div>
                     <h4>Follow</h4>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"
+                    <a href="https://www.instagram.com/moyeon_lab/" target="_blank" rel="noopener"
                         style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
                         <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
-                        <span>@modu_problem_lab</span>
+                        <span>@moyeon_lab</span>
                     </a>
                 </div>
             </div>
-            <div class="footer-copy">&copy; 2024 모두의 문제 연구소. All rights reserved.</div>
+            <div class="footer-copy">&copy; 2023–2026 모두의 문제 연구소. All rights reserved.</div>
         </div>
     </footer>
 
@@ -327,6 +327,20 @@
             return { text: '예정', dot: '#9b7bd4' };
         }
 
+        // 썸네일이 없는 프로젝트는 깨진 이미지 대신 제목 첫 글자를 세리프로 보여준다.
+        // (연구원 카드와 같은 방식 — 없는 이미지를 채우려고 스톡 사진을 쓰지 않는다)
+        function thumbHTML(project, big) {
+            if (project.thumbnail) {
+                return '<img src="' + project.thumbnail + '" alt="' + project.title + '" ' +
+                    'style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);" class="card-img">';
+            }
+            return '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;' +
+                'background:var(--bg-elevated);border-bottom:1px solid var(--line);">' +
+                '<span style="font-family:var(--font-display);font-style:italic;color:var(--line);' +
+                'font-size:' + (big ? '7rem' : '5rem') + ';line-height:1;user-select:none;">' +
+                project.title.charAt(0) + '</span></div>';
+        }
+
         function renderProjects(filter) {
             var grid = document.getElementById('projects-grid');
             grid.innerHTML = '';
@@ -338,7 +352,7 @@
                 card.className = 'reveal-up ' + delayClass;
                 card.style.cssText = 'background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 6px; padding: 0; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), border-color 0.18s, box-shadow 0.32s;';
                 card.innerHTML = '<div style="height: 220px; overflow: hidden; position: relative;">' +
-                    '<img src="' + project.thumbnail + '" alt="' + project.title + '" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);" class="card-img">' +
+                    thumbHTML(project, false) +
                     '<div style="position: absolute; top: 1rem; right: 1rem; background: var(--bg); padding: 0.4rem 0.85rem; border-radius: 999px; font-size: 0.78rem; font-weight: 500; color: var(--ink); display: inline-flex; align-items: center; gap: 0.45rem; box-shadow: 0 6px 18px -6px rgba(31,27,22,0.18);">' +
                     '<span style="width: 6px; height: 6px; border-radius: 50%; background: ' + meta.dot + '; box-shadow: 0 0 0 3px ' + meta.dot + '33;"></span>' + meta.text +
                     '</div>' +
@@ -393,14 +407,18 @@
             var body = document.getElementById('modal-body');
             var area = document.getElementById('modal-content-area');
             body.innerHTML =
-                '<div style="width:100%;height:300px;border-radius:6px;overflow:hidden;margin-bottom:2rem;border:1px solid var(--line);"><img src="' + project.thumbnail + '" style="width:100%;height:100%;object-fit:cover;"></div>' +
+                '<div style="width:100%;height:300px;border-radius:6px;overflow:hidden;margin-bottom:2rem;border:1px solid var(--line);">' + thumbHTML(project, true) + '</div>' +
                 '<div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap;">' +
                 '<span style="background: var(--bg-elevated); border: 1px solid var(--line); padding:0.4rem 0.85rem; border-radius:999px; font-size:0.8rem; font-weight:500; color: var(--ink); display: inline-flex; align-items: center; gap: 0.45rem;"><span style="width:6px;height:6px;border-radius:50%;background:' + meta.dot + ';"></span>' + meta.text + '</span>' +
                 '<span style="font-family: var(--font-display); font-style: italic; color: var(--ink-soft);">' + project.date + '</span>' +
                 '</div>' +
                 '<h2 style="font-family: var(--font-display); font-size:2rem; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; margin-bottom:1.4rem; color: var(--ink);">' + project.title + '</h2>' +
                 '<div style="color: var(--ink-soft); line-height:1.95; font-size:1rem; margin-bottom:2rem;">' + project.description.replace(/\n/g, '<br>') + '</div>' +
-                '<div style="display:flex;gap:0.4rem;flex-wrap:wrap;">' + project.tags.map(function (t) { return '<span class="tag-pill">#' + t + '</span>'; }).join('') + '</div>';
+                '<div style="display:flex;gap:0.4rem;flex-wrap:wrap;">' + project.tags.map(function (t) { return '<span class="tag-pill">#' + t + '</span>'; }).join('') + '</div>' +
+                (project.link ? '<a href="' + project.link + '" target="_blank" rel="noopener" ' +
+                    'style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:2rem;padding:0.75rem 1.4rem;' +
+                    'border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);font-size:0.92rem;">' +
+                    '결과물 보기 <i class="ri-arrow-right-up-line"></i></a>' : '');
             modal.style.opacity = '1'; modal.style.pointerEvents = 'auto';
             area.style.transform = 'translateY(0)'; document.body.style.overflow = 'hidden';
         }
