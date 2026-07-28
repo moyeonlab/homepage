@@ -327,6 +327,24 @@
             return { text: '예정', dot: '#9b7bd4' };
         }
 
+        // 상세 모달의 원본 이미지 목록 (카드뉴스·발표 슬라이드).
+        // 파일은 images/cardnews/ 의 웹용 축소본. 원본은 images/archive/cardnews/ 에 있다.
+        function galleryHTML(project) {
+            if (!project.gallery || !project.gallery.length) return '';
+            var items = project.gallery.map(function (name, i) {
+                var src = './images/cardnews/' + name + '.jpg';
+                return '<a href="' + src + '" target="_blank" rel="noopener" ' +
+                    'style="display:block;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--bg-elevated);">' +
+                    '<img src="' + src + '" alt="' + project.title + ' ' + (i + 1) + '번째 장" loading="lazy" ' +
+                    'style="width:100%;height:auto;display:block;"></a>';
+            }).join('');
+            return '<div style="margin-top:2.6rem;padding-top:2rem;border-top:1px solid var(--line);">' +
+                '<div style="font-family:var(--font-display);font-style:italic;color:var(--ink-soft);' +
+                'font-size:0.9rem;margin-bottom:1rem;">원본 ' + project.gallery.length + '장 — 눌러서 크게 보기</div>' +
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.7rem;">' +
+                items + '</div></div>';
+        }
+
         // 썸네일이 없는 프로젝트는 깨진 이미지 대신 제목 첫 글자를 세리프로 보여준다.
         // (연구원 카드와 같은 방식 — 없는 이미지를 채우려고 스톡 사진을 쓰지 않는다)
         function thumbHTML(project, big) {
@@ -418,7 +436,8 @@
                 (project.link ? '<a href="' + project.link + '" target="_blank" rel="noopener" ' +
                     'style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:2rem;padding:0.75rem 1.4rem;' +
                     'border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--ink);font-size:0.92rem;">' +
-                    '결과물 보기 <i class="ri-arrow-right-up-line"></i></a>' : '');
+                    '결과물 보기 <i class="ri-arrow-right-up-line"></i></a>' : '') +
+                galleryHTML(project);
             modal.style.opacity = '1'; modal.style.pointerEvents = 'auto';
             area.style.transform = 'translateY(0)'; document.body.style.overflow = 'hidden';
         }
