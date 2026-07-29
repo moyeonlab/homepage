@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매거진 — 모두의 문제 연구소</title>
+    <meta name="description" content="모연 데이터 저널리즘 매거진 — 공공데이터로 지역 사회 문제를 기록합니다. 모든 수치는 발행 전 검증 관문을 통과합니다.">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* ─── Magazine page ─── */
+        .mag-section { margin-bottom: 5rem; }
+
+        .mag-section-head {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--line-strong);
+            margin-bottom: 2.4rem;
+        }
+
+        .mag-section-head h2 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+        }
+
+        .mag-section-head span { color: var(--ink-soft); font-size: 0.9rem; }
+
+        .mag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+            gap: 2.6rem 2rem;
+        }
+
+        .mag-card { display: block; }
+
+        .mag-card .cover {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--bg-elevated);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .mag-card:hover .cover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.10);
+        }
+
+        .mag-badge {
+            display: inline-block;
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            padding: 0.18rem 0.7rem;
+            margin: 1.1rem 0 0.7rem;
+        }
+
+        .mag-card h3 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.16rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            color: var(--ink);
+            margin-bottom: 0.55rem;
+            word-break: keep-all;
+        }
+
+        .mag-card p {
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+            line-height: 1.75;
+            word-break: keep-all;
+        }
+
+        .mag-card .meta {
+            margin-top: 0.8rem;
+            font-size: 0.83rem;
+            color: var(--ink-soft);
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        /* 정규 호는 크게 — 가로 배치 */
+        .mag-grid.feature { grid-template-columns: 1fr; gap: 2.4rem; }
+
+        .mag-grid.feature .mag-card {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.4rem;
+            align-items: start;
+        }
+
+        .mag-grid.feature .mag-card h3 { font-size: 1.6rem; }
+        .mag-grid.feature .mag-card p { font-size: 1rem; }
+
+        .mag-note {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 1.6rem 1.8rem;
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            background: var(--bg-elevated);
+            color: var(--ink-soft);
+            font-size: 0.93rem;
+            line-height: 1.85;
+        }
+
+        .mag-empty { color: var(--ink-soft); padding: 2rem 0; }
+
+        @media (max-width: 720px) {
+            .mag-grid.feature .mag-card { grid-template-columns: 1fr; gap: 1.2rem; }
+            .mag-grid.feature .mag-card h3 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">모두의 <span class="logo-highlight">문제</span> 연구소</a>
+            <div class="nav-links" id="nav-links">
+                <a href="about.html">소개</a>
+                <a href="magazine.html" class="active">매거진</a>
+                <a href="projects.html">프로젝트</a>
+                <a href="news.html">소식</a>
+                <a href="members.html">연구원</a>
+                <a href="department.html">학과</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- ─── Page Hero ──────────────────────────────── -->
+        <div class="page-hero">
+            <div class="container reveal-up">
+                <div class="page-hero-label">Magazine</div>
+                <h1>한 숫자가 <em style="font-style: italic; color: var(--accent); font-weight: 500;">가린 것</em>을 봅니다.</h1>
+                <p>공공데이터를 직접 분석해 지역 사회 문제를 기록합니다. 월 1회 심층 분석(정규 호)과 주 1회 단신(데이터 브리프) 두 형식으로 발행합니다.</p>
+            </div>
+        </div>
+
+        <!-- ─── 정규 호 ─────────────────────────────────── -->
+        <section>
+            <div class="container">
+                <div class="mag-section" id="sec-issue" hidden>
+                    <div class="mag-section-head">
+                        <h2>정규 호</h2><span>월 1회 · 심층 분석</span>
+                    </div>
+                    <div class="mag-grid feature" id="list-issue"></div>
+                </div>
+
+                <div class="mag-section" id="sec-brief" hidden>
+                    <div class="mag-section-head">
+                        <h2>데이터 브리프</h2><span>주 1회 · 차트 한 장과 문장 몇 개</span>
+                    </div>
+                    <div class="mag-grid" id="list-brief"></div>
+                </div>
+
+                <div class="mag-empty" id="mag-fallback" hidden>
+                    발행물 목록을 불러오지 못했습니다.
+                    <a href="https://magazine-4r3.pages.dev/" target="_blank" rel="noopener">매거진 사이트에서 바로 보기 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 검증 관문 안내 ──────────────────────────── -->
+        <section style="padding-top: 0;">
+            <div class="container">
+                <div class="mag-note">
+                    <strong style="color: var(--ink);">발행 전에 기계 검증을 반드시 통과합니다.</strong><br>
+                    본문의 모든 수치는 수치대장에 등록되고, 인용 수치는 원문에서 직접 확인한 위치가 기록된 것만 싣습니다.
+                    파생값은 원자료에서 다시 계산해 대조하고, 사실과 해석을 나눠 표시합니다.
+                    관문을 통과하지 못한 원고는 공개되지 않습니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CTA ─────────────────────────────────────── -->
+        <section style="text-align: center; padding: 5rem 0 6rem;">
+            <div class="container reveal-up" style="max-width: 680px;">
+                <span class="eyebrow">Join</span>
+                <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; margin: 1.4rem 0 1.4rem;">
+                    다음 호를 <em style="color: var(--accent);">함께</em> 만들 사람.
+                </h2>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.2rem;">
+                    <a href="apply.html" class="btn btn-primary" data-magnetic><i class="ri-user-add-line"></i> 연구원 지원하기</a>
+                    <a href="https://magazine-4r3.pages.dev/" target="_blank" rel="noopener" class="btn" data-magnetic><i class="ri-external-link-line"></i> 매거진 사이트</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ─── Footer ─────────────────────────────────────── -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="logo" style="color: var(--ink-on-dark); display: inline-block; margin-bottom: 1.2rem;">
+                        모두의 <span style="color: var(--accent); font-style: italic;">문제</span> 연구소
+                    </a>
+                    <p style="line-height: 1.85; max-width: 320px; font-size: 0.95rem;">
+                        수리데이터사이언스학과 공식 학회.<br>Data for All, Solutions for Society.
+                    </p>
+                </div>
+                <div>
+                    <h4>Pages</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.7rem; font-size: 0.92rem;">
+                        <a href="about.html">연구소 소개</a>
+                        <a href="magazine.html">매거진</a>
+                        <a href="projects.html">프로젝트</a>
+                        <a href="news.html">소식</a>
+                        <a href="members.html">연구원</a>
+                        <a href="department.html">학과</a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Follow</h4>
+                    <a href="https://www.instagram.com/moyeon_lab/" target="_blank" rel="noopener"
+                        style="display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.92rem;">
+                        <i class="ri-instagram-line" style="font-size: 1.15rem;"></i>
+                        <span>@moyeon_lab</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-copy">&copy; 2023–2026 모두의 문제 연구소. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="./js/common.js"></script>
+    <script src="./js/magazine-feed.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initNavigation();
+            initScrollAnimations();
+            initMagnetic();
+            initCursorGlow();
+            renderMagazine();
+        });
+    </script>
+</body>
+
+</html>
