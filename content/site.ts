@@ -20,6 +20,21 @@ export const site = {
   email: "moyeonlabs@gmail.com" as string | null,
 };
 
+/**
+ * 모연이 속한 학과와의 연결.
+ * 학과의 교육 목표·연구 분야 등 학과 고유의 설명은 여기에 옮겨 적지 않고
+ * 공식 홈페이지로 보낸다. (학과 소개를 임의로 요약해 적지 않기 위함)
+ */
+export const roots = {
+  departmentUrl: "https://mds.hanyang.ac.kr",
+  departmentNameEn: "Mathematical Data Science",
+  facts: [
+    { label: "소속", value: "한양대학교 ERICA 수리데이터사이언스학과" },
+    { label: "지도교수", value: "정혜영 교수" },
+    { label: "참여 자격", value: "전공 무관 · 한양대학교 ERICA 재학생" },
+  ],
+} as const;
+
 export const primaryNav: NavItem[] = [
   { label: "홈", href: "/" },
   { label: "모연 소개", href: "/about" },

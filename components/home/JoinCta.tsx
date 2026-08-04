@@ -10,7 +10,7 @@ export default function JoinCta() {
   return (
     <section className="container-page py-20 md:py-28">
       <div className="rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-8 py-16 text-center text-white md:px-16 md:py-20">
-        <SectionLabel index="08" dark>JOIN MOYEON</SectionLabel>
+        <SectionLabel index="09" dark>JOIN MOYEON</SectionLabel>
         <SectionHeading dark className="mx-auto max-w-3xl">
           당신이 발견한 문제에서,
           <br />

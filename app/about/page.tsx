@@ -4,6 +4,7 @@ import SectionLabel from "@/components/shared/SectionLabel";
 import ProcessTimeline from "@/components/shared/ProcessTimeline";
 import HistoryTimeline from "@/components/shared/HistoryTimeline";
 import RevealOnScroll from "@/components/shared/RevealOnScroll";
+import RootsSection from "@/components/home/RootsSection";
 import { site, coreValueList, processStepsDetailed } from "@/content/site";
 import { advisor } from "@/content/people";
 import { history } from "@/content/history";
@@ -97,6 +98,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <RootsSection />
 
       <section className="container-page py-20 md:py-24">
         <SectionLabel>지도교수</SectionLabel>

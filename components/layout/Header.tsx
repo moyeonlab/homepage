@@ -40,7 +40,10 @@ export default function Header() {
         className={`sticky top-0 z-50 transition-all duration-200 ${
           onDarkHero
             ? "border-b border-transparent bg-transparent"
-            : scrolled
+            : menuOpen
+              ? // 메뉴가 열리면 뒤의 어두운 Hero가 비치지 않도록 불투명하게 덮는다
+                "border-b border-[var(--color-border)] bg-white"
+              : scrolled
               ? "border-b border-[var(--color-border)] bg-white/95 shadow-[var(--shadow-sm)] backdrop-blur"
               : "border-b border-transparent bg-white/70 backdrop-blur"
         }`}

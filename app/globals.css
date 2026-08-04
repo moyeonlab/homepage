@@ -238,6 +238,27 @@ body {
   }
 }
 
+/* Hero 좌우 데이터 칩 - 파동 위에 떠 있는 느낌만 주는 아주 느린 부유 */
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.hero-float {
+  animation: heroFloat 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-float {
+    animation: none;
+  }
+}
+
 /* 데이터 격자 텍스처 - 밝은 섹션 배경에 옅게 깔아 정보의 결을 만든다 */
 .bg-data-grid {
   background-image:

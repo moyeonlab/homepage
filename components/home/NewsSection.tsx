@@ -8,7 +8,7 @@ export default function NewsSection() {
       <div className="container-page py-20 md:py-28">
         <div className="flex flex-col items-start justify-between gap-8 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-8 md:flex-row md:items-center md:p-12">
           <div>
-            <SectionLabel index="09">LATEST NEWS</SectionLabel>
+            <SectionLabel index="10">LATEST NEWS</SectionLabel>
             <SectionHeading className="max-w-xl !text-2xl md:!text-4xl">
               모연의 최근 활동을 만나보세요.
             </SectionHeading>

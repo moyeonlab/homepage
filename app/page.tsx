@@ -5,6 +5,7 @@ import ActivitiesPreview from "@/components/home/ActivitiesPreview";
 import ProjectsPreview from "@/components/home/ProjectsPreview";
 import StatsSection from "@/components/home/StatsSection";
 import HistoryPreview from "@/components/home/HistoryPreview";
+import RootsSection from "@/components/home/RootsSection";
 import PeoplePreview from "@/components/home/PeoplePreview";
 import JoinCta from "@/components/home/JoinCta";
 import NewsSection from "@/components/home/NewsSection";
@@ -19,6 +20,7 @@ export default function Home() {
       <ProjectsPreview />
       <StatsSection />
       <HistoryPreview />
+      <RootsSection />
       <PeoplePreview />
       <JoinCta />
       <NewsSection />

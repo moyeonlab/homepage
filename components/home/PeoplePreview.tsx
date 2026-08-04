@@ -8,7 +8,7 @@ export default function PeoplePreview() {
     <section className="bg-[var(--color-bg-soft)]">
       <div className="container-page grid gap-12 py-20 md:py-28 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <SectionLabel index="07">PEOPLE OF MOYEON</SectionLabel>
+          <SectionLabel index="08">PEOPLE OF MOYEON</SectionLabel>
           <SectionHeading>
             다양한 관점이 모여,
             <br />

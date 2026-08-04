@@ -1,4 +1,5 @@
 import Button from "@/components/shared/Button";
+import HeroSideDecor from "@/components/home/HeroSideDecor";
 import WaveMesh from "@/components/shared/WaveMesh";
 import { site, heroKeywords } from "@/content/site";
 import { recruitment } from "@/content/recruitment";
@@ -27,6 +28,9 @@ export default function Hero() {
       >
         y = Σ aᵢ · sin(ωᵢx + φᵢ)
       </p>
+
+      {/* 넓은 화면에서 좌우로 남는 여백을 채운다 */}
+      <HeroSideDecor />
 
       <div className="container-page relative flex min-h-[560px] flex-col items-center justify-center pt-32 pb-16 text-center md:min-h-[660px] md:pt-40 md:pb-20">
         <p className="text-sm font-semibold tracking-wide text-white/60">{site.heroEyebrow}</p>
