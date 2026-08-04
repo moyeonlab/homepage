@@ -104,10 +104,7 @@ export const activityCards = [
   },
 ];
 
-/**
- * 홈 "우리가 하는 일" 순차 전환 섹션.
- * TODO: 일러스트 3종은 외부 소스이므로 라이선스/출처 확인 필요.
- */
+/** 홈 "우리가 하는 일" 순차 전환 섹션. */
 export const workSteps = [
   {
     key: "COLLECT",
