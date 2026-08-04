@@ -38,6 +38,7 @@ export const roots = {
 export const primaryNav: NavItem[] = [
   { label: "홈", href: "/" },
   { label: "모연 소개", href: "/about" },
+  { label: "매거진", href: "/magazine" },
   { label: "활동", href: "/activities" },
   { label: "프로젝트", href: "/projects" },
   { label: "함께하는 사람들", href: "/people" },

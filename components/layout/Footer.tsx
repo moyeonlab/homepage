@@ -62,6 +62,11 @@ export default function Footer() {
                   "공식 이메일 업데이트 예정"
                 )}
               </li>
+              <li>
+                <Link href="/contact" className="text-sm text-white/80 hover:text-white">
+                  비즈니스 제안
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
