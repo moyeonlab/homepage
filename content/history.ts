@@ -1,7 +1,10 @@
 import type { HistoryEntry } from "@/lib/types";
 
 // 출처: 기존 홈페이지(sites.google.com/view/moyeon) 크롤링 자료 (moyeon_website_crawl.md, 2026-07-29 수집)
-// TODO: 2025년 이후 연혁 업데이트 필요
+// 2026년 7월 항목은 매거진 사이트 발행 이력으로 확인된 내용만 추가함(2026-08-04).
+// TODO: 2025년, 그리고 2026년의 나머지 활동(정기 모집·스터디 등) 업데이트 필요.
+//   2026년 여름 조직 개편·사업자 등록 관련 진행 사항은 아직 완료 전이라 공개 연혁에는
+//   싣지 않음 — 대외 공개 여부는 운영진 확인 후 결정.
 export const history: HistoryEntry[] = [
   {
     year: 2023,
@@ -37,6 +40,13 @@ export const history: HistoryEntry[] = [
     year: 2024,
     month: "11월",
     title: "자체 데이터 분석 대회 개최",
+  },
+  {
+    year: 2026,
+    month: "7월",
+    title: "모연 매거진 창간 — 데이터 저널리즘 정기 발행 시작",
+    description: "공공데이터로 지역 사회 문제를 기록하는 정기 매거진. 모든 수치는 발행 전 데이터 검증 관문을 통과합니다.",
+    link: "https://magazine-4r3.pages.dev",
   },
 ];
 
