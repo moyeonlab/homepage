@@ -1,0 +1,12 @@
+# 옛 정적 HTML 사이트(main, ~2026-08-04)의 경로를 새 Next.js 사이트 경로로 리다이렉트.
+# 인스타 프로필 링크, 인쇄물 QR코드, 검색엔진 인덱스가 옛 .html 경로를 가리키고 있어
+# 방문자가 404를 만나지 않도록 한다.
+/index.html         /                301
+/about.html          /about/          301
+/apply.html          /join/           301
+/contact.html        /contact/        301
+/department.html     /about/          301
+/magazine.html       /magazine/       301
+/members.html        /people/         301
+/news.html           /                301
+/projects.html       /projects/       301
