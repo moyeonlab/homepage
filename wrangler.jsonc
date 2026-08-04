@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "homepage",
+  "compatibility_date": "2026-07-28",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  // next build (output: "export") 결과물을 그대로 서빙한다
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}

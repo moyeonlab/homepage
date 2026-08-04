@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+/*
+  디자인 토큰 (placeholder)
+  - 공식 브랜드 가이드 확보 전까지 로고 이미지(public/images/logo.png)의 블루 톤을 기준으로 임시 지정.
+  - 색상 값을 바꿀 때는 이 블록만 수정하면 전체 사이트에 반영됨.
+*/
+:root {
+  --color-primary: #3952c4; /* 공식 로고에서 추출한 브랜드 블루 */
+  --color-primary-dark: #10193b; /* 딥네이비 - 어두운 섹션 배경 */
+  --color-primary-600: #2743a8;
+  --color-accent: #22b8cf; /* 밝은 블루/청록 - 링크, 아이콘, 강조 */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f6f7fb;
+  --color-bg-blue-soft: #eef2fc;
+  --color-text: #14172b;
+  --color-text-muted: #5b6072;
+  --color-border: #e4e6ef;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+  --color-info: #2563eb;
+
+  /* Hero 파동 메시 배경 */
+  --color-hero-from: #0a1233;
+  --color-hero-to: #17265e;
+  --color-hero-mesh: #60d6e8;
+  --color-hero-dot: #b0cdff;
+
+  /*
+    뿌리가 되는 한양대 ERICA 수리데이터사이언스학과의 공식 팔레트.
+    출처: mds.hanyang.ac.kr /comm/css/root.css
+    모연 고유색(--color-primary)은 로고에서 온 값이라 그대로 두고,
+    학과와의 연결을 드러내는 영역에서만 아래 색을 쓴다.
+  */
+  --color-dept: #00457e;
+  --color-dept-sub: #108ef5;
+  --color-dept-deep: #012d5e;
+  --color-dept-teal: #1fa38b;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 3px rgba(16, 25, 59, 0.06);
+  --shadow-md: 0 12px 32px rgba(16, 25, 59, 0.1);
+  --container-max: 1240px;
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Noto Sans KR", sans-serif;
+}
+
+/* 영문·숫자 전용 서체 (학과 홈페이지와 동일한 Poppins) */
+.font-eng {
+  font-family: var(--font-eng), var(--font-sans);
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-600: var(--color-primary-600);
+  --color-accent: var(--color-accent);
+  --color-bg: var(--color-bg);
+  --color-bg-soft: var(--color-bg-soft);
+  --color-bg-blue-soft: var(--color-bg-blue-soft);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  --font-sans: var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container-page {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 32px;
+  }
+}
+
+/* 스크롤 진입 애니메이션: prefers-reduced-motion 존중 */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/*
+  Hero 슬로건 강조 - '문제'와 '해답'이 번갈아 살아났다 가라앉는다.
+  한 사이클 9초: 문제(0~4.5s) -> 해답(4.5~9s)
+  - .kw-mark  : 단어 뒤 하이라이트 바가 좌에서 우로 채워졌다 사라짐
+  - .kw-ghost : 살짝 어긋난 잔상(쉐도잉)이 떠올랐다 사라짐
+*/
+@keyframes kwMark {
+  0%,
+  4% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  12%,
+  40% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  48%,
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes kwGhost {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  16%,
+  38% {
+    opacity: 0.55;
+    transform: translate(0.09em, 0.07em);
+  }
+  50%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes kwLift {
+  0%,
+  6% {
+    text-shadow: none;
+  }
+  16%,
+  38% {
+    text-shadow: 0 0 28px rgba(34, 184, 207, 0.45);
+  }
+  50%,
+  100% {
+    text-shadow: none;
+  }
+}
+
+.kw {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* 기본 상태를 0% 키프레임과 같게 둔다.
+   그러지 않으면 animation-delay가 흐르는 동안 강조가 켜진 채로 남는다. */
+.kw-mark {
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.08em;
+  height: 0.42em;
+  border-radius: 0.06em;
+  transform: scaleX(0);
+  opacity: 0;
+  transform-origin: left center;
+  animation: kwMark 9s ease-in-out infinite both;
+}
+
+.kw-ghost {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: kwGhost 9s ease-in-out infinite both;
+}
+
+.kw-text {
+  position: relative;
+  animation: kwLift 9s ease-in-out infinite both;
+}
+
+/* '해답'은 반 사이클 뒤에 이어받는다 */
+.kw-delay .kw-mark,
+.kw-delay .kw-ghost,
+.kw-delay .kw-text {
+  animation-delay: 4.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kw-mark,
+  .kw-ghost,
+  .kw-text {
+    animation: none;
+  }
+  .kw-ghost {
+    opacity: 0;
+  }
+  .kw-mark {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* 데이터 격자 텍스처 - 밝은 섹션 배경에 옅게 깔아 정보의 결을 만든다 */
+.bg-data-grid {
+  background-image:
+    linear-gradient(to right, rgba(20, 23, 43, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 23, 43, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+}
+
+/* 데이터 점 격자 - 어두운 섹션용 */
+.bg-data-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 20%, transparent 100%);
+}
+
+/* 키보드 포커스 표시 */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
