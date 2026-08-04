@@ -68,3 +68,13 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
+
+export interface NewsItem {
+  id: number;
+  date: string;
+  category: string;
+  title: string;
+  body: string;
+  image: string;
+  link: string;
+}

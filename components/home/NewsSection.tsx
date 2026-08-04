@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SectionLabel from "@/components/shared/SectionLabel";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { site } from "@/content/site";
@@ -13,20 +14,25 @@ export default function NewsSection() {
               모연의 최근 활동을 만나보세요.
             </SectionHeading>
             <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-[var(--color-text-muted)]">
-              카드뉴스, 활동 공지, 프로젝트 결과 등 모연의 소식은 공식 Instagram과 이메일로 만나볼 수
-              있습니다.
+              스터디, 프로젝트 발표, 모집, 행사 — 모연의 소식을 확인해보세요.
             </p>
           </div>
 
           <div className="flex w-full shrink-0 flex-col gap-3 md:w-auto">
+            <Link
+              href="/news"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-primary)] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-primary-600)]"
+            >
+              소식 전체 보기
+              <span aria-hidden>→</span>
+            </Link>
             <a
               href={site.instagramUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-primary)] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--color-primary-600)]"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[var(--color-border)] px-6 py-3.5 text-[15px] font-semibold text-[var(--color-text)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
             >
               Instagram {site.instagramHandle}
-              <span aria-hidden>→</span>
             </a>
             {site.email && (
               <a

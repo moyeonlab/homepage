@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 const SITE_URL = "https://homepage.moyeonlabs.workers.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/activities", "/magazine", "/projects", "/people", "/join", "/contact"].map(
+  const staticRoutes = ["", "/about", "/activities", "/magazine", "/news", "/projects", "/people", "/join", "/contact"].map(
     (path) => ({
       url: `${SITE_URL}${path}${path ? "/" : ""}`,
       lastModified: new Date(),
