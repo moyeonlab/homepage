@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Poppins } from "next/font/google";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
@@ -29,7 +28,7 @@ const SITE_URL = "https://homepage.moyeonlabs.workers.dev";
  * 비어 있으면 아무것도 렌더링하지 않는다. 넣기 전까지는 **방문자 수를 아무도 모른다.**
  * 확인법: 배포 뒤 페이지 소스에 `beacon.min.js` 가 보이면 켜진 것이다.
  */
-const CF_ANALYTICS_TOKEN = "";
+const CF_ANALYTICS_TOKEN = "69ab4532514b40dcb6d2b2d6dd441e80";
 const TITLE = "MOYEON | 모두의문제연구소";
 const DESCRIPTION =
   "데이터를 통해 우리 주변의 문제를 발견하고, 다양한 전공의 학생들과 함께 모두를 위한 해결책을 만들어가는 한양대학교 학생 학회, 모두의문제연구소(MOYEON)입니다.";
@@ -69,11 +68,15 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* ★ 클라우드플레어가 준 스니펫 그대로 — type="module".
+            지금 beacon.min.js 는 ES 모듈이라 classic script 로 부르면 실행이 안 될 수 있다.
+            next/script 대신 평범한 <script> 를 쓴다 — 정적 내보내기(output: "export")라
+            이 태그가 그대로 HTML 에 실려 나가고, 그게 클라우드플레어가 기대하는 형태다. */}
         {CF_ANALYTICS_TOKEN && (
-          <Script
+          <script
+            type="module"
             src="https://static.cloudflareinsights.com/beacon.min.js"
             data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
-            strategy="afterInteractive"
           />
         )}
       </body>
