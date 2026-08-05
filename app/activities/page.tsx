@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import SectionLabel from "@/components/shared/SectionLabel";
 import RevealOnScroll from "@/components/shared/RevealOnScroll";
 import { processStepsDetailed, detailedActivities, bootcamp } from "@/content/site";
 import SectionHeading from "@/components/shared/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "활동 | MOYEON",
-  description: "모두의문제연구소의 문제 해결 프로세스와 주요 활동을 소개합니다.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "활동",
+  description:
+    "모두의문제연구소의 문제 해결 프로세스와 주요 활동을 소개합니다.",
+  path: "/activities",
+});
 
 export default function ActivitiesPage() {
   return (

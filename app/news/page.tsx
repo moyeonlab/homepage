@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import Image from "next/image";
 import PageHero from "@/components/shared/PageHero";
 import Badge from "@/components/shared/Badge";
 import { getNewsItems } from "@/lib/news";
 
-export const metadata: Metadata = {
-  title: "소식 | MOYEON",
-  description: "스터디, 프로젝트 발표, 모집, 행사 — 모두의문제연구소의 활동 기록.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "소식",
+  description:
+    "스터디, 프로젝트 발표, 모집, 행사 — 모두의문제연구소의 활동 기록.",
+  path: "/news",
+});
 
 export default function NewsPage() {
   const items = getNewsItems();

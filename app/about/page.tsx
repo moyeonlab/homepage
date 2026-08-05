@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import SectionLabel from "@/components/shared/SectionLabel";
 import ProcessTimeline from "@/components/shared/ProcessTimeline";
@@ -10,10 +11,12 @@ import { advisor } from "@/content/people";
 import { history } from "@/content/history";
 import SectionHeading from "@/components/shared/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "모연 소개 | MOYEON",
-  description: "모두의문제연구소의 설립 배경, 핵심 가치, 활동 방식과 지도교수를 소개합니다.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "모연 소개",
+  description:
+    "모두의문제연구소의 설립 배경, 핵심 가치, 활동 방식과 지도교수를 소개합니다.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

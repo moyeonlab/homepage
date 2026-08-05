@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import SectionLabel from "@/components/shared/SectionLabel";
 import { advisor, currentOfficers, departments, pastPresidents } from "@/content/people";
 import SectionHeading from "@/components/shared/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "함께하는 사람들 | MOYEON",
-  description: "모두의문제연구소 지도교수, 운영진, 역대 회장단을 소개합니다.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "함께하는 사람들",
+  description:
+    "모두의문제연구소 지도교수, 운영진, 역대 회장단을 소개합니다.",
+  path: "/people",
+});
 
 export default function PeoplePage() {
   return (

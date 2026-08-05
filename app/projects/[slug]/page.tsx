@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -19,11 +20,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
-  if (!project) return { title: "프로젝트 | MOYEON" };
-  return {
-    title: `${project.title} | MOYEON`,
+  if (!project) return pageMeta({ title: "프로젝트", description: "", path: "/projects" });
+  return pageMeta({
+    title: project.title,
     description: project.summary,
-  };
+    path: `/projects/${project.slug}`,
+    // 썸네일이 있으면 공유 미리보기로 쓴다 — 로고보다 훨씬 잘 눌린다
+    image: project.thumbnail,
+  });
 }
 
 export default async function ProjectDetailPage({

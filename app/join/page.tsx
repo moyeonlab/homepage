@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import SectionLabel from "@/components/shared/SectionLabel";
 import Badge from "@/components/shared/Badge";
@@ -6,10 +7,12 @@ import { recruitment, applicationSteps, targetCriteria, activityContent } from "
 import { faq } from "@/content/faq";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "지원하기 | MOYEON",
-  description: "모두의문제연구소 지원 대상, 활동 내용, 모집 정보와 FAQ를 안내합니다.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "지원하기",
+  description:
+    "모두의문제연구소 지원 대상, 활동 내용, 모집 정보와 FAQ를 안내합니다.",
+  path: "/join",
+});
 
 const statusTone: Record<string, "soft" | "outline"> = {
   모집중: "soft",

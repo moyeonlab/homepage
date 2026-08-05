@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import MagazineGrid from "@/components/magazine/MagazineGrid";
 
-export const metadata: Metadata = {
-  title: "매거진 | MOYEON",
+export const metadata: Metadata = pageMeta({
+  title: "매거진",
   description:
     "모연 데이터 저널리즘 매거진 — 공공데이터로 지역 사회 문제를 기록합니다. 모든 수치는 발행 전 검증 관문을 통과합니다.",
-};
+  path: "/magazine",
+});
 
 export default function MagazinePage() {
   return (

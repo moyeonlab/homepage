@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/meta";
 import PageHero from "@/components/shared/PageHero";
 import SectionLabel from "@/components/shared/SectionLabel";
 import SectionHeading from "@/components/shared/SectionHeading";
@@ -7,10 +8,12 @@ import RevealOnScroll from "@/components/shared/RevealOnScroll";
 import { whyUs, collabTypes, collabProcess } from "@/content/contact";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "비즈니스 제안 | MOYEON",
-  description: "모두의문제연구소에 산학협력 및 협업을 제안해 주세요.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "비즈니스 제안",
+  description:
+    "모두의문제연구소에 산학협력 및 협업을 제안해 주세요.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
