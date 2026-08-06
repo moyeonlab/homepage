@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
+    "magazine:sync": "node scripts/sync-magazine.mjs",
+    "prebuild": "node scripts/sync-magazine.mjs",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
