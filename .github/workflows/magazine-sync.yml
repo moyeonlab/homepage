@@ -1,0 +1,61 @@
+# 매거진 발행물 목록 동기화 — 새 호가 **검색엔진에도** 보이게
+#
+# 왜 필요한가 (2026-08-06 실측으로 발견)
+#   매거진 탭은 두 겹으로 돈다:
+#     · 정적 HTML  = content/magazine-snapshot.json 을 빌드 때 구워 넣은 것 → **검색엔진이 보는 것**
+#     · 브라우저    = 매거진의 index.json 을 실시간으로 불러 갱신 → **사람이 보는 것**
+#
+#   매거진에 B05·B06·B07 을 발행했더니 사람에게는 8편이 보이는데
+#   **정적 HTML 에는 5편만 있었다.** 홈페이지가 다시 배포되지 않았기 때문이다.
+#   즉 **새 발행물이 검색에 잡히려면 홈페이지도 배포돼야 하는데, 아무도 그걸 부르지 않았다.**
+#   사람이 기억해야 하는 절차는 결국 잊힌다.
+#
+#   → 매주 스냅샷을 받아 달라졌으면 커밋한다. 그 push 가 Cloudflare 빌드를 부르고,
+#     빌드의 prebuild 가 다시 최신 스냅샷을 받아 정적 HTML 에 굽는다.
+#
+# 왜 매거진 쪽에서 이 저장소를 직접 부르지 않나
+#   저장소를 넘나들려면 토큰을 하나 더 만들어 두 곳에 관리해야 한다.
+#   발행이 주 1~2편이라 **주간 동기화로 충분**하고, 급하면 Run workflow 를 누르면 된다.
+#   토큰을 늘리지 않는 쪽을 택했다.
+
+name: 매거진 목록 동기화
+
+on:
+  schedule:
+    # UTC 22:30 일요일 = KST 07:30 월요일 (매거진 주간 보드가 07:00 에 돈 뒤)
+    - cron: "30 22 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: magazine-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 매거진 목록 받아오기
+        run: node scripts/sync-magazine.mjs
+
+      - name: 달라졌으면 커밋
+        run: |
+          git config user.name  "moyeon-bot"
+          git config user.email "moyeon-bot@users.noreply.github.com"
+          git add content/magazine-snapshot.json
+          if git diff --staged --quiet; then
+            echo "발행물 목록에 변동 없음 — 커밋하지 않습니다"
+            exit 0
+          fi
+          n=$(node -e "console.log(require('./content/magazine-snapshot.json').발행물.length)")
+          git commit -m "매거진 발행물 목록 동기화 — ${n}건"
+          git push
