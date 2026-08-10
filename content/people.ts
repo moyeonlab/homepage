@@ -47,14 +47,14 @@ export const departments = [
   },
 ];
 
-// 출처: 기존 홈페이지 크롤링 자료 (moyeon_website_crawl.md)
-// 2026년 두 명은 회장 확인 완료 (2026-08-10). 기수↔학기 매핑은 미확인이라 기존 표기를 유지한다.
-// TODO: 직책 명칭 및 최신 여부 확인 권장 · 2025년 회장 확인 시 추가
+// 명단 출처: 기존 홈페이지 크롤링 자료 (moyeon_website_crawl.md, 기수 표기: 1기 임수민 · 2기 한경민 · 3기 김종호 · 4기 황은성)
+// 시기 매핑: 회장 확인 (2026-08-10 구술) — 임수민 2023(1년) · 한경민 2024-1 · 김종호 2024-2 · 황은성 2025(1·2학기).
+// 한경민의 재임 학기는 확신이 낮다고 함 — 정정되면 여기만 고치면 된다.
 export const pastPresidents: Person[] = [
-  { name: "임수민", role: "회장", generation: "1기" },
-  { name: "한경민", role: "회장", generation: "2기" },
-  { name: "김종호", role: "회장", generation: "3기" },
-  { name: "황은성", role: "회장", generation: "4기" },
+  { name: "임수민", role: "회장", generation: "2023 · 창립" },
+  { name: "한경민", role: "회장", generation: "2024 1학기" },
+  { name: "김종호", role: "회장", generation: "2024 2학기" },
+  { name: "황은성", role: "회장", generation: "2025" },
   { name: "황원준", role: "회장", generation: "2026 1학기" },
   { name: "나동욱", role: "회장", generation: "2026 2학기 · 현재" },
 ];
