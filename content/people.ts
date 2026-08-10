@@ -54,7 +54,7 @@ export const pastPresidents: Person[] = [
   { name: "임수민", role: "회장", generation: "2023 · 창립" },
   { name: "한경민", role: "회장", generation: "2024 1학기" },
   { name: "김종호", role: "회장", generation: "2024 2학기" },
-  { name: "황은성", role: "회장", generation: "2025" },
+  { name: "황은성", role: "회장", generation: "2025 1·2학기" },
   { name: "황원준", role: "회장", generation: "2026 1학기" },
   { name: "나동욱", role: "회장", generation: "2026 2학기 · 현재" },
 ];
