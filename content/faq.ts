@@ -14,6 +14,10 @@ export const faq: FaqItem[] = [
     answer: "학년 제한 없이 지원할 수 있습니다.",
   },
   {
+    question: "면접이 있나요?",
+    answer: "없습니다. 지원서 검토만으로 선발하며, 접수는 공식 이메일(moyeonlabs@gmail.com)로 받습니다.",
+  },
+  {
     question: "학회비가 있나요?",
     answer:
       "기존 모집 기준으로 학회비는 없었으나, 현재 운영 기준을 확인한 뒤 최신 정보로 게시하겠습니다.",

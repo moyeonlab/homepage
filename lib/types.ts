@@ -54,6 +54,10 @@ export interface RecruitmentInfo {
   status: RecruitmentStatus;
   startDate?: string;
   endDate?: string;
+  /** 확정 전 임시 표기 (예: "2026년 9월 초 예정") — startDate/endDate 확정 시 무시됨 */
+  periodNote?: string;
+  /** 접수 방법 (예: "공식 이메일 접수") */
+  applyMethod?: string;
   activityPeriod?: string;
   target: string;
   fee?: string;

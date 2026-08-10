@@ -69,7 +69,7 @@ export default function JoinPage() {
               <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">
                 {recruitment.startDate && recruitment.endDate
                   ? `${recruitment.startDate} ~ ${recruitment.endDate}`
-                  : "업데이트 예정"}
+                  : recruitment.periodNote ?? "업데이트 예정"}
               </dd>
             </div>
             <div>
@@ -98,6 +98,12 @@ export default function JoinPage() {
               <dt className="text-xs font-semibold text-[var(--color-text-muted)]">합격 발표일</dt>
               <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">
                 {recruitment.announceDate ?? "업데이트 예정"}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs font-semibold text-[var(--color-text-muted)]">접수 방법</dt>
+              <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">
+                {recruitment.applyMethod ?? "업데이트 예정"}
               </dd>
             </div>
           </dl>
