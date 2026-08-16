@@ -10,7 +10,7 @@ export default function ProjectsPreview() {
   const [first, ...rest] = featured;
 
   return (
-    <section className="container-page py-20 md:py-28">
+    <section className="container-page py-24 md:py-32">
       <SectionLabel index="04">OUR PROJECTS</SectionLabel>
       <SectionHeading className="max-w-3xl">
         데이터로 문제를 바라보고,
@@ -44,7 +44,7 @@ export default function ProjectsPreview() {
       )}
 
       <div className="mt-12">
-        <Button href="/projects" variant="secondary">
+        <Button href="/projects" variant="text" className="group">
           모든 프로젝트 보기
         </Button>
       </div>

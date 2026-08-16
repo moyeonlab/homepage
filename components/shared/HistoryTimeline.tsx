@@ -19,7 +19,7 @@ export default function HistoryTimeline({ entries }: { entries: HistoryEntry[] }
                     aria-hidden
                     className="absolute -left-[26px] top-1.5 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"
                   />
-                  <p className="text-sm font-semibold text-[var(--color-accent)]">{entry.month}</p>
+                  <p className="text-sm font-semibold text-[var(--color-accent-ink)]">{entry.month}</p>
                   <p className="mt-1 text-[15px] font-medium text-[var(--color-text)]">{entry.title}</p>
                   {entry.description && (
                     <p className="mt-1 text-sm text-[var(--color-text-muted)]">{entry.description}</p>

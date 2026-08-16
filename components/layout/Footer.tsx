@@ -15,13 +15,13 @@ export default function Footer() {
           {/* 우리가 어디에 속해 있는지를 마지막까지 분명히 둔다 */}
           <dl className="mt-8 space-y-1.5 text-sm">
             <div className="flex gap-2">
-              <dt className="w-16 shrink-0 text-white/45">소속</dt>
+              <dt className="w-16 shrink-0 text-white/55">소속</dt>
               <dd className="text-white/80">
                 {site.campus} {site.department}
               </dd>
             </div>
             <div className="flex gap-2">
-              <dt className="w-16 shrink-0 text-white/45">지도교수</dt>
+              <dt className="w-16 shrink-0 text-white/55">지도교수</dt>
               <dd className="text-white/80">{site.advisor}</dd>
             </div>
           </dl>

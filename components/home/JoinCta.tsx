@@ -8,7 +8,7 @@ export default function JoinCta() {
   const isOpen = recruitment.status === "모집중";
 
   return (
-    <section className="container-page py-20 md:py-28">
+    <section className="container-page py-24 md:py-32">
       <div className="rounded-[var(--radius-lg)] bg-[var(--color-primary)] px-8 py-16 text-center text-white md:px-16 md:py-20">
         <SectionLabel index="09" dark>JOIN MOYEON</SectionLabel>
         <SectionHeading dark className="mx-auto max-w-3xl">

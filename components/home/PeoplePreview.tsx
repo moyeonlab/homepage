@@ -6,10 +6,10 @@ import { advisor, currentOfficers, pastPresidents } from "@/content/people";
 export default function PeoplePreview() {
   return (
     <section className="bg-[var(--color-bg-soft)]">
-      <div className="container-page grid gap-12 py-20 md:py-28 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
+      <div className="container-page grid gap-12 py-16 md:py-20 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
         <div>
-          <SectionLabel index="08">PEOPLE OF MOYEON</SectionLabel>
-          <SectionHeading>
+          <SectionLabel index="07">PEOPLE OF MOYEON</SectionLabel>
+          <SectionHeading size="md">
             다양한 관점이 모여,
             <br />
             하나의 해답을 만듭니다.
@@ -19,7 +19,7 @@ export default function PeoplePreview() {
             함께 문제를 정의하고 해결책을 만들어갑니다.
           </p>
           <div className="mt-8">
-            <Button href="/people" variant="secondary">
+            <Button href="/people" variant="text" className="group">
               함께하는 사람들 보기
             </Button>
           </div>
@@ -31,7 +31,7 @@ export default function PeoplePreview() {
               정
             </div>
             <div>
-              <p className="text-xs font-semibold tracking-wider text-[var(--color-accent)]">
+              <p className="text-xs font-semibold tracking-wider text-[var(--color-accent-ink)]">
                 지도교수
               </p>
               <p className="mt-1.5 text-lg font-bold text-[var(--color-text)]">{advisor.name}</p>
@@ -41,7 +41,7 @@ export default function PeoplePreview() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-sm)]">
-              <p className="text-xs font-semibold tracking-wider text-[var(--color-accent)]">
+              <p className="text-xs font-semibold tracking-wider text-[var(--color-accent-ink)]">
                 역대 회장단
               </p>
               <p className="mt-2 text-3xl font-extrabold tracking-tight text-[var(--color-primary)]">
@@ -66,7 +66,7 @@ export default function PeoplePreview() {
               </div>
             ) : (
               <div className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-sm)]">
-                <p className="text-xs font-semibold tracking-wider text-[var(--color-accent)]">
+                <p className="text-xs font-semibold tracking-wider text-[var(--color-accent-ink)]">
                   현재 운영진
                 </p>
                 <p className="mt-2 text-3xl font-extrabold tracking-tight text-[var(--color-primary)]">

@@ -11,7 +11,7 @@ export default function AboutPreview() {
       {/* 데이터 격자 텍스처 */}
       <div aria-hidden className="bg-data-grid pointer-events-none absolute inset-0" />
 
-      <div className="container-page relative py-20 md:py-28">
+      <div className="container-page relative py-24 md:py-32">
         <SectionLabel index="01">ABOUT MOYEON</SectionLabel>
         <SectionHeading className="max-w-3xl">모연은 어떤 학회인가요?</SectionHeading>
         <div className="mt-6 max-w-2xl space-y-4 text-[15px] leading-relaxed text-[var(--color-text-muted)] md:text-base">

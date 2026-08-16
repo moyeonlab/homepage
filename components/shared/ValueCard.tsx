@@ -28,7 +28,7 @@ export default function ValueCard({
       )}
 
       <div className="relative">
-        <p className="text-sm font-bold tracking-widest text-[var(--color-accent)]">{eyebrow}</p>
+        <p className="text-sm font-bold tracking-widest text-[var(--color-accent-ink)]">{eyebrow}</p>
         <h3 className="mt-3 text-lg font-bold tracking-tight text-[var(--color-text)]">{title}</h3>
         <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-text-muted)]">
           {description}

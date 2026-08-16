@@ -154,7 +154,7 @@ export default function JoinPage() {
                   {item.question}
                   <span
                     aria-hidden
-                    className="shrink-0 text-[var(--color-accent)] transition-transform group-open:rotate-45"
+                    className="shrink-0 text-[var(--color-accent-ink)] transition-transform group-open:rotate-45"
                   >
                     +
                   </span>

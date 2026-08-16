@@ -27,7 +27,7 @@ export default function PeoplePage() {
           <div>
             <p className="text-lg font-bold text-[var(--color-text)]">{advisor.name}</p>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">{advisor.department}</p>
-            <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">{advisor.role}</p>
+            <p className="mt-1 text-sm font-medium text-[var(--color-accent-ink)]">{advisor.role}</p>
           </div>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function PeoplePage() {
                     {person.name.slice(0, 1)}
                   </span>
                   <div>
-                    <p className="text-xs font-semibold tracking-wider text-[var(--color-accent)]">
+                    <p className="text-xs font-semibold tracking-wider text-[var(--color-accent-ink)]">
                       {person.role}
                     </p>
                     <p className="mt-1 text-base font-bold text-[var(--color-text)]">{person.name}</p>
@@ -106,7 +106,7 @@ export default function PeoplePage() {
         <ul className="mt-10 divide-y divide-[var(--color-border)] rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white">
           {pastPresidents.map((person) => (
             <li key={person.generation} className="flex items-center justify-between gap-4 px-6 py-5">
-              <span className="text-sm font-semibold text-[var(--color-accent)]">{person.generation}</span>
+              <span className="text-sm font-semibold text-[var(--color-accent-ink)]">{person.generation}</span>
               <span className="flex-1 text-base font-medium text-[var(--color-text)]">{person.name}</span>
               <span className="text-sm text-[var(--color-text-muted)]">{person.role}</span>
             </li>

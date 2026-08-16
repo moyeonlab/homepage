@@ -143,7 +143,6 @@ export const processSteps = [
   "결과 공유",
 ];
 
-export const homeProcessSteps = ["문제 발견", "데이터 수집", "분석과 해석", "해결책 제안", "결과 공유"];
 
 export const processStepsDetailed = [
   { title: "문제 발견", description: "사회와 학교, 지역사회에서 반복되는 문제를 관찰합니다." },

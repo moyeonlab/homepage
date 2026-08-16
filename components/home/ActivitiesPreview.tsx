@@ -1,17 +1,16 @@
 import SectionLabel from "@/components/shared/SectionLabel";
-import ProcessTimeline from "@/components/shared/ProcessTimeline";
 import RevealOnScroll from "@/components/shared/RevealOnScroll";
 import Button from "@/components/shared/Button";
-import { activityCards, homeProcessSteps } from "@/content/site";
+import { activityCards } from "@/content/site";
 import SectionHeading from "@/components/shared/SectionHeading";
 
 export default function ActivitiesPreview() {
   return (
     <section className="relative overflow-hidden bg-[var(--color-primary-dark)] text-white">
       <div aria-hidden className="bg-data-dots pointer-events-none absolute inset-0" />
-      <div className="container-page relative py-20 md:py-28">
+      <div className="container-page relative py-16 md:py-20">
         <SectionLabel index="03" dark>WHAT WE DO</SectionLabel>
-        <SectionHeading dark className="max-w-3xl">
+        <SectionHeading dark size="md" className="max-w-3xl">
           문제를 발견하고,
           <br />
           해답을 만들어갑니다.
@@ -22,11 +21,7 @@ export default function ActivitiesPreview() {
           카드뉴스, 보고서, 발표, 공모전 등 다양한 방식으로 결과를 공유합니다.
         </p>
 
-        <div className="mt-14">
-          <ProcessTimeline steps={homeProcessSteps} dark />
-        </div>
-
-        <div className="mt-14 grid gap-5 sm:grid-cols-2">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {activityCards.map((card, i) => (
             <RevealOnScroll key={card.key} delay={i * 80}>
               <div className="h-full rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-7">
@@ -43,7 +38,7 @@ export default function ActivitiesPreview() {
         </p>
 
         <div className="mt-8">
-          <Button href="/activities" variant="secondary" className="!border-white !text-white hover:!bg-white/10">
+          <Button href="/activities" variant="text" className="group !text-white hover:!text-white/80">
             모연의 활동 자세히 보기
           </Button>
         </div>

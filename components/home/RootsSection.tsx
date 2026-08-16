@@ -15,13 +15,13 @@ export default function RootsSection() {
         className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[var(--color-dept-sub)] opacity-15 blur-3xl"
       />
 
-      <div className="container-page relative grid gap-12 py-20 md:py-28 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
+      <div className="container-page relative grid gap-12 py-16 md:py-20 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
         {/* break-keep: 한글이 단어 중간에서 끊기지 않게 한다 */}
         <div className="break-keep">
-          <SectionLabel index="07" dark>
+          <SectionLabel index="06" dark>
             OUR ROOTS
           </SectionLabel>
-          <SectionHeading dark className="max-w-2xl">
+          <SectionHeading dark size="md" className="max-w-2xl">
             모연은 수리데이터사이언스학과에서 출발했습니다.
           </SectionHeading>
 

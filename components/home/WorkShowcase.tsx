@@ -10,7 +10,10 @@ const DURATION = 5000; // 자동 전환 주기(ms)
 
 export default function WorkShowcase() {
   const [active, setActive] = useState(0);
+  // paused: 마우스/포커스가 올라가 있는 동안의 일시 정지
+  // stopped: 사용자가 버튼으로 명시적으로 끈 상태 (WCAG 2.2.2)
   const [paused, setPaused] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -26,17 +29,17 @@ export default function WorkShowcase() {
   }, []);
 
   useEffect(() => {
-    if (!onScreen || paused) return;
+    if (!onScreen || paused || stopped) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setTimeout(() => setActive((i) => (i + 1) % workSteps.length), DURATION);
     return () => clearTimeout(id);
-  }, [active, onScreen, paused]);
+  }, [active, onScreen, paused, stopped]);
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden">
       <div aria-hidden className="bg-data-grid pointer-events-none absolute inset-0" />
 
-      <div className="container-page relative py-20 md:py-28">
+      <div className="container-page relative py-24 md:py-32">
         <SectionLabel index="02">HOW WE WORK</SectionLabel>
         <SectionHeading className="max-w-3xl">우리는 이렇게 일합니다.</SectionHeading>
         <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-[var(--color-text-muted)] md:text-base">
@@ -47,6 +50,8 @@ export default function WorkShowcase() {
           className="mt-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
         >
           {/* 일러스트 — 순차적으로 교차 전환 */}
           <div className="relative order-1 aspect-square w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-primary-dark)] shadow-[var(--shadow-md)] lg:order-2">
@@ -68,6 +73,23 @@ export default function WorkShowcase() {
                 />
               </div>
             ))}
+
+            {/* 자동 전환을 멈출 수단. 마우스가 없는 사용자에게도 반드시 필요하다 (WCAG 2.2.2) */}
+            <button
+              type="button"
+              onClick={() => setStopped((v) => !v)}
+              aria-label={stopped ? "자동 전환 다시 재생" : "자동 전환 일시정지"}
+              className="absolute right-4 bottom-4 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur transition-colors hover:bg-black/75"
+            >
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-4 w-4"
+              >
+                {stopped ? <path d="M8 5v14l11-7z" /> : <path d="M8 5h3v14H8zm5 0h3v14h-3z" />}
+              </svg>
+            </button>
           </div>
 
           {/* 단계 목록 — 클릭으로도 이동 가능 */}
@@ -99,7 +121,7 @@ export default function WorkShowcase() {
                       <span
                         className={`font-eng text-[11px] font-bold tracking-[0.18em] transition-colors ${
                           isActive
-                            ? "text-[var(--color-accent)]"
+                            ? "text-[var(--color-accent-ink)]"
                             : "text-[var(--color-text-muted)]"
                         }`}
                       >
@@ -138,7 +160,8 @@ export default function WorkShowcase() {
                           isActive ? "scale-x-100" : "scale-x-0"
                         }`}
                         style={{
-                          transitionDuration: isActive && !paused ? `${DURATION}ms` : "300ms",
+                          transitionDuration:
+                            isActive && !paused && !stopped ? `${DURATION}ms` : "300ms",
                         }}
                       />
                     </span>

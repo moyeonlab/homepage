@@ -13,7 +13,7 @@ export default function SectionLabel({
       {index ? (
         <>
           <span
-            className={`font-eng text-xs ${dark ? "text-white/40" : "text-[var(--color-text-muted)]"}`}
+            className={`font-eng text-xs ${dark ? "text-white/55" : "text-[var(--color-text-muted)]"}`}
           >
             {index}
           </span>
@@ -25,7 +25,12 @@ export default function SectionLabel({
       ) : (
         <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden />
       )}
-      <span className="font-eng text-[var(--color-accent)]">{children}</span>
+      {/* 밝은 배경에서는 대비를 확보한 accent-ink, 어두운 배경에서는 원래의 accent */}
+      <span
+        className={`font-eng ${dark ? "text-[var(--color-accent)]" : "text-[var(--color-accent-ink)]"}`}
+      >
+        {children}
+      </span>
     </span>
   );
 }

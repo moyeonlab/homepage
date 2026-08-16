@@ -110,7 +110,7 @@ export default function AboutPage() {
           <div>
             <p className="text-lg font-bold text-[var(--color-text)]">{advisor.name}</p>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">{advisor.department}</p>
-            <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">{advisor.role}</p>
+            <p className="mt-1 text-sm font-medium text-[var(--color-accent-ink)]">{advisor.role}</p>
             <p className="mt-3 text-xs text-[var(--color-text-muted)]">
               상세 약력과 인사말은 공식 자료 제공 시 추가될 예정입니다.
             </p>
