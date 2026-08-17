@@ -19,7 +19,7 @@ export default function Hero() {
           <p className="bp-label">{site.heroEyebrow}</p>
         </Wipe>
 
-        <h1 className="mt-8 bp-headline text-[clamp(3rem,9vw,9rem)] leading-[1.02]">
+        <h1 className="mt-8 bp-headline text-[clamp(2.25rem,8vw,9rem)] leading-[1.02]">
           <Wipe delay={140}>
             <span>모두의 문제를,</span>
           </Wipe>

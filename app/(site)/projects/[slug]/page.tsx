@@ -62,7 +62,7 @@ export default async function ProjectDetailPage({
             </p>
           </Wipe>
 
-          <h1 className="mt-8 max-w-4xl text-[clamp(2.2rem,6vw,5.4rem)] leading-[1.08] bp-headline">
+          <h1 className="mt-8 max-w-4xl text-[clamp(1.9rem,5.4vw,5.4rem)] leading-[1.08] bp-headline">
             <Wipe delay={140}>
               <span>{project.title}</span>
             </Wipe>
@@ -127,7 +127,7 @@ export default async function ProjectDetailPage({
           </Wipe>
           <Link href={`/projects/${next.slug}`} className="group mt-8 block">
             <Wipe delay={120}>
-              <span className="block text-[clamp(1.8rem,5vw,4.2rem)] leading-[1.14] bp-headline transition-colors group-hover:text-[var(--bp-accent)]">
+              <span className="block text-[clamp(1.65rem,4.6vw,4.2rem)] leading-[1.14] bp-headline transition-colors group-hover:text-[var(--bp-accent)]">
                 {next.title}
               </span>
             </Wipe>

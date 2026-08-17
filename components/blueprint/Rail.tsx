@@ -31,7 +31,7 @@ export default function Rail() {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-40 flex h-[88px] items-center justify-between px-6 lg:inset-y-0 lg:right-auto lg:h-auto lg:w-[var(--bp-gutter)] lg:flex-col lg:justify-start lg:px-0 lg:py-6">
+      <div className="fixed inset-x-0 top-0 z-40 flex h-[88px] items-center justify-between border-b border-[var(--bp-line)] bg-[var(--bp-bg)]/85 px-6 backdrop-blur-md lg:inset-y-0 lg:right-auto lg:h-auto lg:w-[var(--bp-gutter)] lg:flex-col lg:justify-start lg:border-b-0 lg:bg-transparent lg:px-0 lg:py-6 lg:backdrop-blur-none">
         <Link
           href="/"
           aria-label="MOYEON 홈"

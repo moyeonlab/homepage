@@ -18,7 +18,7 @@ export default function Work() {
           </Wipe>
         </div>
 
-        <h2 className="bp-headline mt-12 max-w-4xl text-[clamp(2rem,5vw,4.5rem)] leading-[1.16]">
+        <h2 className="bp-headline mt-12 max-w-4xl text-[clamp(1.75rem,4.6vw,4.5rem)] leading-[1.16]">
           <Wipe delay={140}>
             <span>데이터로 문제를 바라보고,</span>
           </Wipe>

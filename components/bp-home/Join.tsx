@@ -30,7 +30,7 @@ export default function Join() {
           <p className="bp-label">06 / 합류</p>
         </Wipe>
 
-        <h2 className="bp-headline mt-16 max-w-4xl text-[clamp(2.2rem,5.6vw,5rem)] leading-[1.14]">
+        <h2 className="bp-headline mt-16 max-w-4xl text-[clamp(1.9rem,5.2vw,5rem)] leading-[1.14]">
           <Wipe delay={80}>
             <span>당신이 발견한 문제에서,</span>
           </Wipe>

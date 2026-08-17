@@ -173,7 +173,7 @@ export default function JoinPage() {
           }}
         />
         <div className="bp-col relative">
-          <h2 className="max-w-4xl text-[clamp(2rem,5vw,4.4rem)] leading-[1.16] bp-headline">
+          <h2 className="max-w-4xl text-[clamp(1.75rem,4.6vw,4.4rem)] leading-[1.16] bp-headline">
             <Wipe>
               <span>
                 데이터 분석 경험이 <Highlight>없어도</Highlight> 괜찮습니다.

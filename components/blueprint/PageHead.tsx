@@ -52,7 +52,7 @@ export default function PageHead({
           </p>
         </Wipe>
 
-        <h1 className="mt-8 text-[clamp(2.6rem,7vw,6.5rem)] leading-[1.06] bp-headline">
+        <h1 className="mt-8 text-[clamp(2rem,6.4vw,6.5rem)] leading-[1.06] bp-headline">
           <Wipe delay={140}>
             <span>{title}</span>
           </Wipe>

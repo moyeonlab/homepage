@@ -112,7 +112,7 @@ export default function ActivitiesPage() {
         style={{ background: "linear-gradient(135deg, #1b1450 0%, #2a3fa0 50%, #0d6e80 100%)" }}
       >
         <div className="bp-col relative">
-          <h2 className="max-w-4xl text-[clamp(1.9rem,4.6vw,3.8rem)] leading-[1.2] bp-headline">
+          <h2 className="max-w-4xl text-[clamp(1.7rem,4.4vw,3.8rem)] leading-[1.2] bp-headline">
             <Wipe>
               <span>
                 데이터 분석을 <Highlight>처음 시작해도</Highlight> 괜찮습니다.

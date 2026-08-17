@@ -61,7 +61,10 @@ export default function SpecimenWall() {
       <div className="absolute inset-0 flex flex-col justify-center gap-5 opacity-[0.55] saturate-[1.15]">
         <Row items={ROW_A} dur={96} />
         <Row items={ROW_B} dur={132} reverse />
-        <Row items={ROW_C} dur={112} />
+        {/* 좁은 화면에서는 세 줄을 동시에 움직이면 부담이 크다 */}
+        <div className="hidden md:block">
+          <Row items={ROW_C} dur={112} />
+        </div>
       </div>
 
       {/* 글자가 앉는 왼쪽을 바탕색으로 덮어 읽히게 하고, 위아래는 바탕으로 녹인다 */}

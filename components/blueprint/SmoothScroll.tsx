@@ -15,6 +15,10 @@ export default function SmoothScroll() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduce.matches) return;
 
+    // 터치 기기에서는 켜지 않는다. OS 의 네이티브 모멘텀 스크롤과 겹치면
+    // 오히려 미끄럽지 않고 어긋나는 느낌이 된다.
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
     const lenis = new Lenis({
       duration: 1.05,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
