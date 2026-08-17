@@ -33,10 +33,33 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const SITE_URL = "https://homepage.moyeonlabs.workers.dev";
+const TITLE = "MOYEON | 모두의문제연구소";
+const DESCRIPTION =
+  "데이터를 통해 우리 주변의 문제를 발견하고, 다양한 전공의 학생들과 함께 모두를 위한 해결책을 만들어가는 한양대학교 학생 학회, 모두의문제연구소(MOYEON)입니다.";
+
 export const metadata: Metadata = {
-  title: "MOYEON | 모두의문제연구소",
-  description:
-    "데이터를 통해 우리 주변의 문제를 발견하고, 다양한 전공의 학생들과 함께 모두를 위한 해결책을 만들어가는 한양대학교 학생 학회, 모두의문제연구소(MOYEON)입니다.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: "%s | MOYEON",
+  },
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: SITE_URL,
+    siteName: "MOYEON | 모두의문제연구소",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: "/images/logo.png" }],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function RootLayout({

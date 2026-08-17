@@ -38,12 +38,17 @@ export const roots = {
 export const primaryNav: NavItem[] = [
   { label: "홈", href: "/" },
   { label: "모연 소개", href: "/about" },
+  { label: "매거진", href: "/magazine" },
+  { label: "소식", href: "/news" },
   { label: "활동", href: "/activities" },
   { label: "프로젝트", href: "/projects" },
   { label: "함께하는 사람들", href: "/people" },
 ];
 
 export const joinNavItem: NavItem = { label: "지원하기", href: "/join" };
+
+/** 주 메뉴에는 두지 않고 표제란에서만 안내하는 항목 (외부 기관 대상) */
+export const businessNavItem: NavItem = { label: "비즈니스 제안", href: "/contact" };
 
 export const coreValues = [
   {
@@ -103,10 +108,7 @@ export const activityCards = [
   },
 ];
 
-/**
- * 홈 "우리가 하는 일" 순차 전환 섹션.
- * TODO: 일러스트 3종은 외부 소스이므로 라이선스/출처 확인 필요.
- */
+/** 홈 "우리가 하는 일" 순차 전환 섹션. */
 export const workSteps = [
   {
     key: "COLLECT",

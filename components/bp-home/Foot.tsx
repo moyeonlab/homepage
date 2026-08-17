@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Rule from "@/components/blueprint/Rule";
-import { primaryNav, joinNavItem, site } from "@/content/site";
+import { primaryNav, joinNavItem, businessNavItem, site } from "@/content/site";
 
 /** 도면의 표제란. 최소한의 사실만 모노로. */
 export default function Foot() {
@@ -26,7 +26,7 @@ export default function Foot() {
           <nav aria-label="푸터 메뉴">
             <p className="bp-label">메뉴</p>
             <ul className="mt-4 space-y-2.5">
-              {[...primaryNav, joinNavItem].map((item) => (
+              {[...primaryNav, joinNavItem, businessNavItem].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
