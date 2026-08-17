@@ -1,11 +1,31 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Inter, Playfair_Display, Poppins } from "next/font/google";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
-// 수리데이터사이언스학과 공식 홈페이지가 영문에 쓰는 서체를 그대로 따른다
+/*
+  서체 구성 — Figma "Best fonts for websites" 목록에서 고르되,
+  그 목록은 전부 라틴 전용이라 한글 짝이 필요하다.
+
+  Inter      : 목록 1번. 화면용으로 설계된 산세리프.
+  Pretendard : 한글. 애초에 Inter 계열의 한글 짝으로 만들어져 자소 폭과 획 두께가 맞는다.
+               (이미 프로젝트에 설치되어 있고 CSS 로 불러온다)
+  Playfair   : 목록의 세리프. "큰 글자에 적합"하다고 소개된 대로 영문 대형 표기에만.
+*/
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-latin",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+// 기존 페이지들이 영문에 쓰던 서체 (학과 홈페이지와 동일)
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -25,12 +45,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${poppins.variable} h-full`} data-scroll-behavior="smooth">
-      <body className="min-h-full flex flex-col antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+    <html
+      lang="ko"
+      className={`${inter.variable} ${playfair.variable} ${poppins.variable} h-full`}
+      data-scroll-behavior="smooth"
+    >
+      <body className="min-h-full antialiased">{children}</body>
     </html>
   );
 }
