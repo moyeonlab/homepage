@@ -15,15 +15,26 @@
 #
 # 왜 매거진 쪽에서 이 저장소를 직접 부르지 않나
 #   저장소를 넘나들려면 토큰을 하나 더 만들어 두 곳에 관리해야 한다.
-#   발행이 주 1~2편이라 **주간 동기화로 충분**하고, 급하면 Run workflow 를 누르면 된다.
-#   토큰을 늘리지 않는 쪽을 택했다.
+#   급하면 Run workflow 를 누르면 된다. 토큰을 늘리지 않는 쪽을 택했다.
+#
+# ⚠ 2026-08-20 — 주간 → **매일**로 바꿨다
+#   주 1회(일요일 밤)면 **월요일에 낸 브리프가 검색엔진에 다음 주 월요일까지 안 보인다.**
+#   최악 7일 지연이고, 새 발행물이 가장 많이 읽히는 첫 주를 통째로 놓친다.
+#   매일로 올려도 비용은 사실상 0 이다 — 16초짜리 job 이고, 목록이 그대로면
+#   `git diff --staged --quiet` 에서 걸려 **커밋도 배포도 일어나지 않는다.**
+#   (실측: 8/9·8/16 두 번의 정기 실행에서 실제 커밋은 각각 1건뿐)
 
 name: 매거진 목록 동기화
 
 on:
   schedule:
-    # UTC 22:30 일요일 = KST 07:30 월요일 (매거진 주간 보드가 07:00 에 돈 뒤)
-    - cron: "30 22 * * 0"
+    # UTC 22:30 매일 = KST 07:30 매일.
+    #   매거진의 「예약 발행」이 KST 08:00 에 도니 **그 직전**이다 —
+    #   즉 오늘 아침 발행분은 내일 아침 동기화에 실린다(지연 하루).
+    #   ⚠ 발행 직후에 맞추려고 시각을 뒤로 미루지 말 것: GitHub cron 은 정시를
+    #     보장하지 않아(수십 분 지연) 「발행보다 먼저 도는 날」이 생긴다.
+    #     하루 지연을 확실히 갖는 편이 낫다.
+    - cron: "30 22 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -32,15 +43,16 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write               # 실패 알림 이슈를 열고 댓글을 단다
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "20"
 
@@ -59,3 +71,38 @@ jobs:
           n=$(node -e "console.log(require('./content/magazine-snapshot.json').발행물.length)")
           git commit -m "매거진 발행물 목록 동기화 — ${n}건"
           git push
+
+      # ── 실패를 조용히 넘기지 않는다 ────────────────────────────────────
+      # 왜 (2026-08-19 실사고): 예약 발행이 구글 시트 503 으로 죽었는데
+      #   **다음 날까지 아무도 몰랐다.** 자동화의 진짜 위험은 「실패」가 아니라
+      #   **「조용한 실패」**다 — 매일 도는 일이 3주째 죽어 있어도 아무 일도 안 일어난다.
+      #
+      # 어떻게: 같은 제목의 열린 이슈가 있으면 **댓글만** 달고, 없으면 새로 연다.
+      #   매일 실패해도 이슈가 30개 생기지 않는다 — 스팸이 되면 결국 아무도 안 본다.
+      #   고쳤으면 이슈를 닫는다. 그게 「봤다」는 표시가 된다.
+      #
+      # ⛔ 쉘 변수는 **ASCII 이름만** 쓴다 — bash 는 한글 변수명을 거부한다
+      #   (이 저장소는 같은 함정을 workflow_dispatch input 에서 이미 밟았다 — publish.yml 머리말).
+      - name: 실패 알림
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABEL: 자동화-실패
+          TITLE: "⚠ 「매거진 목록 동기화」가 실패했습니다"
+        run: |
+          set -u
+          RUN_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          BODY=$(printf '워크플로 **%s** 가 실패했습니다.\n\n- 실행 기록: %s\n- 시각(KST): %s\n\n이 이슈는 자동으로 열렸습니다. **고쳤으면 닫아 주세요** — 다음 실패는 여기에 댓글로 쌓입니다.' \
+                 "$GITHUB_WORKFLOW" "$RUN_URL" "$(date -u -d '+9 hours' '+%Y-%m-%d %H:%M')")
+          gh label create "$LABEL" --color B60205 \
+             --description "예약 작업이 실패하면 자동으로 붙습니다" >/dev/null 2>&1 || true
+          # ★ jq 로 제목을 거르지 않고 grep -F 로 «문자 그대로» 찾는다 —
+          #   제목에 한글·기호가 섞여 있어 jq 식 안에 넣으면 따옴표가 깨진다.
+          NUM=$(gh issue list --label "$LABEL" --state open --json number,title \
+                --jq '.[] | "\(.number)\t\(.title)"' | grep -F -m1 "$TITLE" | cut -f1)
+          if [ -n "$NUM" ]; then
+            gh issue comment "$NUM" --body "$BODY"
+            echo "이미 열린 이슈 #$NUM 에 댓글을 달았습니다"
+          else
+            gh issue create --title "$TITLE" --label "$LABEL" --body "$BODY"
+          fi
