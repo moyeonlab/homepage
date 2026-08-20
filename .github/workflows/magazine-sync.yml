@@ -57,6 +57,12 @@ jobs:
           node-version: "20"
 
       - name: 매거진 목록 받아오기
+        env:
+          # ★ 이 워크플로에서만 실패를 종료코드로 받는다 — 안 그러면 스크립트가
+          #   「내려받기 실패 → 지난 스냅샷 유지 → exit 0」 으로 끝나서
+          #   **매거진 목록이 며칠째 낡아도 실패 알림이 영영 안 뜬다.**
+          #   배포 빌드(prebuild)는 이 값을 안 주므로 지금처럼 죽지 않는다.
+          SYNC_STRICT: "1"
         run: node scripts/sync-magazine.mjs
 
       - name: 달라졌으면 커밋
@@ -83,10 +89,20 @@ jobs:
       #
       # ⛔ 쉘 변수는 **ASCII 이름만** 쓴다 — bash 는 한글 변수명을 거부한다
       #   (이 저장소는 같은 함정을 workflow_dispatch input 에서 이미 밟았다 — publish.yml 머리말).
+      # ⛔ `failure()` 만으로는 «매달려 죽는» 실패를 못 잡는다 —
+      #   GitHub 은 timeout-minutes 초과를 **실패가 아니라 「취소」**로 처리하고,
+      #   취소된 job 에서 `failure()` 스텝은 건너뛰어진다. 구글이 응답을 안 주고
+      #   붙잡고 있으면 정확히 그 경로로 빠져 **알림이 한 통도 안 뜬다.**
+      #   (사람이 손으로 취소한 경우에도 이슈가 열린다 — 그 소음보다 놓치는 쪽이 나쁘다.)
+      #   〔2026-08-20 내부 리뷰가 잡은 것〕
       - name: 실패 알림
-        if: failure()
+        if: ${{ failure() || cancelled() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ★ gh 는 저장소를 «git remote» 로 찾는다 — checkout 스텝에서 죽으면
+          #   .git 이 없어 `gh issue create` 가 "not a git repository" 로 같이 죽는다
+          #   (실측 확인). GH_REPO 를 주면 checkout 과 무관하게 동작한다.
+          GH_REPO: ${{ github.repository }}
           LABEL: 자동화-실패
           TITLE: "⚠ 「매거진 목록 동기화」가 실패했습니다"
         run: |
@@ -96,10 +112,19 @@ jobs:
                  "$GITHUB_WORKFLOW" "$RUN_URL" "$(date -u -d '+9 hours' '+%Y-%m-%d %H:%M')")
           gh label create "$LABEL" --color B60205 \
              --description "예약 작업이 실패하면 자동으로 붙습니다" >/dev/null 2>&1 || true
-          # ★ jq 로 제목을 거르지 않고 grep -F 로 «문자 그대로» 찾는다 —
-          #   제목에 한글·기호가 섞여 있어 jq 식 안에 넣으면 따옴표가 깨진다.
-          NUM=$(gh issue list --label "$LABEL" --state open --json number,title \
-                --jq '.[] | "\(.number)\t\(.title)"' | grep -F -m1 "$TITLE" | cut -f1)
+          # ★ jq 식 안에서 제목을 비교하지 않는다 — 한글·기호가 섞여 있어 따옴표가 깨진다.
+          #   대신 「번호<탭>제목」으로 뽑아 awk 로 **둘째 칸을 정확히** 비교한다.
+          #   ⛔ grep -F 를 쓰면 안 된다: «포함»만 해도 맞아서, 누가 「…실패했습니다 — 긴급」
+          #     같은 이슈를 손으로 열어 두면 거기에 댓글이 쌓인다. 에러도 안 나서 눈치채기 어렵다.
+          #     〔2026-08-20 외부 리뷰(DeepSeek-V4-Pro)가 잡은 것〕
+          #   ▲ set -o pipefail 은 일부러 안 켠다 — gh issue list 가 죽었을 때 스텝을 같이
+          #     죽이면 «알림 자체가 사라진다». 중복 이슈 한 건이 알림 없는 것보다 낫다.
+          #   ⚠ --limit 을 반드시 준다: gh 기본이 **30건**이라, 라벨을 공유하는 이슈가
+          #     30개를 넘으면 열린 이슈를 못 찾고 새로 연다 — 「스팸 방지」 설계가 거기서 깨진다.
+          #     〔2026-08-20 외부 리뷰(Kimi-K3)가 잡은 것〕
+          NUM=$(gh issue list --label "$LABEL" --state open --limit 100 --json number,title \
+                --jq '.[] | "\(.number)\t\(.title)"' \
+                | awk -F'\t' -v t="$TITLE" '$2 == t { print $1; exit }')
           if [ -n "$NUM" ]; then
             gh issue comment "$NUM" --body "$BODY"
             echo "이미 열린 이슈 #$NUM 에 댓글을 달았습니다"

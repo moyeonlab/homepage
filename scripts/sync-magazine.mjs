@@ -14,8 +14,17 @@
  * 통째로 실패하면 안 된다 — 그때는 저장소에 커밋된 지난 스냅샷을 그대로 쓴다.
  * (그래서 이 JSON 은 생성물이지만 **커밋한다.**)
  *
+ * ⚠ 단 `SYNC_STRICT=1` 이면 실패를 **종료코드 1** 로 알린다.
+ *   〔2026-08-20 내부 리뷰가 잡은 것〕 정기 동기화 워크플로는 이 스크립트가 조용히
+ *   0 으로 끝나면 `if: failure()` 알림이 **영영 안 뜬다.** 즉 매거진이 며칠째 안 잡혀
+ *   홈페이지 목록이 낡아가도 아무도 모른다 — 이 파일이 막으려던 바로 그 상황이다.
+ *   그래서 **문맥을 나눈다**: 배포 빌드(prebuild)는 지금처럼 살려 두고,
+ *   정기 동기화만 엄격 모드로 돌린다. 어느 쪽이든 **지난 스냅샷은 그대로 쓴다**
+ *   (엄격 모드도 파일을 망가뜨리지 않는다 — 종료코드만 다르다).
+ *
  * 수동 실행: npm run magazine:sync
- * 자동 실행: npm run build 앞에 prebuild 로 붙어 있다
+ * 자동 실행: npm run build 앞에 prebuild 로 붙어 있다 (엄격 아님)
+ *           .github/workflows/magazine-sync.yml (SYNC_STRICT=1)
  */
 import { writeFile, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -25,6 +34,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(HERE, "..", "content", "magazine-snapshot.json");
 const SRC = "https://magazine-4r3.pages.dev/index.json";
 const TIMEOUT_MS = 15000;
+// 엄격 모드 — 실패를 종료코드로 알린다 (정기 동기화 워크플로 전용, 머리말 참조)
+const STRICT = process.env.SYNC_STRICT === "1";
 
 function say(mark, msg) {
   console.log(`  ${mark} 매거진 스냅샷 — ${msg}`);
@@ -55,6 +66,7 @@ async function main() {
     } else {
       say("→", `지난 스냅샷 ${prevCount}건을 그대로 씁니다 (빌드는 계속됩니다)`);
     }
+    if (STRICT) throw new Error(`매거진 목록을 내려받지 못했습니다: ${e.message}`);
     return;
   }
 
@@ -62,6 +74,8 @@ async function main() {
   if (!list.length) {
     // 0건을 덮어쓰면 멀쩡하던 목록이 사라진다. 이건 성공이 아니라 이상 신호다.
     say("!", `받은 목록이 0건입니다 — 덮어쓰지 않고 지난 스냅샷 ${prevCount ?? 0}건을 씁니다`);
+    // ⚠ 스스로 「이상 신호」라고 적어 놓고 0 으로 끝나면 알림이 안 뜬다 — 엄격 모드에서는 알린다.
+    if (STRICT) throw new Error("매거진 index.json 의 「발행물」이 0건입니다 (형식이 바뀌었을 수 있습니다)");
     return;
   }
 
@@ -70,4 +84,13 @@ async function main() {
   say("✓", `발행물 ${list.length}건 저장${delta}`);
 }
 
-await main();
+// ⚠ throw 를 top-level await 밖으로 그냥 흘리면 Windows 노드가 libuv 어서션으로
+//   죽어 종료코드가 127 이 된다(실측). 여기서 받아 **깔끔하게 1** 로 끝낸다 —
+//   워크플로는 「0 이냐 아니냐」만 보지만, 크래시 로그는 원인을 가린다.
+//   `process.exit()` 대신 `exitCode` 를 쓰는 이유: 남은 출력이 잘리지 않는다.
+try {
+  await main();
+} catch (e) {
+  say("!", e.message);
+  process.exitCode = 1;
+}
