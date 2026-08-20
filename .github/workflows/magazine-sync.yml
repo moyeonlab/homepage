@@ -130,6 +130,12 @@ jobs:
                 | awk -F'\t' -v t="$TITLE" '$2 == t { print $1; exit }')
           if [ -n "$NUM" ]; then
             gh issue comment "$NUM" --body "$BODY"
+            # ★ 댓글 갈래에도 담당자를 붙인다 〔2026-08-20 외부 리뷰(Kimi-K3)〕 —
+            #   첫 실패 때 할당이 실패하면(그때 협업자가 아니었다든지) 이후 실패는
+            #   전부 이 갈래로만 오므로 **그 이슈는 영원히 미할당**으로 남는다.
+            #   이미 할당돼 있으면 아무 일도 일어나지 않는다(멱등).
+            gh issue edit "$NUM" --add-assignee "$ASSIGNEE" || \
+              echo "::warning::담당자($ASSIGNEE) 지정 실패 — 이슈 #$NUM 은 미할당입니다"
             echo "이미 열린 이슈 #$NUM 에 댓글을 달았습니다"
           else
             URL=$(gh issue create --title "$TITLE" --label "$LABEL" --body "$BODY")
@@ -137,6 +143,8 @@ jobs:
             # ★ 담당자는 «따로» 붙인다. create 에 --assignee 를 함께 주면
             #   그 사람이 할당 불가일 때(협업자가 아니거나 계정이 바뀌면)
             #   «이슈 생성 자체»가 실패한다 — 알림이 통째로 사라지는 게 제일 나쁘다.
+            #   ⚠ 실패를 삼키되 «안 보이게» 삼키지는 않는다 〔외부 리뷰(codex)〕 —
+            #     ::warning:: 은 실행 요약 맨 위에 뜬다. echo 는 로그에만 남고 아무도 안 읽는다.
             gh issue edit "$URL" --add-assignee "$ASSIGNEE" || \
-              echo "담당자($ASSIGNEE) 지정 실패 — 이슈는 열렸습니다"
+              echo "::warning::담당자($ASSIGNEE) 지정 실패 — 이슈는 열렸습니다"
           fi
