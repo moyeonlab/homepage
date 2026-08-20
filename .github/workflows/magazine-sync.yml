@@ -103,6 +103,9 @@ jobs:
           #   .git 이 없어 `gh issue create` 가 "not a git repository" 로 같이 죽는다
           #   (실측 확인). GH_REPO 를 주면 checkout 과 무관하게 동작한다.
           GH_REPO: ${{ github.repository }}
+          # ★ 실패 이슈를 «누가» 볼 것인가. 지정이 없으면 이슈는 열리지만
+          #   아무에게도 안 간다 — 저장소를 직접 들여다보기 전에는 모른다.
+          ASSIGNEE: donguk77
           LABEL: 자동화-실패
           TITLE: "⚠ 「매거진 목록 동기화」가 실패했습니다"
         run: |
@@ -129,5 +132,11 @@ jobs:
             gh issue comment "$NUM" --body "$BODY"
             echo "이미 열린 이슈 #$NUM 에 댓글을 달았습니다"
           else
-            gh issue create --title "$TITLE" --label "$LABEL" --body "$BODY"
+            URL=$(gh issue create --title "$TITLE" --label "$LABEL" --body "$BODY")
+            echo "$URL"
+            # ★ 담당자는 «따로» 붙인다. create 에 --assignee 를 함께 주면
+            #   그 사람이 할당 불가일 때(협업자가 아니거나 계정이 바뀌면)
+            #   «이슈 생성 자체»가 실패한다 — 알림이 통째로 사라지는 게 제일 나쁘다.
+            gh issue edit "$URL" --add-assignee "$ASSIGNEE" || \
+              echo "담당자($ASSIGNEE) 지정 실패 — 이슈는 열렸습니다"
           fi
