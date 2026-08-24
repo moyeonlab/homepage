@@ -10,3 +10,8 @@
 /members.html        /people/         301
 /news.html           /news/           301
 /projects.html       /projects/       301
+
+# 2026-08-24 — 발표 두 편을 한 항목에 묶어 뒀던 것을 두 프로젝트로 나눴다.
+# 옛 주소로 들어오는 사람을 경기침체 편으로 보낸다(그쪽이 원래 대표 이미지였다).
+/projects/recession-and-2025-trends/  /projects/recession-preparedness/  301
+/projects/recession-and-2025-trends   /projects/recession-preparedness/  301
