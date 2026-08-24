@@ -7,6 +7,8 @@
     "magazine:sync": "node scripts/sync-magazine.mjs",
     "prebuild": "node scripts/sync-magazine.mjs",
     "build": "next build --webpack",
+    "check:links": "node scripts/link-check.mjs",
+    "check:links:all": "node scripts/link-check.mjs --바깥",
     "start": "next start",
     "lint": "eslint",
     "preview": "next build --webpack && wrangler dev",
