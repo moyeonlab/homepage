@@ -13,7 +13,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const SITE_URL = "https://homepage.moyeonlabs.workers.dev";
+const SITE_URL = "https://moyeonlab.com";
 
 /**
  * Cloudflare Web Analytics 토큰. **여기에 토큰만 붙여넣으면 켜진다.**

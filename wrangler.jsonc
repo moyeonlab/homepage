@@ -6,6 +6,13 @@
   "observability": {
     "enabled": true
   },
+  // 커스텀 도메인 (2026-08-24 moyeonlab.com 구매 — Cloudflare Registrar, 같은 계정의 존).
+  // 배포(wrangler deploy)가 이 목록을 보고 DNS 레코드까지 자동으로 만든다 — 대시보드 손작업 없음.
+  // 정본 주소는 apex(moyeonlab.com) — www 는 접속만 받아주고, canonical/OG 는 전부 apex 로 적는다.
+  "routes": [
+    { "pattern": "moyeonlab.com", "custom_domain": true },
+    { "pattern": "www.moyeonlab.com", "custom_domain": true }
+  ],
   // next build (output: "export") 결과물을 그대로 서빙한다
   "assets": {
     "directory": "./out",
