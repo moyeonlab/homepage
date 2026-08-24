@@ -12,7 +12,7 @@ import type { Project } from "@/lib/types";
 //   실제 카드뉴스가 `images/cardnews/` 에 이미 있는데도 그랬다. 데이터로 사실을 다루는
 //   학회가 표지만 지어낸 그림을 쓰는 것은 앞뒤가 안 맞는다. 지금은 전부 실물이다:
 //     학술정보관 card-33 · 국민연금 card-01 · 우유값 card-08 · 경기침체 card-16 ·
-//     MBTI mbti-01-college · 분석대회 contest-2024-poster(2024 모집 공고 원본)
+//     MBTI mbti-02-department · 분석대회 contest-2024-poster(2024 모집 공고 원본)
 //   실물이 없는 프로젝트는 **비워 둔다** — 채우지 말고 DataGraphic 대체를 쓴다.
 export const projects: Project[] = [
   {
@@ -122,6 +122,12 @@ export const projects: Project[] = [
     slug: "recession-and-2025-trends",
     thumbnail: "/images/cardnews/card-16.jpg",
     imageAspect: "wide",
+    // ⚠ 이 프로젝트는 «발표 두 편»이 한 항목에 들어 있다 — card-16~23 경기침체 편(남색),
+    //   card-24~32 2025 트렌드 편(보라). 슬라이드 순서는 원본 번호(02~09)와 일치한다.
+    // ⚠ **card-28 은 원본 슬라이드 자체가 어긋나 있다** — 제목은 「지속가능한 미래: 기술 트렌드」인데
+    //   본문은 DeepSeek AI 검색 엔진 설명이다(2026-08-24 확인). 우리가 순서를 잘못 넣은 게
+    //   아니라 발표 자료를 만들 때 제목을 안 바꾼 것으로 보인다. 원본을 고쳐야 해결된다 —
+    //   임의로 빼거나 제목을 지어 붙이지 말 것.
     images: [
       "/images/cardnews/card-16.jpg",
       "/images/cardnews/card-17.jpg",
@@ -168,19 +174,16 @@ export const projects: Project[] = [
   {
     title: "학과별 MBTI 분포 조사",
     slug: "mbti-survey",
-    // 2026-08-24 — 옛 인스타(@moyeon_lab, 2023-05-25 게시)에서 결과 카드를 회수했다.
+    // 2026-08-24 — 옛 인스타(@moyeon_lab, 2023-05-25)에서 카드를 회수해 표지로 썼다.
     //   전에 쓰던 `insta-mbti.jpg` 는 인스타 화면을 잘못 잘라낸 스크린샷이라 제목이
-    //   반쯤 잘려 있었다(그래서 목록에서 이상하게 보였다) — 지우고 실제 카드로 바꿨다.
-    //   ⚠ 이 4장은 각 게시물의 «표지»다. 나머지 장은 캐러셀 안에 있어 회수하지 못했다.
-    //      원본 파일(캔바 등)이 있으면 그걸로 교체하는 편이 화질이 낫다.
-    thumbnail: "/images/cardnews/mbti-01-college.jpg",
-    imageAspect: "square",
-    images: [
-      "/images/cardnews/mbti-01-college.jpg",
-      "/images/cardnews/mbti-02-department.jpg",
-      "/images/cardnews/mbti-03-job.jpg",
-      "/images/cardnews/mbti-04-satisfaction.jpg",
-    ],
+    //   반쯤 잘려 있었다(그래서 목록에서 이상하게 보였다).
+    //
+    // ⛔ **카드뉴스 전문(images)은 넣지 않는다.** 한 번 넣었다가 뺐다 —
+    //   회수한 4장이 전부 «질문만 적힌 표지»였다(단대별/학과별/희망직업/학과만족도).
+    //   답이 되는 데이터 장은 캐러셀 안쪽에 있어 회수가 안 된다. 표지 4장을 늘어놓으면
+    //   똑같은 카드가 네 번 나오는 것처럼 보여서 **없느니만 못하다.**
+    //   → 원본 파일(캔바·드라이브)을 받으면 그때 전문을 싣는다.
+    thumbnail: "/images/cardnews/mbti-02-department.jpg",
     year: 2023,
     category: "캠퍼스",
     summary: "창립 직후 진행한 첫 활동. 학과별 MBTI 분포를 직접 설문으로 조사했습니다.",
