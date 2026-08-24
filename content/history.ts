@@ -55,7 +55,7 @@ export const history: HistoryEntry[] = [
     month: "7월",
     title: "모연 매거진 창간 — 데이터 저널리즘 정기 발행 시작",
     description: "공공데이터로 지역 사회 문제를 기록하는 정기 매거진. 모든 수치는 발행 전 데이터 검증 관문을 통과합니다.",
-    link: "https://magazine-4r3.pages.dev",
+    link: "https://magazine.moyeonlab.com",
   },
 ];
 

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const MAGAZINE_SITE = "https://magazine-4r3.pages.dev";
+const MAGAZINE_SITE = "https://magazine.moyeonlab.com";
 
 interface MagazineItem {
   형식?: string;

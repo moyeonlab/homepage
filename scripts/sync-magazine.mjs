@@ -32,6 +32,9 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(HERE, "..", "content", "magazine-snapshot.json");
+// ★ 일부러 pages.dev 를 쓴다 (2026-08-24 커스텀 도메인 magazine.moyeonlab.com 도입 후에도).
+//   이 주소는 Cloudflare Pages 가 직접 주는 것이라 DNS·존 설정과 무관하게 항상 살아 있다 —
+//   자동 주간 동기화가 도메인 문제로 조용히 죽는 일을 막는다. 사람이 보는 링크만 새 도메인으로.
 const SRC = "https://magazine-4r3.pages.dev/index.json";
 const TIMEOUT_MS = 15000;
 // 엄격 모드 — 실패를 종료코드로 알린다 (정기 동기화 워크플로 전용, 머리말 참조)
