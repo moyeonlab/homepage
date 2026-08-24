@@ -5,7 +5,7 @@
 - 폼을 만드는 코드는 **`Code.gs`** 가 정본이다.
 - 그 코드를 모연 계정(`moyeonlabs@gmail.com`)의 Apps Script 프로젝트에 **이미 올려 뒀다.**
   - 편집기: <https://script.google.com/d/1HKjwK3dtKRR6GQojD-pakofDPQ1H3dsj5KZRIF1zokPizhNv4X9YbA9U/edit>
-- **아직 실행 전이라 폼은 없다.** 아래 3단계를 한 번만 하면 된다.
+- **폼은 2026-08-24 에 만들어졌다** — 지원서 `https://forms.gle/6ZBGmDUACDdq6u2t8` · 폼ID `1RVtfx8NZ46PV_nE90R_KWB33okUWv9FVmX50QgBXr6Y` · 응답 시트 `1iWV2G5kaReu1lTCGhy8hUNnT4H4UFvX-I50hXhzM1h0`. 아래 「한 번만」 절차는 이미 끝났다 — 새로 돌리지 말 것(폼이 하나 더 생긴다).
 
 ## 한 번만 하면 되는 것
 

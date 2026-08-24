@@ -4,16 +4,18 @@ import type { RecruitmentInfo } from "@/lib/types";
 //   왜 상시인가 — 학기 초 2주만 여는 방식은 그 창을 놓친 사람을 1년 가까이 기다리게 한다.
 //   대신 마감이 없으면 지원자가 「연락이 오긴 오나」를 불안해하므로, 마감 대신
 //   **합격 발표 주기(매월 말)**를 약속으로 못 박는다. 이 둘은 세트다 — 한쪽만 두지 말 것.
-// TODO: 지원서(구글 폼)를 만든 뒤 applicationUrl 을 채운다.
-//   폼 생성 스크립트: `scripts/apply-form/Code.gs` (모연 계정 Apps Script 에 올려 둠).
-//   문항을 바꾸려면 그 파일을 고쳐서 다시 돌린다 — 폼을 손으로 고치면 정본이 갈라진다.
+// 지원서 폼은 2026-08-24 생성 (모연 계정 소유).
+//   ⛔ **폼 문항을 구글 폼 화면에서 손으로 고치지 말 것.** 정본은 `scripts/apply-form/Code.gs` 다.
+//      고칠 때는 그 파일을 고치고 `폼고치기('1RVtfx8NZ46PV_nE90R_KWB33okUWv9FVmX50QgBXr6Y')` 를
+//      돌린다 — `폼만들기` 를 다시 돌리면 폼이 하나 더 생겨 응답이 두 군데로 갈린다.
+//   응답 시트: docs.google.com/spreadsheets/d/1iWV2G5kaReu1lTCGhy8hUNnT4H4UFvX-I50hXhzM1h0/edit
 export const recruitment: RecruitmentInfo = {
   status: "상시모집",
   periodNote: "상시 모집 — 마감 없음",
   activityPeriod: "학기 단위 (방학 중에도 프로젝트·스터디 진행)",
   target: "전공과 학년에 관계없이 데이터와 사회문제 해결에 관심 있는 한양대학교 ERICA 재학생",
   fee: "10,000원",
-  applicationUrl: undefined,
+  applicationUrl: "https://forms.gle/6ZBGmDUACDdq6u2t8",
   applyMethod: "온라인 지원서(구글 폼) 제출",
   interview: "없음 — 지원서 검토로 선발",
   announceDate: "매월 말 이메일로 개별 안내",
