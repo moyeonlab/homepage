@@ -24,6 +24,18 @@ export default function HistoryTimeline({ entries }: { entries: HistoryEntry[] }
                   {entry.description && (
                     <p className="mt-1 text-sm text-[var(--color-text-muted)]">{entry.description}</p>
                   )}
+                  {/* link 는 타입(lib/types.ts)에도 데이터에도 있었는데 그리는 코드가 없었다
+                      — 매거진 창간 항목의 링크가 조용히 죽어 있었다 (2026-08-24 발견) */}
+                  {entry.link && (
+                    <a
+                      href={entry.link}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="mt-1 inline-block text-sm font-medium text-[var(--color-accent)] underline underline-offset-4"
+                    >
+                      바로가기
+                    </a>
+                  )}
                 </li>
               ))}
           </ul>

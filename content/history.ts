@@ -4,7 +4,12 @@ import type { HistoryEntry } from "@/lib/types";
 // 2026년 7월 항목은 매거진 사이트 발행 이력으로 확인된 내용만 추가함(2026-08-04).
 // 딥테크오디션: 예선·결선 진출은 창업교육센터 공지 No.233·238 캡처(1차 출처)로 확인,
 // 수상 여부는 회장 확인(2026-08-10). TODO: 상 이름·순위 확인 시 title 에 반영.
-// TODO: 2025년, 그리고 2026년의 나머지 활동(정기 모집·스터디 등) 업데이트 필요.
+// ★ 2026-08-24 — 옛 계정 Instagram(@moyeon_lab, 게시물 18건)에서 게시일을 직접 확인해
+//   2024~2025년 항목을 바로잡았다. 옛 홈페이지 연혁이 「국민연금,우유값」을 **한 줄로 묶어
+//   2024년 9월**에 걸어 뒀는데, 실제로는 서로 다른 두 게시물이고 날짜도 둘 다 달랐다
+//   (우유값 2024-11-14 · 국민연금 2025-01-26). 옛 연혁을 1차 출처로 믿으면 안 된다.
+//   ⚠ 옛 연혁은 완전한 목록도 아니다 — 2024년 항목이 4건뿐이라 빠진 활동이 더 있을 수 있다.
+// TODO: 2025년의 나머지 활동, 그리고 2026년의 나머지 활동(정기 모집·스터디 등) 업데이트 필요.
 //   2026년 여름 조직 개편·사업자 등록 관련 진행 사항은 아직 완료 전이라 공개 연혁에는
 //   싣지 않음 — 대외 공개 여부는 운영진 확인 후 결정.
 export const history: HistoryEntry[] = [
@@ -17,11 +22,13 @@ export const history: HistoryEntry[] = [
     year: 2023,
     month: "5월",
     title: "학과별 MBTI 분포 설문조사",
+    link: "https://www.instagram.com/p/Cr45LT2yeVj/",
   },
   {
     year: 2023,
     month: "10월",
     title: "학술정보관 열람석 관련 분석",
+    link: "https://www.instagram.com/p/Cy250hkB0VB/",
   },
   {
     year: 2024,
@@ -35,13 +42,23 @@ export const history: HistoryEntry[] = [
   },
   {
     year: 2024,
-    month: "9월",
-    title: "국민연금 및 우유값 관련 카드뉴스 제작",
+    month: "11월",
+    title: "우유값 변동 원인 카드뉴스 발행",
+    link: "https://www.instagram.com/p/DCWOLznhtW6/",
   },
   {
     year: 2024,
     month: "11월",
     title: "자체 데이터 분석 대회 개최",
+    description:
+      "학회원이 주제를 정해 데이터를 분석하고 카드뉴스로 발표하는 자체 대회. 9월 23일부터 11월 13일까지 접수했고, 대상·우수상·장려상을 시상했습니다.",
+    link: "https://www.instagram.com/p/DAK_Y_mhOHn/",
+  },
+  {
+    year: 2025,
+    month: "1월",
+    title: "국민연금 바로 알기 카드뉴스 발행",
+    link: "https://www.instagram.com/p/DFSoyTBhzyM/",
   },
   {
     year: 2026,
