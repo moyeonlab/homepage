@@ -33,6 +33,11 @@ export interface Project {
    * 비율을 미리 알아야 이미지가 로드되기 전에 자리를 잡아 화면이 튀지 않는다.
    */
   imageAspect?: "square" | "wide";
+  /**
+   * `images` 묶음의 제목. 기본값은 카드뉴스/발표 슬라이드 — 그 둘이 아닌 것
+   * (분석 차트, 보고서 그림 등)을 실을 때 여기에 실제 이름을 적는다.
+   */
+  imagesLabel?: string;
   resultLinks?: ProjectLink[];
   instagramUrl?: string;
 }

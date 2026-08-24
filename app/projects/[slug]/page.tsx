@@ -190,7 +190,8 @@ export default async function ProjectDetailPage({
         <section className="border-t border-[var(--color-border)]">
           <div className="container-page py-16 md:py-20">
             <h2 className="text-xl font-bold tracking-tight text-[var(--color-text)]">
-              {project.imageAspect === "wide" ? "발표 슬라이드" : "카드뉴스"} 전문
+              {project.imagesLabel ??
+                `${project.imageAspect === "wide" ? "발표 슬라이드" : "카드뉴스"} 전문`}
             </h2>
             <p className="mt-2 text-sm text-[var(--color-text-muted)]">
               총 {project.images.length}장 · 발행 순서대로 · 이미지를 누르면 원본 크기로 열립니다
