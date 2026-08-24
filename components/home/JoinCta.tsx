@@ -1,11 +1,11 @@
 import SectionLabel from "@/components/shared/SectionLabel";
 import Button from "@/components/shared/Button";
-import { recruitment } from "@/content/recruitment";
+import { isRecruiting } from "@/content/recruitment";
 import { site } from "@/content/site";
 import SectionHeading from "@/components/shared/SectionHeading";
 
 export default function JoinCta() {
-  const isOpen = recruitment.status === "모집중";
+  const isOpen = isRecruiting;
 
   return (
     <section className="container-page py-20 md:py-28">

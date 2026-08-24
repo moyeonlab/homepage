@@ -16,6 +16,7 @@ export const metadata: Metadata = pageMeta({
 
 const statusTone: Record<string, "soft" | "outline"> = {
   모집중: "soft",
+  상시모집: "soft",
   모집예정: "outline",
   모집마감: "outline",
 };

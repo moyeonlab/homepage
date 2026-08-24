@@ -48,7 +48,8 @@ export interface Person {
   description?: string;
 }
 
-export type RecruitmentStatus = "모집예정" | "모집중" | "모집마감";
+/** 「상시모집」은 마감이 없는 상태다 — 기간 대신 «언제 답을 받는지»(announceDate)가 약속이 된다. */
+export type RecruitmentStatus = "모집예정" | "모집중" | "상시모집" | "모집마감";
 
 export interface RecruitmentInfo {
   status: RecruitmentStatus;

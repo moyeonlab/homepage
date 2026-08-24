@@ -2,13 +2,12 @@ import Button from "@/components/shared/Button";
 import HeroSideDecor from "@/components/home/HeroSideDecor";
 import WaveMesh from "@/components/shared/WaveMesh";
 import { site, heroKeywords } from "@/content/site";
-import { recruitment } from "@/content/recruitment";
+import { isRecruiting } from "@/content/recruitment";
 
 export default function Hero() {
-  const secondaryCta =
-    recruitment.status === "모집중"
-      ? { label: "학회원 지원하기", href: "/join" }
-      : { label: "주요 활동 보기", href: "/activities" };
+  const secondaryCta = isRecruiting
+    ? { label: "학회원 지원하기", href: "/join" }
+    : { label: "주요 활동 보기", href: "/activities" };
 
   return (
     // 스티키 헤더가 Hero 위에 겹쳐 보이도록 헤더 높이만큼 끌어올린다

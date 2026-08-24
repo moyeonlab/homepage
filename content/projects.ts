@@ -6,11 +6,19 @@ import type { Project } from "@/lib/types";
 // 임의로 지어내지 않고 카드에 적힌 문장·수치만 옮김.
 // anseong-community·internal-data-contest는 대응하는 카드뉴스나 옛 데이터 파일 기록이 없어 비워둠.
 // TODO: 두 프로젝트는 담당 학회원에게 상세 내용·이미지·결과물 링크 확보 후 채울 것.
+//
+// ★ 썸네일 원칙 (2026-08-24) — **AI 생성 이미지를 쓰지 않는다.**
+//   전에는 6개 프로젝트가 `images/projects/*.png` 라는 AI 생성 스톡 이미지를 달고 있었다.
+//   실제 카드뉴스가 `images/cardnews/` 에 이미 있는데도 그랬다. 데이터로 사실을 다루는
+//   학회가 표지만 지어낸 그림을 쓰는 것은 앞뒤가 안 맞는다. 지금은 전부 실물이다:
+//     학술정보관 card-33 · 국민연금 card-01 · 우유값 card-08 · 경기침체 card-16 ·
+//     MBTI insta-mbti · 분석대회 contest-2024-poster(2024 모집 공고 원본)
+//   실물이 없는 프로젝트는 **비워 둔다** — 채우지 말고 DataGraphic 대체를 쓴다.
 export const projects: Project[] = [
   {
     title: "학술정보관 이용률 분석",
     slug: "library-usage-analysis",
-    thumbnail: "/images/projects/library-usage-analysis.png",
+    thumbnail: "/images/cardnews/card-33.jpg",
     year: 2023,
     category: "캠퍼스",
     summary:
@@ -33,7 +41,7 @@ export const projects: Project[] = [
   {
     title: "국민연금 바로 알기 프로젝트",
     slug: "national-pension",
-    thumbnail: "/images/projects/national-pension.png",
+    thumbnail: "/images/cardnews/card-01.jpg",
     year: 2024,
     category: "복지",
     summary: "국민연금 제도와 재정 고갈 논란을 데이터로 살펴본 카드뉴스 프로젝트입니다.",
@@ -58,7 +66,7 @@ export const projects: Project[] = [
   {
     title: "우유값 변동 원인 분석",
     slug: "milk-price-analysis",
-    thumbnail: "/images/projects/milk-price-analysis.png",
+    thumbnail: "/images/cardnews/card-08.jpg",
     year: 2024,
     category: "경제",
     summary: "밀크인플레이션 — 원유 가격 결정 구조와 우유값이 계속 오르는 이유를 다룬 카드뉴스입니다.",
@@ -96,7 +104,8 @@ export const projects: Project[] = [
   {
     title: "안성시 지역살리기 기획봉사",
     slug: "anseong-community",
-    thumbnail: "/images/projects/anseong-community.png",
+    // 썸네일 없음 — 이 프로젝트만 실제 결과물 이미지가 없다. 비워 두면 ProjectCard 가
+    // 자체 그래픽(DataGraphic)으로 대체한다. 담당 학회원에게 사진·산출물을 받으면 넣는다.
     category: "지역사회",
     summary: "안성시 지역 활성화를 주제로 한 기획봉사 프로젝트입니다. 상세 내용은 준비 중입니다.",
     status: "준비중",
@@ -105,7 +114,7 @@ export const projects: Project[] = [
   {
     title: "학과별 MBTI 분포 조사",
     slug: "mbti-survey",
-    thumbnail: "/images/projects/mbti-survey.png",
+    thumbnail: "/images/cardnews/insta-mbti.jpg",
     year: 2023,
     category: "캠퍼스",
     summary: "창립 직후 진행한 첫 활동. 학과별 MBTI 분포를 직접 설문으로 조사했습니다.",
@@ -119,7 +128,7 @@ export const projects: Project[] = [
   {
     title: "자체 데이터 분석 대회",
     slug: "internal-data-contest",
-    thumbnail: "/images/projects/internal-data-contest.png",
+    thumbnail: "/images/cardnews/contest-2024-poster.jpg",
     year: 2024,
     category: "기타",
     summary: "학회원들이 주제를 정해 데이터를 분석하고 발표하는 자체 대회입니다. 상세 내용은 준비 중입니다.",
