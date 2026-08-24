@@ -76,14 +76,15 @@ export default async function ProjectDetailPage({
             </p>
           </div>
 
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[var(--radius-lg)] bg-white shadow-[var(--shadow-md)]">
+          {/* 대표 이미지도 자르지 않는다 — 카드뉴스 표지의 제목이 위쪽에 있다 (ProjectCard 주석 참조) */}
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-bg-blue-soft)] shadow-[var(--shadow-md)]">
             {project.thumbnail ? (
               <Image
                 src={project.thumbnail}
                 alt={`${project.title} 대표 이미지`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
+                className="object-contain p-3"
                 priority
               />
             ) : (
