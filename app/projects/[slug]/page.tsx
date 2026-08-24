@@ -178,6 +178,56 @@ export default async function ProjectDetailPage({
         </div>
       </section>
 
+      {/*
+        카드뉴스 전문 — 2026-08-24 신설.
+        그전까지 이 페이지는 표지 한 장만 보여주고 있었다. 실제로 발행한 카드 40여 장이
+        저장소에 그대로 있는데도 사이트 어디에서도 볼 수 없었다 (`images` 필드가
+        타입에만 있고 아무도 쓰지 않았다). 본문 요약보다 이게 «진짜 결과물»이다.
+        표지 한 장뿐인 프로젝트에는 갤러리를 만들지 않는다 — 위 대표 이미지와 겹친다.
+      */}
+      {project.images && project.images.length > 1 && (
+        <section className="border-t border-[var(--color-border)]">
+          <div className="container-page py-16 md:py-20">
+            <h2 className="text-xl font-bold tracking-tight text-[var(--color-text)]">
+              {project.imageAspect === "wide" ? "발표 슬라이드" : "카드뉴스"} 전문
+            </h2>
+            <p className="mt-2 text-sm text-[var(--color-text-muted)]">
+              총 {project.images.length}장 · 발행 순서대로 · 이미지를 누르면 원본 크기로 열립니다
+            </p>
+            <ol className="mt-8 grid gap-5 sm:grid-cols-2">
+              {project.images.map((src, i) => (
+                <li key={src}>
+                  <a
+                    href={src}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="group block overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white transition-shadow hover:shadow-[var(--shadow-md)]"
+                  >
+                    <div
+                      className={`relative w-full ${
+                        project.imageAspect === "wide" ? "aspect-[16/9]" : "aspect-square"
+                      }`}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${project.title} ${i + 1}번째 장`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="px-3 py-2 text-xs font-medium text-[var(--color-text-muted)]">
+                      {i + 1} / {project.images!.length}
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <section className="bg-[var(--color-bg-soft)]">
           <div className="container-page py-16 md:py-20">

@@ -26,7 +26,13 @@ export interface Project {
   solution?: string;
   participants?: string;
   thumbnail?: string;
+  /** 카드뉴스 전문 — 발행 순서대로. thumbnail(표지)도 첫 장으로 포함한다. */
   images?: string[];
+  /**
+   * `images` 의 가로세로비. 한 프로젝트의 카드는 비율이 같다 (실측: 카드뉴스 1:1, 발표 슬라이드 16:9).
+   * 비율을 미리 알아야 이미지가 로드되기 전에 자리를 잡아 화면이 튀지 않는다.
+   */
+  imageAspect?: "square" | "wide";
   resultLinks?: ProjectLink[];
   instagramUrl?: string;
 }
