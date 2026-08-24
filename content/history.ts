@@ -63,6 +63,22 @@ export const history: HistoryEntry[] = [
     title: "국민연금 바로 알기 카드뉴스 발행",
     link: "https://www.instagram.com/p/DFSoyTBhzyM/",
   },
+  // 2025년 2학기 두 건은 «학과 공식 게시판»이 1차 출처다 (2026-08-24 확인).
+  //   개강총회 날짜·학회비는 2025-2학기 가두모집 구글폼에 적힌 값이다.
+  {
+    year: 2025,
+    month: "9월",
+    title: "2025학년도 2학기 신입 회원 모집",
+    description: "학과·학년과 무관하게 모집했고, 개강총회는 9월 23일에 열었습니다.",
+  },
+  {
+    year: 2025,
+    month: "9월",
+    title: "2025년 2학기 활동 개시 — 신안산선의 영향",
+    description:
+      "수리데이터사이언스학과·컴퓨터학과·인공지능학과 학생 10명이 신안산선으로 인한 영향을 주제로 활동을 시작했습니다.",
+    link: "https://mds.hanyang.ac.kr/board/gallery.php?ptype=view&idx=387&category=",
+  },
   {
     year: 2026,
     month: "6월",
