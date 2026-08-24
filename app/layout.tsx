@@ -23,7 +23,7 @@ const SITE_URL = "https://moyeonlab.com";
  *
  * ★ 이 토큰은 비밀이 아니다 — 모든 방문자의 HTML 에 그대로 실려 나가는 값이라 커밋해도 된다.
  * ★ 이 사이트는 Pages 가 아니라 **Workers** 라 대시보드 토글로 자동 주입되지 않는다.
- *   (매거진 `magazine-4r3.pages.dev` 는 Pages 라서 토글 하나면 된다 — 방식이 서로 다르다)
+ *   (매거진 `magazine.moyeonlab.com` 은 Pages 라서 토글 하나면 된다 — 방식이 서로 다르다)
  *
  * 비어 있으면 아무것도 렌더링하지 않는다. 넣기 전까지는 **방문자 수를 아무도 모른다.**
  * 확인법: 배포 뒤 페이지 소스에 `beacon.min.js` 가 보이면 켜진 것이다.

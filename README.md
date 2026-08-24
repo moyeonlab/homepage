@@ -43,12 +43,16 @@ Cloudflare Workers 빌드 설정(대시보드):
 | 지도교수·운영진·역대 회장단 | `content/people.ts` |
 | 모집 상태·일정·지원 링크 | `content/recruitment.ts` |
 | 자주 묻는 질문 | `content/faq.ts` |
+| 소식(`/news`) | **`js/news-data.js`** — `content/`가 아니다. `lib/news.ts`가 이 파일을 유일한 원본으로 읽는다 |
 
 이미지는 `public/images/` 에 넣고 `/images/파일명` 으로 참조합니다.
 
 ## 페이지 구성
 
-`/` 홈 · `/about` 소개 · `/activities` 활동 · `/projects` 프로젝트(+ 상세) · `/people` 사람들 · `/join` 지원하기
+`/` 홈 · `/about` 소개 · `/activities` 활동 · `/projects` 프로젝트(+ 상세) · `/people` 사람들 ·
+`/magazine` 매거진 · `/news` 소식 · `/join` 지원하기 · `/contact` 문의
+
+주소: **moyeonlab.com** (www 도 같은 곳). 옛 `homepage.moyeonlabs.workers.dev` 도 계속 살아 있다.
 
 ## 원칙
 
@@ -66,14 +70,19 @@ Cloudflare Workers 빌드 설정(대시보드):
 
 **아직 남은 것**
 
-- [ ] **Cloudflare Web Analytics 스니펫** — 지금 응답 HTML에 `beacon.min.js`가 **없다 = 방문자 수를 아무도 모른다.**
-      이 사이트는 Pages가 아니라 **Workers**라 대시보드 토글이 없다. Web Analytics에서 사이트를 추가해
-      **스니펫(토큰 포함)**을 받아 `</body>` 앞에 넣어야 한다. **토큰이 있어야 진행 가능**
+- [x] **Cloudflare Web Analytics 스니펫** — `app/layout.tsx`의 `CF_ANALYTICS_TOKEN`에 토큰이 들어가 있다.
+      확인법: 응답 HTML에 `beacon.min.js`가 보이면 켜진 것.
+      ⚠ 이 토큰은 매거진과 **공유**한다 — 대시보드에서 구분은 Hosts 항목으로. 도메인이 붙었으니
+      `moyeonlab.com`으로 사이트를 따로 추가해 각자 토큰을 갖는 것이 정석이다 (미이행)
+- [x] **도메인 연결** (2026-08-24) — `moyeonlab.com` 구매·연결 완료.
+      `wrangler.jsonc`의 `routes`(custom_domain)가 배포 때 DNS까지 만든다 — 대시보드 손작업 없음.
+      주소가 박힌 곳: `app/layout.tsx`·`app/robots.ts`·`app/sitemap.ts`(SITE_URL) ·
+      `components/magazine/MagazineGrid.tsx`(MAGAZINE_SITE) · `js/news-data.js`·`content/history.ts`(링크).
+      ⚠ `scripts/sync-magazine.mjs`의 `SRC`만 **일부러 pages.dev를 유지** — DNS 문제로 자동 동기화가 죽지 않게
+
 - [ ] `js/news-data.js`를 읽어가는 학과 쇼츠 파이프라인(shorts-studio) 연동 경로 확인
       (`lib/news.ts`가 이 파일을 유일한 원본으로 읽는다 — **복제하지 말 것**)
 - [ ] `mds.hanyang.ac.kr` 학생활동 링크가 아직 옛 Google Sites를 가리킴 → 새 주소로 교체 요청
-- [ ] 도메인 확정 후 연결. 지금 주소가 세 곳에 하드코딩돼 있다 —
-      `app/layout.tsx`(SITE_URL) · `components/magazine/MagazineGrid.tsx`(MAGAZINE_SITE) · `content/history.ts`(링크)
 
 ## 메타데이터 규칙 — 페이지를 추가할 때
 
