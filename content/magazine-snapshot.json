@@ -1,7 +1,21 @@
 {
-  "생성": "2026-08-29",
+  "생성": "2026-08-30",
   "사이트": "https://magazine.moyeonlab.com",
   "발행물": [
+    {
+      "형식": "호",
+      "no": 3,
+      "slug": "03-gg-within-sigun-gap",
+      "title": "경기도 연령 격차, 시군 사이보다 시군 «안»이 더 크다",
+      "dek": "",
+      "관점": "",
+      "date": "2026-08",
+      "published": "2026-08-30",
+      "url": "/03-gg-within-sigun-gap/",
+      "cover": "",
+      "thumb": "",
+      "source": ""
+    },
     {
       "형식": "호",
       "no": 2,
