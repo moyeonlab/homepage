@@ -1,5 +1,5 @@
 {
-  "생성": "2026-08-30",
+  "생성": "2026-08-31",
   "사이트": "https://magazine.moyeonlab.com",
   "발행물": [
     {
@@ -12,8 +12,8 @@
       "date": "2026-08",
       "published": "2026-08-30",
       "url": "/03-gg-within-sigun-gap/",
-      "cover": "",
-      "thumb": "",
+      "cover": "/03-gg-within-sigun-gap/cards/01-cover.png",
+      "thumb": "/03-gg-within-sigun-gap/cards/05-chart.png",
       "source": ""
     },
     {
