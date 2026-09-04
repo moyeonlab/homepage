@@ -27,7 +27,9 @@ export default function NotFound() {
           {[
             { href: "/", title: "홈", desc: "모연이 어떤 학회인지" },
             { href: "/join/", title: "지원하기", desc: "모집 일정과 지원 방법" },
-            { href: "/magazine/", title: "매거진", desc: "공공데이터로 쓴 발행물" },
+            // ⛔ 2026-09-04 — 네비와 같은 곳으로 보낸다. 옛 `/magazine/` 은 홈페이지 안
+            //   목록이라, 404 에서 그리로 보내면 «매거진에 못 들어가는» 길로 다시 보낸다.
+            { href: "https://magazine.moyeonlab.com", title: "매거진", desc: "공공데이터로 쓴 발행물" },
             { href: "/projects/", title: "프로젝트", desc: "지금까지 한 분석들" },
             { href: "/people/", title: "함께하는 사람들", desc: "운영진과 부서" },
             { href: "/contact/", title: "문의", desc: "협업·제휴 제안" },

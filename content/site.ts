@@ -38,7 +38,12 @@ export const roots = {
 export const primaryNav: NavItem[] = [
   { label: "홈", href: "/" },
   { label: "모연 소개", href: "/about" },
-  { label: "매거진", href: "/magazine" },
+  // ⛔ 2026-09-04 — 「매거진」이 홈페이지 «안»의 목록(/magazine)으로 가고 있었다.
+  //   그 목록은 발행물 11편을 그대로 비추는데, 거기서 기사를 누르면 매거진 사이트의
+  //   «개별 기사»로 바로 떨어져서 **매거진 대문에는 영영 못 갔다**.
+  //   즉 「매거진」을 눌러도 매거진에 못 들어가는 상태였다. 그래서 곧장 보낸다.
+  //   ⚠ /magazine 페이지는 지우지 않았다(되살릴 수 있게). 다만 sitemap·404 에서는 뺐다.
+  { label: "매거진", href: "https://magazine.moyeonlab.com" },
   { label: "소식", href: "/news" },
   { label: "활동", href: "/activities" },
   { label: "프로젝트", href: "/projects" },
